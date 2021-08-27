@@ -1,0 +1,23 @@
+{
+  "name": "express-order-food",
+  "version": "1.0.0",
+  "main": "src/sever.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/sever.js",
+    "start:prod": "node src/sever.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.1",
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.12",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.5",
+    "uuid": "^8.3.2"
+  }
+}
