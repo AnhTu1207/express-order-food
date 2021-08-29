@@ -1,4 +1,5 @@
 const { Sequelize } = require("sequelize");
+
 const { sequelizeConfig } = require(appRoot + "/config");
 
 const Drivers = sequelizeConfig.define("drivers", {
@@ -27,11 +28,7 @@ const Drivers = sequelizeConfig.define("drivers", {
   },
   avatar: {
     type: Sequelize.STRING,
-    allowNull: false,
-  },
-  rate: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   total_rating: {
     type: Sequelize.INTEGER,
