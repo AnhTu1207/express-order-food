@@ -1,16 +1,28 @@
 const { Sequelize } = require("sequelize");
 const { sequelizeConfig } = require(appRoot + "/config");
 
-const Users = sequelizeConfig.define("users", {
+const Stores = sequelizeConfig.define("stores", {
   id: {
     type: Sequelize.STRING,
     allowNull: false,
     primaryKey: true,
   },
-  username: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
+  },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  latitude: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  longitude: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
   },
   email: {
     type: Sequelize.STRING,
@@ -25,11 +37,10 @@ const Users = sequelizeConfig.define("users", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  fb_id: {
-    type: Sequelize.STRING,
-    allowNull: true,
-    unique: true,
+  open: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
   },
 });
 
-module.exports = Users;
+module.exports = Stores;

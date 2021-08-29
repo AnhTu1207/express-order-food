@@ -1,16 +1,11 @@
 const { Sequelize } = require("sequelize");
 const { sequelizeConfig } = require(appRoot + "/config");
 
-const Users = sequelizeConfig.define("users", {
+const Drivers = sequelizeConfig.define("drivers", {
   id: {
     type: Sequelize.STRING,
     allowNull: false,
     primaryKey: true,
-  },
-  username: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
   },
   email: {
     type: Sequelize.STRING,
@@ -21,15 +16,27 @@ const Users = sequelizeConfig.define("users", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  fullname: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  phone: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+  },
   avatar: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  fb_id: {
-    type: Sequelize.STRING,
-    allowNull: true,
-    unique: true,
+  rate: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  total_rating: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
   },
 });
 
-module.exports = Users;
+module.exports = Drivers;
