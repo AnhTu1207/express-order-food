@@ -4,7 +4,7 @@ const { sequelizeConfig } = require(appRoot + "/config");
 const Foods = require("./FoodModel");
 const Orders = require("./OrderModel");
 
-const Orders_item = sequelizeConfig.define(
+const OrdersItems = sequelizeConfig.define(
   "orders_item", {
     order_id: {
       type: Sequelize.STRING,
@@ -30,20 +30,20 @@ const Orders_item = sequelizeConfig.define(
     freezeTableName: true
   }
 );
-Orders_item.removeAttribute("id");
+OrdersItems.removeAttribute("id");
 
-Orders.hasMany(Orders_item, {
+Orders.hasMany(OrdersItems, {
   foreignKey: "order_id"
 });
-Orders_item.belongsTo(Orders, {
+OrdersItems.belongsTo(Orders, {
   foreignKey: "order_id"
 });
 
-Foods.hasMany(Orders_item, {
+Foods.hasMany(OrdersItems, {
   foreignKey: "food_id"
 });
-Orders_item.belongsTo(Foods, {
+OrdersItems.belongsTo(Foods, {
   foreignKey: "food_id"
 });
 
-module.exports = Orders_item;
+module.exports = OrdersItems;
