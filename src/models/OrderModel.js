@@ -1,7 +1,6 @@
 const { Sequelize } = require("sequelize");
-const { sequelizeConfig } = require(appRoot + "/config");
 
-// Import referent model for foreign key
+const { sequelizeConfig } = require(appRoot + "/config");
 const Drivers = require("./DriverModel");
 const Stores = require("./StoreModel");
 const Users = require("./UserModel");
@@ -57,15 +56,25 @@ const Orders = sequelizeConfig.define("orders", {
   },
 });
 
-// Get reference
-// Drivers
-Drivers.hasMany(Orders, { foreignKey: "driver_id" });
-Orders.belongsTo(Drivers, { foreignKey: "driver_id" });
-// Stores
-Stores.hasMany(Orders, { foreignKey: "store_id" });
-Orders.belongsTo(Stores, { foreignKey: "store_id" });
-// Users
-Users.hasMany(Orders, { foreignKey: "user_id" });
-Orders.belongsTo(Users, { foreignKey: "user_id" });
+Drivers.hasMany(Orders, {
+  foreignKey: "driver_id"
+});
+Orders.belongsTo(Drivers, {
+  foreignKey: "driver_id"
+});
+
+Stores.hasMany(Orders, {
+  foreignKey: "store_id"
+});
+Orders.belongsTo(Stores, {
+  foreignKey: "store_id"
+});
+
+Users.hasMany(Orders, {
+  foreignKey: "user_id"
+});
+Orders.belongsTo(Users, {
+  foreignKey: "user_id"
+});
 
 module.exports = Orders;
