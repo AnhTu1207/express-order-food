@@ -1,4 +1,5 @@
 const { Sequelize } = require("sequelize");
+
 const { sequelizeConfig } = require(appRoot + "/config");
 
 const Users = sequelizeConfig.define("users", {
@@ -23,7 +24,7 @@ const Users = sequelizeConfig.define("users", {
   },
   avatar: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   fb_id: {
     type: Sequelize.STRING,

@@ -1,7 +1,6 @@
 const { Sequelize } = require("sequelize");
-const { sequelizeConfig } = require(appRoot + "/config");
 
-// Import referent model for foreign key
+const { sequelizeConfig } = require(appRoot + "/config");
 const Categories = require("./CategoryModel");
 const Stores = require("./StoreModel");
 
@@ -14,6 +13,10 @@ const Foods = sequelizeConfig.define("foods", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
+  },
+  avatar: {
+    type: Sequelize.STRING,
+    allowNull: true,
   },
   qty: {
     type: Sequelize.INTEGER,
@@ -37,13 +40,18 @@ const Foods = sequelizeConfig.define("foods", {
   },
 });
 
-// Get reference
+Categories.hasMany(Foods, {
+  foreignKey: "category_id"
+});
+Foods.belongsTo(Categories, {
+  foreignKey: "category_id"
+});
 
-// Categories
-Categories.hasMany(Foods, { foreignKey: "category_id" });
-Foods.belongsTo(Categories, { foreignKey: "category_id" });
-// Stores
-Stores.hasMany(Foods, { foreignKey: "store_id" });
-Foods.belongsTo(Stores, { foreignKey: "store_id" });
+Stores.hasMany(Foods, {
+  foreignKey: "store_id"
+});
+Foods.belongsTo(Stores, {
+  foreignKey: "store_id"
+});
 
 module.exports = Foods;

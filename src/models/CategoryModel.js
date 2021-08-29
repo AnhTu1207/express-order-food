@@ -1,4 +1,5 @@
 const { Sequelize } = require("sequelize");
+
 const { sequelizeConfig } = require(appRoot + "/config");
 
 const Categories = sequelizeConfig.define("categories", {

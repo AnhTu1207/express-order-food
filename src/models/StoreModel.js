@@ -1,4 +1,5 @@
 const { Sequelize } = require("sequelize");
+
 const { sequelizeConfig } = require(appRoot + "/config");
 
 const Stores = sequelizeConfig.define("stores", {
@@ -35,7 +36,7 @@ const Stores = sequelizeConfig.define("stores", {
   },
   avatar: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   open: {
     type: Sequelize.BOOLEAN,
