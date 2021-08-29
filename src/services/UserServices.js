@@ -8,6 +8,16 @@ class UserService {
       throw e;
     }
   }
+
+  async login(infoLogin) {
+    try {
+      return await UserRepository.login(infoLogin);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async index() {}
 }
 
 module.exports = new UserService();
