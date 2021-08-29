@@ -4,7 +4,12 @@ const { UserService } = require(appRoot + "/services");
 const { map } = require("lodash");
 
 class UserController {
+
   async index(req, res) {
+    return res.status(200).send();
+  }
+
+  async store(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ status: 400, message: errors });
@@ -17,6 +22,25 @@ class UserController {
         return res
           .status(400)
           .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
+    }
+  }
+
+  async login(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: 400, message: errors });
+    }
+    try {
+      const userLogin = await UserService.login(req.body);
+      if (!userLogin) {
+        return res.status(400).json({ status: 400, message: "Wrong username or password" });
+      }
+      return res.status(200).json({ data: userLogin });
+    } catch(e) {
+      if (e.errors && e.errors.length) {
+        return res.status(400).json({ status: 400, message: map(e.errors, e => e.message) });
       }
       res.status(500).send();
     }
