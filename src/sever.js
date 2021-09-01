@@ -6,16 +6,18 @@ require("dotenv").config();
 global.appRoot = path.resolve(__dirname);
 const { sequelizeConfig } = require(appRoot + "/config");
 
-const { authRoutes, userRoutes } = require(appRoot + "/routes");
+const { authRoutes, userRoutes, categoryRoutes } = require(appRoot + "/routes");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(morgan("tiny"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/category", categoryRoutes);
 
 app.listen(PORT, () => {
   console.log("Sever is running at port: ", PORT);
