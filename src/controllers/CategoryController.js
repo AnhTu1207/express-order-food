@@ -23,10 +23,11 @@ class CategoryController {
     }
 
     async getCategoryById(req, res) {
+        const id = req.params.id;
         try {
-            const foundCategory = await CategoryService.getCategoryById(req.params.id);
+            const foundCategory = await CategoryService.getCategoryById(id);
             if (foundCategory === null) {
-                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
+                return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
             }
             else {
                 return res.status(200).json({ status: 200, message: "Your request has been successfully", data: foundCategory });
@@ -63,13 +64,14 @@ class CategoryController {
         if (!errors.isEmpty()) {
             return res.status(400).json({ status: 400, message: errors });
         }
+        const id = req.params.id
         try {
-            const foundCategory = await CategoryService.getCategoryById(req.params.id)
+            const foundCategory = await CategoryService.getCategoryById(id)
             if (foundCategory === null) {
-                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
+                return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
             }
             else {
-                await CategoryService.updateCategory(req.body, req.params.id)
+                await CategoryService.updateCategory(req.body, id)
                 return res.status(200).json({ status: 200, message: "Your request has been successfully", data: req.body });
             }
         }
@@ -84,13 +86,14 @@ class CategoryController {
     }
 
     async delete(req, res) {
+        const id = req.params.id
         try {
-            const deleteCategory = await CategoryService.getCategoryById(req.params.id)
+            const deleteCategory = await CategoryService.getCategoryById(id)
             if (deleteCategory === null) {
-                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
+                return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
             }
             else {
-                await CategoryService.deleteCategory(req.params.id)
+                await CategoryService.deleteCategory(id)
                 return res.status(200).json({ status: 200, message: "Your request has been successfully" });
             }
         }
