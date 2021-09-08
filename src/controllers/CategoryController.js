@@ -72,7 +72,7 @@ class CategoryController {
             }
             else {
                 await CategoryService.updateCategory(req.body, id)
-                return res.status(200).json({ status: 200, message: "Your request has been successfully", data: req.body });
+                return res.status(200).json({ status: 200, message: "Your request has been successfully" });
             }
         }
         catch (e) {

@@ -88,14 +88,17 @@ class StoreController {
             }
             const currUpload = utility.uploadImage('stores');
             currUpload(req, res, async function (err) {
-                if (!req.file) {
-                    return res.status(400).json({ status: 400, message: "No image received" });
-                }
                 if (err) {
                     return res.status(400).json({ status: 400, message: err.message });
                 }
+                if (!req.file) {
+                    return res.status(400).json({ status: 400, message: "No image received" });
+                }
                 const result = await StoreService.updateImage(req.file.filename, id)
-                res.status(200).json({ status: 200, message: "Uploade Successful" });
+                if (result) {
+                    return res.status(200).json({ status: 200, message: "Uploade Successful", file: req.file.path });
+                }
+                res.status(400).json({ status: 400, message: "Error during uploading" })
             });
 
         } catch (e) {

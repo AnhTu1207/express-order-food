@@ -38,7 +38,6 @@ class CategoryRepository {
         try {
             const res = await Categories.update({
                 name: updateCategory.name,
-                updateAt: new Date().toISOString()
             }, {
                 where: { id }
             })

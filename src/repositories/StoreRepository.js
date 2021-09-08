@@ -48,7 +48,6 @@ class StoreRepository {
                 password: newPassword,
                 avatar: updateStore.avatar,
                 open: updateStore.open,
-                updateAt: new Date().toISOString()
             }, {
                 where: { id }
             })
