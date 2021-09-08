@@ -26,25 +26,36 @@ class CategoryRepository {
     }
 
     async store(newCategory) {
-        const res = await Categories.create({ ...newCategory, id: uuidv4() });
-        return res.dataValues;
+        try {
+            const res = await Categories.create({ ...newCategory, id: uuidv4() });
+            return res.dataValues;
+        } catch (e) {
+            throw e;
+        }
     }
 
     async update(updateCategory, id) {
-        const res = await Categories.update({
-            name: updateCategory.name,
-            updateAt: new Date().toISOString()
-        }, {
-            where: { id }
-        })
-        return res;
+        try {
+            const res = await Categories.update({
+                name: updateCategory.name,
+            }, {
+                where: { id }
+            })
+            return res;
+        } catch (e) {
+            throw e;
+        }
     }
 
     async delete(id) {
-        const res = await Categories.destroy({
-            where: { id }
-        })
-        return res;
+        try {
+            const res = await Categories.destroy({
+                where: { id }
+            })
+            return res;
+        } catch (e) {
+            throw e;
+        }
     }
 }
 
