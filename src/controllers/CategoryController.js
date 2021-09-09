@@ -23,8 +23,8 @@ class CategoryController {
     }
 
     async getCategoryById(req, res) {
-        const id = req.params.id;
         try {
+            const id = req.params.id;
             const foundCategory = await CategoryService.getCategoryById(id);
             if (foundCategory === null) {
                 return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
@@ -48,7 +48,7 @@ class CategoryController {
         }
         try {
             const newCategory = await CategoryService.addCategory(req.body);
-            return res.status(201).json(newCategory);
+            return res.status(201).json({ code: 201, message: "Record created", data: newCategory });
         } catch (e) {
             if (e.errors && e.errors.length) {
                 return res
@@ -64,8 +64,8 @@ class CategoryController {
         if (!errors.isEmpty()) {
             return res.status(400).json({ status: 400, message: errors });
         }
-        const id = req.params.id
         try {
+            const id = req.params.id;
             const foundCategory = await CategoryService.getCategoryById(id)
             if (foundCategory === null) {
                 return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
@@ -86,13 +86,15 @@ class CategoryController {
     }
 
     async delete(req, res) {
-        const id = req.params.id
         try {
+            const id = req.params.id;
             const deleteCategory = await CategoryService.getCategoryById(id)
             if (deleteCategory === null) {
                 return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
             }
             else {
+                // Placeholder to check if category still has food records in database
+
                 await CategoryService.deleteCategory(id)
                 return res.status(200).json({ status: 200, message: "Your request has been successfully" });
             }

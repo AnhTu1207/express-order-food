@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 8080;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use('/upload', express.static(path.join(__dirname, 'upload')))
 app.use(morgan("tiny"));
 
 app.use("/api/auth", authRoutes);

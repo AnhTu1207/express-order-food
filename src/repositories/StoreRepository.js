@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 
 const { Stores } = require(appRoot + "/models");
+const { jwt } = require(appRoot + "/helpers");
 
 class StoreRepository {
     async getAll() {
@@ -28,7 +29,7 @@ class StoreRepository {
 
     async store(newStore) {
         try {
-            const salt = bcrypt.genSaltSync(10);
+            const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
             newStore.password = bcrypt.hashSync(newStore.password, salt);
             const res = await Stores.create({ ...newStore, id: uuidv4() });
             delete res.dataValues.password;
@@ -40,13 +41,14 @@ class StoreRepository {
 
     async update(updateStore, id) {
         try {
+            const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
+            updateStore.password = bcrypt.hashSync(updateStore.password, salt);
             const res = await Stores.update({
                 name: updateStore.name,
                 address: updateStore.address,
                 latitude: updateStore.latitude,
                 longitude: updateStore.longitude,
-                password: newPassword,
-                avatar: updateStore.avatar,
+                password: updateStore.password,
                 open: updateStore.open,
             }, {
                 where: { id }

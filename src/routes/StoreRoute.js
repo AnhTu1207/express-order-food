@@ -11,6 +11,9 @@ router.get("/getAllStore", StoreController.getAllStore);
 router.get("/getStoreById/:id", StoreController.getStoreById)
 router.post("/register", AddStoreValidate, StoreController.store);
 router.post("/uploadImage/:id", StoreController.upload);
+router.post("/editImage/:id", StoreController.edit)
 router.post("/login", LoginValidate, StoreController.login);
+router.put("/updateStore/:id", AddStoreValidate, StoreController.update)
+router.delete("/deleteStore/:id", StoreController.delete)
 
 module.exports = router;

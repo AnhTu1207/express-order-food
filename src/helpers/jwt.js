@@ -7,7 +7,7 @@ const sign = (data) => {
 const verify = (token) => {
   try {
     return jwt.verify(token, process.env.JWT_KEY);
-  } catch(e) {
+  } catch (e) {
     throw e;
   }
 };
