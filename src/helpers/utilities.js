@@ -1,7 +1,6 @@
 const multer = require("multer");
 const fs = require("fs")
 const { v4: uuidv4 } = require("uuid");
-const { EROFS } = require("constants");
 
 const uploadImage = (destination) => {
     const storage = multer.diskStorage({ //multers disk storage settings
