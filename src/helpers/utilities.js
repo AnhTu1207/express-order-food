@@ -5,7 +5,11 @@ const { v4: uuidv4 } = require("uuid");
 const uploadImage = (destination) => {
     const storage = multer.diskStorage({ //multers disk storage settings
         destination: function (req, file, callback) {
-            callback(null, appRoot + "/upload/" + destination + "/");
+            const path = appRoot + "/upload/" + destination + "/";
+            if (!fs.existsSync(path)) {
+                fs.mkdirSync(path, { recursive: true })
+            }
+            return callback(null, path);
         },
         filename: function (req, file, callback) {
             if (file) {
