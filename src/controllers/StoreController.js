@@ -7,14 +7,10 @@ const { map } = require("lodash");
 class StoreController {
 
     async index(req, res) {
-        return res.status(404).json({ status: 404, message: "Invalid URL" });
-    }
-
-    async getAllStore(req, res) {
         try {
             const allStore = await StoreService.getAllStore();
             // Placeholder for include foods created by store
-            return res.status(200).json({ status: 200, message: "Your request has been successfully", data: allStore });
+            return res.status(200).json({ status: 200, data: allStore });
         }
         catch (e) {
             if (e.errors && e.errors.length) {
@@ -24,7 +20,7 @@ class StoreController {
         }
     }
 
-    async getStoreById(req, res) {
+    async getById(req, res) {
         try {
             const id = req.params.id;
             const foundStore = await StoreService.getStoreById(id);
@@ -32,7 +28,7 @@ class StoreController {
                 return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
             }
             else {
-                return res.status(200).json({ status: 200, message: "Your request has been successfully", data: foundStore });
+                return res.status(200).json({ status: 200, data: foundStore });
             }
         }
         catch (e) {
@@ -50,7 +46,7 @@ class StoreController {
         }
         try {
             const newCategory = await StoreService.addStore(req.body);
-            return res.status(201).json({ code: 201, message: "Record created", data: newCategory });
+            return res.status(201).json({ code: 201, data: newCategory });
         } catch (e) {
             if (e.errors && e.errors.length) {
                 return res
@@ -73,8 +69,11 @@ class StoreController {
                 return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
             }
             else {
-                await StoreService.updateStore(req.body, id)
-                return res.status(200).json({ status: 200, message: "Your request has been successfully", data: id });
+                const result = await StoreService.updateStore(req.body, id)
+                if (result) {
+                    const data = await StoreService.getStoreById(id)
+                    return res.status(200).json({ status: 200, data: data });
+                }
             }
         }
         catch (e) {
@@ -101,7 +100,7 @@ class StoreController {
                 await StoreService.deleteStore(id)
                 // Removing image
                 await utility.removeImage(utility.getPath(deleteStore.avatar))
-                return res.status(200).json({ status: 200, message: "Your request has been successfully" });
+                return res.status(200).json({ status: 200, data: deleteStore });
             }
         }
         catch (e) {
@@ -151,7 +150,7 @@ class StoreController {
                 const url = "http://" + req.headers.host + utility.getUrl(req.file.destination, req.file.filename)
                 const result = await StoreService.updateImage(url, id)
                 if (result) {
-                    return res.status(201).json({ status: 201, message: "Uploade Successful", data: url });
+                    return res.status(201).json({ status: 201, data: url });
                 }
                 res.status(400).json({ status: 400, message: "Error during uploading" })
             });
@@ -185,7 +184,7 @@ class StoreController {
                 const url = "http://" + req.headers.host + utility.getUrl(req.file.destination, req.file.filename)
                 const result = await StoreService.updateImage(url, id)
                 if (result) {
-                    return res.status(201).json({ status: 201, message: "Edit Successful", data: url });
+                    return res.status(201).json({ status: 201, data: url });
                 }
                 res.status(400).json({ status: 400, message: "Error during uploading" })
             });

@@ -8,7 +8,6 @@ module.exports = async (req, res, next) => {
     if (!data) {
       return res.status(401).send();
     }
-
     const foundUser = await UserRepository.getUserById(data.id);
     if (!foundUser) {
       return res.status(401).send();

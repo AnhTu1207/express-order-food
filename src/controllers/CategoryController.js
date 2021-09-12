@@ -6,13 +6,9 @@ const { map } = require("lodash");
 class CategoryController {
 
     async index(req, res) {
-        return res.status(404).json({ status: 404, message: "Invalid URL" });
-    }
-
-    async getAllCategory(req, res) {
         try {
             const allCategory = await CategoryService.getAllCategory();
-            return res.status(200).json({ status: 200, message: "Your request has been successfully", data: allCategory });
+            return res.status(200).json({ status: 200, data: allCategory });
         }
         catch (e) {
             if (e.errors && e.errors.length) {
@@ -22,7 +18,7 @@ class CategoryController {
         }
     }
 
-    async getCategoryById(req, res) {
+    async getById(req, res) {
         try {
             const id = req.params.id;
             const foundCategory = await CategoryService.getCategoryById(id);
@@ -30,7 +26,7 @@ class CategoryController {
                 return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
             }
             else {
-                return res.status(200).json({ status: 200, message: "Your request has been successfully", data: foundCategory });
+                return res.status(200).json({ status: 200, data: foundCategory });
             }
         }
         catch (e) {
@@ -48,7 +44,7 @@ class CategoryController {
         }
         try {
             const newCategory = await CategoryService.addCategory(req.body);
-            return res.status(201).json({ code: 201, message: "Record created", data: newCategory });
+            return res.status(201).json({ code: 201, data: newCategory });
         } catch (e) {
             if (e.errors && e.errors.length) {
                 return res
@@ -71,8 +67,11 @@ class CategoryController {
                 return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
             }
             else {
-                await CategoryService.updateCategory(req.body, id)
-                return res.status(200).json({ status: 200, message: "Your request has been successfully" });
+                const result = await CategoryService.updateCategory(req.body, id)
+                if (result) {
+                    const data = await CategoryService.getCategoryById(id)
+                    return res.status(200).json({ status: 200, data: data });
+                }
             }
         }
         catch (e) {
@@ -96,7 +95,7 @@ class CategoryController {
                 // Placeholder to check if category still has food records in database
 
                 await CategoryService.deleteCategory(id)
-                return res.status(200).json({ status: 200, message: "Your request has been successfully" });
+                return res.status(200).json({ status: 200, data: deleteCategory });
             }
         }
         catch (e) {
