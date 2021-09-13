@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/", CategoryController.index);
 router.get("/getById/:id", CategoryController.getById)
 router.post("/", AddCategoryValidate, CategoryController.store)
-router.put("/:id", AddCategoryValidate, CategoryController.update)
+router.put("/:id", CategoryController.update)
 router.delete("/:id", CategoryController.delete)
 
 module.exports = router;

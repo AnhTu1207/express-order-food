@@ -1,9 +1,11 @@
 const UserService = require("./UserServices");
-const CategoryService = require("./CategoryServices")
-const StoreService = require("./StoreServices")
+const CategoryService = require("./CategoryServices");
+const StoreService = require("./StoreServices");
+const FoodService = require("./FoodServices");
 
 module.exports = {
   UserService,
   CategoryService,
-  StoreService
+  StoreService,
+  FoodService
 };

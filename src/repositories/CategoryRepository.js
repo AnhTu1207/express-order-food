@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 
-const { Categories } = require(appRoot + "/models");
+const { Categories, Foods } = require(appRoot + "/models");
 
 class CategoryRepository {
     async getAll() {
@@ -18,10 +18,37 @@ class CategoryRepository {
             const foundCategory = await Categories.findOne({
                 where: { id }
             });
-
             return foundCategory;
         } catch {
             return null;
+        }
+    }
+
+    async checkUnique(id) {
+        try {
+            const foundCategory = await Categories.findOne({
+                where: { id }
+            });
+            if (foundCategory !== null) {
+                return true
+            }
+            return false
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async checkExist(category_id) {
+        try {
+            const foundCategory = await Foods.findOne({
+                where: { category_id }
+            });
+            if (foundCategory !== null) {
+                return true
+            }
+            return false
+        } catch (e) {
+            throw e;
         }
     }
 
@@ -37,7 +64,7 @@ class CategoryRepository {
     async update(updateCategory, id) {
         try {
             const res = await Categories.update({
-                name: updateCategory.name,
+                ...updateCategory
             }, {
                 where: { id }
             })

@@ -1,25 +1,30 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
+const cors = require("cors");
 require("dotenv").config();
 
 global.appRoot = path.resolve(__dirname);
 const { sequelizeConfig } = require(appRoot + "/config");
 
-const { authRoutes, userRoutes, categoryRoutes, storeRoutes } = require(appRoot + "/routes");
+const { authRoutes, userRoutes, categoryRoutes, storeRoutes, foodRoutes } = require(appRoot + "/routes");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('/upload', express.static(path.join(__dirname, 'upload')))
+app.use('/upload', express.static(path.join(__dirname, 'upload')));
+app.use(cors({
+  origin: '*'
+}));
 app.use(morgan("tiny"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/store", storeRoutes);
+app.use("/api/food", foodRoutes)
 
 app.listen(PORT, () => {
   console.log("Sever is running at port: ", PORT);

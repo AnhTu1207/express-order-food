@@ -56,10 +56,6 @@ class CategoryController {
     }
 
     async update(req, res) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ status: 400, message: errors });
-        }
         try {
             const id = req.params.id;
             const foundCategory = await CategoryService.getCategoryById(id)
@@ -92,8 +88,10 @@ class CategoryController {
                 return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
             }
             else {
-                // Placeholder to check if category still has food records in database
-
+                const result = await CategoryService.checkExistInFood(id);
+                if (result) {
+                    return res.status(400).json({ status: 400, message: "You must remove all the foods related to this category first" })
+                }
                 await CategoryService.deleteCategory(id)
                 return res.status(200).json({ status: 200, data: deleteCategory });
             }

@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 
-const { Stores } = require(appRoot + "/models");
+const { Stores, Foods } = require(appRoot + "/models");
 const { jwt } = require(appRoot + "/helpers");
 
 class StoreRepository {
@@ -20,10 +20,23 @@ class StoreRepository {
             const foundStore = await Stores.findOne({
                 where: { id }
             });
-
             return foundStore;
         } catch {
             return null;
+        }
+    }
+
+    async checkUnique(id) {
+        try {
+            const foundStore = await Stores.findOne({
+                where: { id }
+            });
+            if (foundStore !== null) {
+                return true
+            }
+            return false
+        } catch (e) {
+            throw e;
         }
     }
 
@@ -41,15 +54,12 @@ class StoreRepository {
 
     async update(updateStore, id) {
         try {
-            const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
-            updateStore.password = bcrypt.hashSync(updateStore.password, salt);
+            if (updateStore.password) {
+                const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
+                updateStore.password = bcrypt.hashSync(updateStore.password, salt);
+            }
             const res = await Stores.update({
-                name: updateStore.name,
-                address: updateStore.address,
-                latitude: updateStore.latitude,
-                longitude: updateStore.longitude,
-                password: updateStore.password,
-                open: updateStore.open,
+                ...updateStore
             }, {
                 where: { id }
             })
@@ -63,7 +73,6 @@ class StoreRepository {
         try {
             const res = await Stores.update({
                 avatar: filename,
-                updateAt: new Date().toISOString()
             }, {
                 where: { id }
             })
@@ -78,7 +87,6 @@ class StoreRepository {
             const res = await Stores.destroy({
                 where: { id }
             })
-            // Placeholder for removing all foods related to store
             return res;
         } catch (e) {
             throw e

@@ -58,10 +58,6 @@ class StoreController {
     }
 
     async update(req, res) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ status: 400, message: errors });
-        }
         try {
             const id = req.params.id
             const foundStore = await StoreService.getStoreById(id)
@@ -84,7 +80,6 @@ class StoreController {
             }
             res.status(500).send();
         }
-
     }
 
     async delete(req, res) {
@@ -95,11 +90,11 @@ class StoreController {
                 return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
             }
             else {
-                // Placeholder to check if store still has food records in database
-
                 await StoreService.deleteStore(id)
                 // Removing image
-                await utility.removeImage(utility.getPath(deleteStore.avatar))
+                if (deleteStore.avatar) {
+                    await utility.removeImage(utility.getPath(deleteStore.avatar))
+                }
                 return res.status(200).json({ status: 200, data: deleteStore });
             }
         }

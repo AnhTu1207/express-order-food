@@ -12,7 +12,7 @@ router.post("/", AddStoreValidate, StoreController.store);
 router.post("/uploadImage/:id", StoreController.upload);
 router.post("/editImage/:id", StoreController.edit)
 router.post("/login", LoginValidate, StoreController.login);
-router.put("/:id", AddStoreValidate, StoreController.update)
+router.put("/:id", StoreController.update)
 router.delete("/:id", StoreController.delete)
 
 module.exports = router;

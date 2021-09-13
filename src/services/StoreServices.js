@@ -18,6 +18,14 @@ class StoreService {
         }
     }
 
+    async checkUnique(id) {
+        try {
+            return await StoreRepository.checkUnique(id);
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async addStore(newStore) {
         try {
             return await StoreRepository.store(newStore);

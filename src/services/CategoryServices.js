@@ -18,6 +18,22 @@ class CategoryService {
         }
     }
 
+    async checkUnique(id) {
+        try {
+            return await CategoryRepository.checkUnique(id);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async checkExistInFood(category_id) {
+        try {
+            return await CategoryRepository.checkExist(category_id);
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async addCategory(newCategory) {
         try {
             return await CategoryRepository.store(newCategory);
