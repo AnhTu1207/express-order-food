@@ -24,7 +24,7 @@ class CategoryRepository {
         }
     }
 
-    async checkUnique(id) {
+    async checkExist(id) {
         try {
             const foundCategory = await Categories.findOne({
                 where: { id }
@@ -38,7 +38,7 @@ class CategoryRepository {
         }
     }
 
-    async checkExist(category_id) {
+    async checkExistInFood(category_id) {
         try {
             const foundCategory = await Foods.findOne({
                 where: { category_id }

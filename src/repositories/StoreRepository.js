@@ -18,6 +18,9 @@ class StoreRepository {
     async getById(id) {
         try {
             const foundStore = await Stores.findOne({
+                include: [
+                    { model: Foods }
+                ],
                 where: { id }
             });
             return foundStore;
@@ -26,7 +29,7 @@ class StoreRepository {
         }
     }
 
-    async checkUnique(id) {
+    async checkExist(id) {
         try {
             const foundStore = await Stores.findOne({
                 where: { id }

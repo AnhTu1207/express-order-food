@@ -18,9 +18,9 @@ class CategoryService {
         }
     }
 
-    async checkUnique(id) {
+    async checkExist(id) {
         try {
-            return await CategoryRepository.checkUnique(id);
+            return await CategoryRepository.checkExist(id);
         } catch (e) {
             throw e;
         }
@@ -28,7 +28,7 @@ class CategoryService {
 
     async checkExistInFood(category_id) {
         try {
-            return await CategoryRepository.checkExist(category_id);
+            return await CategoryRepository.checkExistInFood(category_id);
         } catch (e) {
             throw e;
         }

@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 
-const { Foods, Categories, Stores } = require(appRoot + "/models");
+const { Foods, Categories, Stores, Options } = require(appRoot + "/models");
 
 class FoodRepository {
     async getAll() {
@@ -23,7 +23,26 @@ class FoodRepository {
             const foundFood = await Foods.findOne({
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
-                    { model: Stores, attributes: ['name'], required: true }
+                    { model: Stores, attributes: ['name'], required: true },
+                    { model: Options, attributes: ['id', 'name', 'price'] }
+                ],
+                where: { id }
+            });
+            return foundFood;
+        } catch {
+            return null;
+        }
+    }
+
+    async getByCategory(id) {
+        try {
+            const foundFood = await Categories.findOne({
+                include: [
+                    {
+                        model: Foods, include: [
+                            { model: Categories, attributes: ['name'], required: true },
+                        ]
+                    },
                 ],
                 where: { id }
             });

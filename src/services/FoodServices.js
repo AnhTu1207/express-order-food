@@ -16,7 +16,15 @@ class FoodService {
         catch (e) {
             throw e;
         }
+    }
 
+    async getFoodByCategoryId(id) {
+        try {
+            return await FoodRepository.getByCategory(id);
+        }
+        catch (e) {
+            throw e;
+        }
     }
 
     async addFood(newFood) {
@@ -30,6 +38,14 @@ class FoodService {
     async updateFood(updateFood, id) {
         try {
             return await FoodRepository.update(updateFood, id);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async updateImage(filename, id) {
+        try {
+            return await FoodRepository.updateImage(filename, id);
         } catch (e) {
             throw e;
         }

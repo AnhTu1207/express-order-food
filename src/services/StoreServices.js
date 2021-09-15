@@ -18,9 +18,9 @@ class StoreService {
         }
     }
 
-    async checkUnique(id) {
+    async checkExist(id) {
         try {
-            return await StoreRepository.checkUnique(id);
+            return await StoreRepository.checkExist(id);
         } catch (e) {
             throw e;
         }
