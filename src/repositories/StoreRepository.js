@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 
-const { Stores, Foods } = require(appRoot + "/models");
+const { Stores, Foods, Categories } = require(appRoot + "/models");
 const { jwt } = require(appRoot + "/helpers");
 
 class StoreRepository {
@@ -19,7 +19,11 @@ class StoreRepository {
         try {
             const foundStore = await Stores.findOne({
                 include: [
-                    { model: Foods }
+                    {
+                        model: Foods, include: [
+                            { model: Categories, require: true, attributes: ['name'] }
+                        ],
+                    }
                 ],
                 where: { id }
             });

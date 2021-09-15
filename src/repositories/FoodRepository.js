@@ -8,7 +8,7 @@ class FoodRepository {
             const allFoods = await Foods.findAll({
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
-                    { model: Stores, attributes: ['name'], required: true }
+                    { model: Stores, attributes: ['name', 'avatar'], required: true }
                 ]
             });
             return allFoods
@@ -23,7 +23,7 @@ class FoodRepository {
             const foundFood = await Foods.findOne({
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
-                    { model: Stores, attributes: ['name'], required: true },
+                    { model: Stores, attributes: ['name', 'avatar'], required: true },
                     { model: Options, attributes: ['id', 'name', 'price'] }
                 ],
                 where: { id }
