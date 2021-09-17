@@ -4,6 +4,7 @@ const AddCategoryValidate = require("./AddCategoryValidate");
 const AddStoreValidate = require("./AddStoreValidate");
 const AddFoodValidate = require("./AddFoodValidate");
 const AddOptionValidate = require("./AddOptionValidate");
+const AddOptionLabelValidate = require("./AddOptionLabelValidate");
 
 module.exports = {
     LoginValidate,
@@ -12,4 +13,5 @@ module.exports = {
     AddStoreValidate,
     AddFoodValidate,
     AddOptionValidate,
+    AddOptionLabelValidate,
 };

@@ -27,6 +27,14 @@ class FoodService {
         }
     }
 
+    async checkExist(id) {
+        try {
+            return await FoodRepository.checkExist(id);
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async addFood(newFood) {
         try {
             return await FoodRepository.store(newFood);

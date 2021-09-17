@@ -2,6 +2,7 @@ const { Sequelize } = require("sequelize");
 
 const { sequelizeConfig } = require(appRoot + "/config");
 const Foods = require("./FoodModel");
+const OptionsLabels = require("./OptionLabelModel");
 
 const Options = sequelizeConfig.define("options", {
     id: {
@@ -10,6 +11,10 @@ const Options = sequelizeConfig.define("options", {
         primaryKey: true,
     },
     food_id: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    label_id: {
         type: Sequelize.STRING,
         allowNull: false,
     },
@@ -28,6 +33,13 @@ Foods.hasMany(Options, {
 });
 Options.belongsTo(Foods, {
     foreignKey: "food_id"
+});
+
+OptionsLabels.hasMany(Options, {
+    foreignKey: "label_id"
+});
+Options.belongsTo(OptionsLabels, {
+    foreignKey: "label_id"
 });
 
 module.exports = Options;

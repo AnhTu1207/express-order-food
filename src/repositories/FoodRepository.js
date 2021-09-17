@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 
-const { Foods, Categories, Stores, Options } = require(appRoot + "/models");
+const { Foods, Categories, Stores, Options, OptionsLabels } = require(appRoot + "/models");
 
 class FoodRepository {
     async getAll() {
@@ -24,7 +24,11 @@ class FoodRepository {
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
                     { model: Stores, attributes: ['name', 'avatar'], required: true },
-                    { model: Options, attributes: ['id', 'name', 'price'] }
+                    {
+                        model: OptionsLabels, attributes: ['id', 'name'], include: [{
+                            model: Options, attributes: ['id', 'name', 'price']
+                        }]
+                    }
                 ],
                 where: { id }
             });
@@ -49,6 +53,20 @@ class FoodRepository {
             return foundFood;
         } catch {
             return null;
+        }
+    }
+
+    async checkExist(id) {
+        try {
+            const foundFood = await Foods.findOne({
+                where: { id }
+            });
+            if (foundFood !== null) {
+                return true
+            }
+            return false
+        } catch (e) {
+            throw e;
         }
     }
 
