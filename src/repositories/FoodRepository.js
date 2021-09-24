@@ -26,7 +26,7 @@ class FoodRepository {
                     { model: Stores, attributes: ['name', 'avatar'], required: true },
                     {
                         model: OptionsLabels, attributes: ['id', 'name'], include: [{
-                            model: Options, attributes: ['id', 'name', 'price']
+                            model: Options, required: true, attributes: ['id', 'name', 'price']
                         }]
                     }
                 ],

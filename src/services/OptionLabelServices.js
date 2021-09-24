@@ -18,6 +18,15 @@ class OptionLabelService {
         }
     }
 
+    async checkExist(id) {
+        try {
+            return await OptionLabelRepository.checkExist(id);
+        }
+        catch (e) {
+            throw e;
+        }
+    }
+
     async addLabel(newLabel) {
         try {
             return await OptionLabelRepository.store(newLabel);

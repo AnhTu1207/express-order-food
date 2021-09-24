@@ -24,20 +24,6 @@ class OptionRepository {
         }
     }
 
-    async checkExist(id) {
-        try {
-            const foundFood = await Foods.findOne({
-                where: { id }
-            });
-            if (foundFood !== null) {
-                return true
-            }
-            return false
-        } catch (e) {
-            throw e;
-        }
-    }
-
     async store(newOption) {
         try {
             const res = await Options.create({ ...newOption, id: uuidv4() });

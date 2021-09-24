@@ -1,6 +1,6 @@
 const { validationResult } = require("express-validator");
 
-const { FoodService, OptionService } = require(appRoot + "/services");
+const { FoodService, OptionLabelService, OptionService } = require(appRoot + "/services");
 const { map } = require("lodash");
 
 class OptionController {
@@ -35,7 +35,6 @@ class OptionController {
             }
             res.status(500).send();
         }
-
     }
 
     async store(req, res) {
@@ -44,9 +43,9 @@ class OptionController {
             return res.status(400).json({ status: 400, message: errors });
         }
         try {
-            const result = await OptionService.checkExistInFood(req.body.food_id);
+            const result = await FoodService.checkExist(req.body.food_id) && await OptionLabelService.checkExist(req.body.label_id);
             if (!result) {
-                return res.status(400).json({ status: 400, message: "Invalid food_id or record does not exist" });
+                return res.status(400).json({ status: 400, message: "Invalid food_id or label_id nor record does not exist" });
             }
             const newOption = await OptionService.addOption(req.body);
             return res.status(201).json(newOption);

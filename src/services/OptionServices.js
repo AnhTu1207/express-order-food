@@ -18,14 +18,6 @@ class OptionService {
         }
     }
 
-    async checkExistInFood(id) {
-        try {
-            return await OptionRepository.checkExist(id);
-        } catch (e) {
-            throw e;
-        }
-    }
-
     async addOption(newOption) {
         try {
             return await OptionRepository.store(newOption);

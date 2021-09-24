@@ -1,11 +1,15 @@
 const { v4: uuidv4 } = require("uuid");
 
-const { OptionsLabels } = require(appRoot + "/models");
+const { OptionsLabels, Options } = require(appRoot + "/models");
 
 class OptionLabelRepository {
     async getAll() {
         try {
-            const allLabel = await OptionsLabels.findAll();
+            const allLabel = await OptionsLabels.findAll({
+                include: [
+                    { model: Options, attributes: ['name', 'price'] }
+                ]
+            });
             return allLabel
         }
         catch {
@@ -16,11 +20,28 @@ class OptionLabelRepository {
     async getById(id) {
         try {
             const foundLabel = await OptionsLabels.findOne({
+                include: [
+                    { model: Options, attributes: ['name', 'price'] }
+                ],
                 where: { id }
             });
             return foundLabel;
         } catch {
             return null;
+        }
+    }
+
+    async checkExist(id) {
+        try {
+            const foundLabel = await OptionsLabels.findOne({
+                where: { id }
+            });
+            if (foundLabel !== null) {
+                return true
+            }
+            return false
+        } catch (e) {
+            throw e;
         }
     }
 
