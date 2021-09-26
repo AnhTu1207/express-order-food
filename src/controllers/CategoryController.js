@@ -6,10 +6,6 @@ const { map } = require("lodash");
 class CategoryController {
 
     async index(req, res) {
-        return res.status(404).json({ status: 404, message: "Invalid URL" });
-    }
-
-    async getAllCategory(req, res) {
         try {
             const allCategory = await CategoryService.getAllCategory();
             return res.status(200).json({ status: 200, message: "Your request has been successfully", data: allCategory });
@@ -22,7 +18,7 @@ class CategoryController {
         }
     }
 
-    async getCategoryById(req, res) {
+    async getById(req, res) {
         try {
             const foundCategory = await CategoryService.getCategoryById(req.params.id);
             if (foundCategory === null) {
