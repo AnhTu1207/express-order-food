@@ -3,6 +3,8 @@ const Drivers = require("./DriverModel");
 const Stores = require("./StoreModel");
 const Categories = require("./CategoryModel");
 const Foods = require("./FoodModel");
+const Options = require("./OptionModel");
+const OptionsLabels = require("./OptionLabelModel")
 const Orders = require("./OrderModel");
 const OrdersItems = require("./OrderItemModel");
 
@@ -12,6 +14,8 @@ module.exports = {
   Stores,
   Categories,
   Foods,
+  Options,
+  OptionsLabels,
   Orders,
   OrdersItems,
 };

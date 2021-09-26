@@ -25,7 +25,7 @@ class CategoryController {
                 return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             else {
-                return res.status(200).json({ status: 200, message: "Your request has been successfully", data: foundCategory });
+                return res.status(200).json({ status: 200, data: foundCategory });
             }
         }
         catch (e) {

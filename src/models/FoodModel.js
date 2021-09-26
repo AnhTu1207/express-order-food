@@ -18,9 +18,13 @@ const Foods = sequelizeConfig.define("foods", {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  qty: {
+  price: {
     type: Sequelize.INTEGER,
     allowNull: false,
+  },
+  detail: {
+    type: Sequelize.STRING,
+    allowNull: true,
   },
   store_id: {
     type: Sequelize.STRING,
