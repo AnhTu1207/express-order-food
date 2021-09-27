@@ -61,7 +61,7 @@ class CategoryController {
         }
         try {
             const foundCategory = await CategoryService.getCategoryById(req.params.id)
-            if (foundCategory) {
+            if (foundCategory === null) {
                 return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             else {

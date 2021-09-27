@@ -6,10 +6,10 @@ const { AddCategoryValidate, UpdateCategoryValidate } = require(appRoot + "/vali
 
 const router = express.Router();
 
-router.get("/", CategoryController.index);
-router.get("/getById/:id", CategoryController.getById)
-router.post("/", AddCategoryValidate, CategoryController.store)
-router.put("/:id", UpdateCategoryValidate, CategoryController.update)
-router.delete("/:id", CategoryController.delete)
+router.get("/", RequireAuth, CategoryController.index);
+router.get("/getById/:id", RequireAuth, CategoryController.getById)
+router.post("/", [RequireAuth, AddCategoryValidate], CategoryController.store)
+router.put("/:id", [RequireAuth, UpdateCategoryValidate], CategoryController.update)
+router.delete("/:id", RequireAuth, CategoryController.delete)
 
 module.exports = router;
