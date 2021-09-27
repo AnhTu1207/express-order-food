@@ -37,9 +37,10 @@ class CategoryRepository {
     async update(updateCategory, id) {
         try {
             const res = await Categories.update({
-                name: updateCategory.name,
+                ...updateCategory
             }, {
-                where: { id }
+                where: { id },
+                returning: true
             })
             return res;
         } catch (e) {

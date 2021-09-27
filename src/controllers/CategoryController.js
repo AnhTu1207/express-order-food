@@ -8,7 +8,7 @@ class CategoryController {
     async index(req, res) {
         try {
             const allCategory = await CategoryService.getAllCategory();
-            return res.status(200).json({ status: 200, message: "Your request has been successfully", data: allCategory });
+            return res.status(200).json({ status: 200, data: allCategory });
         }
         catch (e) {
             if (e.errors && e.errors.length) {
@@ -61,12 +61,12 @@ class CategoryController {
         }
         try {
             const foundCategory = await CategoryService.getCategoryById(req.params.id)
-            if (foundCategory === null) {
+            if (foundCategory) {
                 return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             else {
-                await CategoryService.updateCategory(req.body, req.params.id)
-                return res.status(200).json({ status: 200, message: "Your request has been successfully" });
+                const data = await CategoryService.updateCategory(req.body, req.params.id)
+                return res.status(200).json({ status: 200, data: data[1][0] });
             }
         }
         catch (e) {
@@ -87,7 +87,7 @@ class CategoryController {
             }
             else {
                 await CategoryService.deleteCategory(req.params.id)
-                return res.status(200).json({ status: 200, message: "Your request has been successfully" });
+                return res.status(200).json({ status: 200, data: deleteCategory });
             }
         }
         catch (e) {
