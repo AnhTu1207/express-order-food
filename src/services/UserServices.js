@@ -17,7 +17,13 @@ class UserService {
     }
   }
 
-  async index() {}
+  async index(q) {
+    try {
+      return await UserRepository.index(q);
+    } catch (e) {
+      throw e;
+    }
+  }
 }
 
 module.exports = new UserService();

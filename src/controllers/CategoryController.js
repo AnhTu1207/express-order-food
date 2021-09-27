@@ -7,8 +7,8 @@ class CategoryController {
 
     async index(req, res) {
         try {
-            const allCategory = await CategoryService.getAllCategory();
-            return res.status(200).json({ status: 200, data: allCategory });
+            const data = await CategoryService.index(req.query);
+            return res.status(200).json({ status: 200, data: data });
         }
         catch (e) {
             if (e.errors && e.errors.length) {
@@ -18,9 +18,9 @@ class CategoryController {
         }
     }
 
-    async getById(req, res) {
+    async show(req, res) {
         try {
-            const foundCategory = await CategoryService.getCategoryById(req.params.id);
+            const foundCategory = await CategoryService.show(req.params.id);
             if (foundCategory === null) {
                 return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }

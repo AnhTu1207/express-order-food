@@ -1,15 +1,14 @@
 const express = require("express");
 
-const { CategoryController } = require(appRoot + "/controllers");
-const { RequireAuth } = require(appRoot + "/middlewares");
-const { AddCategoryValidate, UpdateCategoryValidate } = require(appRoot + "/validations");
-
+const { AddCategoryRequest, UpdateCategoryRequest } = require(appRoot + "/requests");
 const router = express.Router();
 
-router.get("/", RequireAuth, CategoryController.index);
-router.get("/getById/:id", RequireAuth, CategoryController.getById)
-router.post("/", [RequireAuth, AddCategoryValidate], CategoryController.store)
-router.put("/:id", [RequireAuth, UpdateCategoryValidate], CategoryController.update)
-router.delete("/:id", RequireAuth, CategoryController.delete)
+const { CategoryController } = require(appRoot + "/controllers");
+
+router.get("/", CategoryController.index);
+router.get("/getById/:id", CategoryController.show)
+router.post("/", AddCategoryRequest, CategoryController.store)
+router.put("/:id", UpdateCategoryRequest, CategoryController.update)
+router.delete("/:id", CategoryController.delete)
 
 module.exports = router;

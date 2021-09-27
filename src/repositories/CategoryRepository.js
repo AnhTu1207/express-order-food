@@ -1,19 +1,19 @@
 const { v4: uuidv4 } = require("uuid");
 
 const { Categories } = require(appRoot + "/models");
+const { pagination } = require(appRoot + "/helpers");
 
 class CategoryRepository {
-    async getAll() {
+    async index(q) {
         try {
-            const allCategories = await Categories.findAll();
-            return allCategories
+            return await pagination(Categories, +q.page || 1, {});
         }
         catch {
             return null;
         }
     }
 
-    async getById(id) {
+    async show(id) {
         try {
             const foundCategory = await Categories.findOne({
                 where: { id }

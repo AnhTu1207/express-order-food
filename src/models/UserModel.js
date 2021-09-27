@@ -25,6 +25,7 @@ const Users = sequelizeConfig.define("users", {
   avatar: {
     type: Sequelize.STRING,
     allowNull: true,
+    defaultValue: "",
   },
   fb_id: {
     type: Sequelize.STRING,

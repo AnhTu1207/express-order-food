@@ -1,17 +1,17 @@
 const { CategoryRepository } = require(appRoot + "/repositories");
 
 class CategoryService {
-    async getAllCategory() {
+    async index(q) {
         try {
-            return await CategoryRepository.getAll();
+            return await CategoryRepository.index(q);
         } catch (e) {
             throw e;
         }
     }
 
-    async getCategoryById(id) {
+    async show(id) {
         try {
-            return await CategoryRepository.getById(id);
+            return await CategoryRepository.show(id);
         }
         catch (e) {
             throw e;
@@ -41,8 +41,6 @@ class CategoryService {
             throw e;
         }
     }
-
-    async index() { }
 }
 
 module.exports = new CategoryService();
