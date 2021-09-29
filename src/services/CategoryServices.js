@@ -18,7 +18,7 @@ class CategoryService {
         }
     }
 
-    async addCategory(newCategory) {
+    async store(newCategory) {
         try {
             return await CategoryRepository.store(newCategory);
         } catch (e) {
@@ -26,7 +26,7 @@ class CategoryService {
         }
     }
 
-    async updateCategory(updateCategory, id) {
+    async update(updateCategory, id) {
         try {
             return await CategoryRepository.update(updateCategory, id);
         } catch (e) {
@@ -34,7 +34,7 @@ class CategoryService {
         }
     }
 
-    async deleteCategory(id) {
+    async delete(id) {
         try {
             return await CategoryRepository.delete(id);
         } catch (e) {

@@ -42,7 +42,7 @@ class CategoryController {
             return res.status(400).json({ status: 400, message: errors });
         }
         try {
-            const newCategory = await CategoryService.addCategory(req.body);
+            const newCategory = await CategoryService.store(req.body);
             return res.status(201).json(newCategory);
         } catch (e) {
             if (e.errors && e.errors.length) {
@@ -65,7 +65,7 @@ class CategoryController {
                 return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             else {
-                const data = await CategoryService.updateCategory(req.body, req.params.id)
+                const data = await CategoryService.update(req.body, req.params.id)
                 return res.status(200).json({ status: 200, data: data[1][0] });
             }
         }
@@ -86,7 +86,7 @@ class CategoryController {
                 return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             else {
-                await CategoryService.deleteCategory(req.params.id)
+                await CategoryService.delete(req.params.id)
                 return res.status(200).json({ status: 200, data: deleteCategory });
             }
         }
