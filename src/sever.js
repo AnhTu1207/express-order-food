@@ -5,21 +5,20 @@ require("dotenv").config();
 
 global.appRoot = path.resolve(__dirname);
 const { sequelizeConfig } = require(appRoot + "/config");
+const { RequireAuth } = require(appRoot + "/middlewares");
 
-const { authRoutes, userRoutes, categoryRoutes, storeRoutes } = require(appRoot + "/routes");
+const { authRoutes, userRoutes, storeRoutes } = require(appRoot + "/routes");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('/upload', express.static(path.join(__dirname, 'upload')))
 app.use(morgan("tiny"));
 
 app.use("/api/auth", authRoutes);
-app.use("/api/user", userRoutes);
-app.use("/api/category", categoryRoutes);
-app.use("/api/store", storeRoutes);
+app.use("/api/users", RequireAuth, userRoutes);
+app.use("/api/store", RequireAuth, storeRoutes);
 
 app.listen(PORT, () => {
   console.log("Sever is running at port: ", PORT);

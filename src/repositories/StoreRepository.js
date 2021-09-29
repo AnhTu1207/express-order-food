@@ -5,7 +5,7 @@ const { Stores } = require(appRoot + "/models");
 const { jwt } = require(appRoot + "/helpers");
 
 class StoreRepository {
-    async getAll() {
+    async index() {
         try {
             const allStores = await Stores.findAll();
             return allStores
@@ -15,7 +15,7 @@ class StoreRepository {
         }
     }
 
-    async getById(id) {
+    async show(id) {
         try {
             const foundStore = await Stores.findOne({
                 where: { id }
@@ -42,7 +42,9 @@ class StoreRepository {
     async update(updateStore, id) {
         try {
             const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
-            updateStore.password = bcrypt.hashSync(updateStore.password, salt);
+            if (updateStore.password) {
+                updateStore.password = bcrypt.hashSync(updateStore.password, salt);
+            }
             const res = await Stores.update({
                 name: updateStore.name,
                 address: updateStore.address,
@@ -78,7 +80,6 @@ class StoreRepository {
             const res = await Stores.destroy({
                 where: { id }
             })
-            // Placeholder for removing all foods related to store
             return res;
         } catch (e) {
             throw e

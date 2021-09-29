@@ -1,24 +1,24 @@
 const { StoreRepository } = require(appRoot + "/repositories");
 
 class StoreService {
-    async getAllStore() {
+    async index() {
         try {
-            return await StoreRepository.getAll();
+            return await StoreRepository.index();
         } catch (e) {
             throw e;
         }
     }
 
-    async getStoreById(id) {
+    async show(id) {
         try {
-            return await StoreRepository.getById(id);
+            return await StoreRepository.show(id);
         }
         catch (e) {
             throw e;
         }
     }
 
-    async addStore(newStore) {
+    async store(newStore) {
         try {
             return await StoreRepository.store(newStore);
         } catch (e) {
@@ -26,9 +26,17 @@ class StoreService {
         }
     }
 
-    async updateStore(updateStore, id) {
+    async update(updateStore, id) {
         try {
             return await StoreRepository.update(updateStore, id);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async delete(id) {
+        try {
+            return await StoreRepository.delete(id);
         } catch (e) {
             throw e;
         }
@@ -42,14 +50,6 @@ class StoreService {
         }
     }
 
-    async deleteStore(id) {
-        try {
-            return await StoreRepository.delete(id);
-        } catch (e) {
-            throw e;
-        }
-    }
-
     async login(infoLogin) {
         try {
             return await StoreRepository.login(infoLogin);
@@ -57,8 +57,6 @@ class StoreService {
             throw e;
         }
     }
-
-    async index() { }
 }
 
 module.exports = new StoreService();

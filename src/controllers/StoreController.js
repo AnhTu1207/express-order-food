@@ -7,14 +7,9 @@ const { map } = require("lodash");
 class StoreController {
 
     async index(req, res) {
-        return res.status(404).json({ status: 404, message: "Invalid URL" });
-    }
-
-    async getAllStore(req, res) {
         try {
-            const allStore = await StoreService.getAllStore();
-            // Placeholder for include foods created by store
-            return res.status(200).json({ status: 200, message: "Your request has been successfully", data: allStore });
+            const data = await StoreService.index();
+            return res.status(200).json(data);
         }
         catch (e) {
             if (e.errors && e.errors.length) {
@@ -24,15 +19,15 @@ class StoreController {
         }
     }
 
-    async getStoreById(req, res) {
+    async show(req, res) {
         try {
             const id = req.params.id;
-            const foundStore = await StoreService.getStoreById(id);
+            const foundStore = await StoreService.show(id);
             if (foundStore === null) {
                 return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
             }
             else {
-                return res.status(200).json({ status: 200, message: "Your request has been successfully", data: foundStore });
+                return res.status(200).json({ status: 200, data: foundStore });
             }
         }
         catch (e) {

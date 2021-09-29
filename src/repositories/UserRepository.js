@@ -2,7 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 
 const { Users } = require(appRoot + "/models");
-const { jwt } = require(appRoot + "/helpers");
+const { jwt, pagination } = require(appRoot + "/helpers");
 
 class UserRepository {
   async store(newUser) {
@@ -51,15 +51,25 @@ class UserRepository {
     }
   }
 
-  async getUserById(id) {
+  async show(id) {
     try {
-      const foundUser = await Users.findOne({ 
-        where: { id }
+      const foundUser = await Users.findOne({
+        where: { id },
       });
 
       return foundUser;
     } catch {
       return null;
+    }
+  }
+
+  async index(q) {
+    try {
+      return await pagination(Users, +q.page || 1, {
+        attributes: { exclude: ["password"] },
+      });
+    } catch (e) {
+      throw e;
     }
   }
 }
