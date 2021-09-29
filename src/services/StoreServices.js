@@ -1,9 +1,9 @@
 const { StoreRepository } = require(appRoot + "/repositories");
 
 class StoreService {
-    async index() {
+    async index(q) {
         try {
-            return await StoreRepository.index();
+            return await StoreRepository.index(q);
         } catch (e) {
             throw e;
         }

@@ -5,5 +5,5 @@ const storeRoutes = require("./StoreRoute");
 module.exports = {
   authRoutes,
   userRoutes,
-  categoryRoutes
+  storeRoutes
 };

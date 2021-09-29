@@ -1,14 +1,15 @@
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 
-const { Stores } = require(appRoot + "/models");
-const { jwt } = require(appRoot + "/helpers");
+const { Stores, Foods, Categories } = require(appRoot + "/models");
+const { jwt, pagination } = require(appRoot + "/helpers");
 
 class StoreRepository {
-    async index() {
+    async index(q) {
         try {
-            const allStores = await Stores.findAll();
-            return allStores
+            return await pagination(Stores, +q.page || 1, {
+                attributes: { exclude: ["password"] },
+            });
         }
         catch {
             return null;
@@ -18,9 +19,9 @@ class StoreRepository {
     async show(id) {
         try {
             const foundStore = await Stores.findOne({
-                where: { id }
+                where: { id },
+                attributes: { exclude: ["password"] },
             });
-
             return foundStore;
         } catch {
             return null;
@@ -46,14 +47,10 @@ class StoreRepository {
                 updateStore.password = bcrypt.hashSync(updateStore.password, salt);
             }
             const res = await Stores.update({
-                name: updateStore.name,
-                address: updateStore.address,
-                latitude: updateStore.latitude,
-                longitude: updateStore.longitude,
-                password: updateStore.password,
-                open: updateStore.open,
+                ...updateStore
             }, {
-                where: { id }
+                where: { id },
+                returning: true
             })
             return res;
         } catch (e) {

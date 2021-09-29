@@ -8,7 +8,7 @@ class StoreController {
 
     async index(req, res) {
         try {
-            const data = await StoreService.index();
+            const data = await StoreService.index(req.query);
             return res.status(200).json(data);
         }
         catch (e) {
@@ -24,7 +24,7 @@ class StoreController {
             const id = req.params.id;
             const foundStore = await StoreService.show(id);
             if (foundStore === null) {
-                return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             else {
                 return res.status(200).json({ status: 200, data: foundStore });
@@ -44,8 +44,8 @@ class StoreController {
             return res.status(400).json({ status: 400, message: errors });
         }
         try {
-            const newCategory = await StoreService.addStore(req.body);
-            return res.status(201).json({ code: 201, message: "Record created", data: newCategory });
+            const newCategory = await StoreService.store(req.body);
+            return res.status(201).json({ status: 201, data: newCategory });
         } catch (e) {
             if (e.errors && e.errors.length) {
                 return res
@@ -63,13 +63,13 @@ class StoreController {
         }
         try {
             const id = req.params.id
-            const foundStore = await StoreService.getStoreById(id)
+            const foundStore = await StoreService.show(id)
             if (foundStore === null) {
-                return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             else {
-                await StoreService.updateStore(req.body, id)
-                return res.status(200).json({ status: 200, message: "Your request has been successfully", data: id });
+                const data = await StoreService.update(req.body, id)
+                return res.status(200).json({ status: 200, data: data[1][0] });
             }
         }
         catch (e) {
@@ -80,23 +80,22 @@ class StoreController {
             }
             res.status(500).send();
         }
-
     }
 
     async delete(req, res) {
         try {
             const id = req.params.id
-            const deleteStore = await StoreService.getStoreById(id)
+            const deleteStore = await StoreService.show(id)
             if (deleteStore === null) {
-                return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             else {
-                // Placeholder to check if store still has food records in database
-
-                await StoreService.deleteStore(id)
+                await StoreService.delete(id)
                 // Removing image
-                await utility.removeImage(utility.getPath(deleteStore.avatar))
-                return res.status(200).json({ status: 200, message: "Your request has been successfully" });
+                if (deleteStore.avatar) {
+                    await utility.removeImage(utility.getPath(deleteStore.avatar))
+                }
+                return res.status(200).json({ status: 200, data: deleteStore });
             }
         }
         catch (e) {
@@ -131,9 +130,9 @@ class StoreController {
     async upload(req, res) {
         try {
             const id = req.params.id
-            const foundStore = await StoreService.getStoreById(req.params.id);
+            const foundStore = await StoreService.show(req.params.id);
             if (foundStore === null) {
-                return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             const currUpload = utility.uploadImage('stores');
             currUpload(req, res, async function (err) {
@@ -146,11 +145,10 @@ class StoreController {
                 const url = "http://" + req.headers.host + utility.getUrl(req.file.destination, req.file.filename)
                 const result = await StoreService.updateImage(url, id)
                 if (result) {
-                    return res.status(201).json({ status: 201, message: "Uploade Successful", data: url });
+                    return res.status(201).json({ status: 201, data: url });
                 }
                 res.status(400).json({ status: 400, message: "Error during uploading" })
             });
-
         } catch (e) {
             if (e.errors && e.errors.length) {
                 return res.status(400).json({ status: 400, message: map(e.errors, (e) => e.message) });
@@ -162,9 +160,9 @@ class StoreController {
     async edit(req, res) {
         try {
             const id = req.params.id
-            const foundStore = await StoreService.getStoreById(req.params.id);
+            const foundStore = await StoreService.show(req.params.id);
             if (foundStore === null) {
-                return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             const currUpload = utility.uploadImage('stores');
             currUpload(req, res, async function (err) {
@@ -176,15 +174,13 @@ class StoreController {
                 }
                 // Removing old image before editing
                 await utility.removeImage(utility.getPath(foundStore.avatar))
-
                 const url = "http://" + req.headers.host + utility.getUrl(req.file.destination, req.file.filename)
                 const result = await StoreService.updateImage(url, id)
                 if (result) {
-                    return res.status(201).json({ status: 201, message: "Edit Successful", data: url });
+                    return res.status(201).json({ status: 201, data: url });
                 }
                 res.status(400).json({ status: 400, message: "Error during uploading" })
             });
-
         } catch (e) {
             if (e.errors && e.errors.length) {
                 return res.status(400).json({ status: 400, message: map(e.errors, (e) => e.message) });

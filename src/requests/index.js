@@ -1,11 +1,11 @@
 const AddUserRequest = require("./AddUserRequest");
 const LoginRequest = require("./LoginRequest");
-const AddCategoryRequest = require("./AddCategoryRequest");
-const UpdateCategoryRequest = require("./UpdateCategoryRequest");
+const AddStoreRequest = require("./AddStoreRequest");
+const UpdateStoreRequest = require("./UpdateStoreRequest");
 
 module.exports = {
   AddUserRequest,
   LoginRequest,
-  AddCategoryRequest,
-  UpdateCategoryRequest,
+  AddStoreRequest,
+  UpdateStoreRequest
 };
