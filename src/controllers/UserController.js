@@ -6,7 +6,17 @@ const { map } = require("lodash");
 class UserController {
 
   async index(req, res) {
-    return res.status(200).send();
+    try {
+      const data = await UserService.index(req.query);
+      return res.status(200).json(data);
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).json({ message: e.message });
+    }
   }
 
   async store(req, res) {
@@ -23,7 +33,7 @@ class UserController {
           .status(400)
           .json({ status: 400, message: map(e.errors, (e) => e.message) });
       }
-      res.status(500).send();
+      res.status(500).json({ message: e.message });
     }
   }
 
@@ -35,16 +45,25 @@ class UserController {
     try {
       const userLogin = await UserService.login(req.body);
       if (!userLogin) {
-        return res.status(400).json({ status: 400, message: "Wrong username or password" });
+        return res
+          .status(400)
+          .json({ status: 400, message: "Wrong username or password" });
       }
       return res.status(200).json({ data: userLogin });
-    } catch(e) {
+    } catch (e) {
       if (e.errors && e.errors.length) {
-        return res.status(400).json({ status: 400, message: map(e.errors, e => e.message) });
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
       }
       res.status(500).send();
     }
   }
+
+  async update() { }
+
+  async delete() { }
+
 }
 
 module.exports = new UserController();

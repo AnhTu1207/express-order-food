@@ -1,41 +1,24 @@
 const { FoodRepository } = require(appRoot + "/repositories");
 
 class FoodService {
-    async getAllFood() {
+    async index() {
         try {
-            return await FoodRepository.getAll();
+            return await FoodRepository.index();
         } catch (e) {
             throw e;
         }
     }
 
-    async getFoodById(id) {
+    async show(id) {
         try {
-            return await FoodRepository.getById(id);
+            return await FoodRepository.show(id);
         }
         catch (e) {
             throw e;
         }
     }
 
-    async getFoodByCategoryId(id) {
-        try {
-            return await FoodRepository.getByCategory(id);
-        }
-        catch (e) {
-            throw e;
-        }
-    }
-
-    async checkExist(id) {
-        try {
-            return await FoodRepository.checkExist(id);
-        } catch (e) {
-            throw e;
-        }
-    }
-
-    async addFood(newFood) {
+    async store(newFood) {
         try {
             return await FoodRepository.store(newFood);
         } catch (e) {
@@ -43,9 +26,17 @@ class FoodService {
         }
     }
 
-    async updateFood(updateFood, id) {
+    async update(updateFood, id) {
         try {
             return await FoodRepository.update(updateFood, id);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async delete(id) {
+        try {
+            return await FoodRepository.delete(id);
         } catch (e) {
             throw e;
         }
@@ -58,16 +49,6 @@ class FoodService {
             throw e;
         }
     }
-
-    async deleteFood(id) {
-        try {
-            return await FoodRepository.delete(id);
-        } catch (e) {
-            throw e;
-        }
-    }
-
-    async index() { }
 }
 
 module.exports = new FoodService();

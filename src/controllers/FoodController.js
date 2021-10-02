@@ -8,7 +8,7 @@ class FoodController {
 
   async index(req, res) {
     try {
-      const allFood = await FoodService.getAllFood();
+      const allFood = await FoodService.index();
       return res.status(200).json({ status: 200, data: allFood });
     }
     catch (e) {
@@ -22,7 +22,7 @@ class FoodController {
   async getById(req, res) {
     try {
       const id = req.params.id;
-      const foundFood = await FoodService.getFoodById(id);
+      const foundFood = await FoodService.show(id);
       if (foundFood === null) {
         return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
       }
@@ -64,11 +64,7 @@ class FoodController {
       return res.status(400).json({ status: 400, message: errors });
     }
     try {
-      const result = await CategoryService.checkExist(req.body.category_id) && await StoreService.checkExist(req.body.store_id);
-      if (!result) {
-        return res.status(400).json({ status: 400, message: "Invalid category_id or store_id" });
-      }
-      const newFood = await FoodService.addFood(req.body);
+      const newFood = await FoodService.store(req.body);
       return res.status(201).json(newFood);
     } catch (e) {
       if (e.errors && e.errors.length) {

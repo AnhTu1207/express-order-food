@@ -1,24 +1,23 @@
 const { v4: uuidv4 } = require("uuid");
 
 const { Foods, Categories, Stores, Options, OptionsLabels } = require(appRoot + "/models");
-
+const { pagination } = require(appRoot + "/helpers");
 class FoodRepository {
-    async getAll() {
+    async index() {
         try {
-            const allFoods = await Foods.findAll({
+            return await pagination(Foods, +q.page || 1, {
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
                     { model: Stores, attributes: ['name', 'avatar'], required: true }
                 ]
             });
-            return allFoods
         }
         catch {
             return null;
         }
     }
 
-    async getById(id) {
+    async show(id) {
         try {
             const foundFood = await Foods.findOne({
                 include: [
@@ -35,38 +34,6 @@ class FoodRepository {
             return foundFood;
         } catch {
             return null;
-        }
-    }
-
-    async getByCategory(id) {
-        try {
-            const foundFood = await Categories.findOne({
-                include: [
-                    {
-                        model: Foods, include: [
-                            { model: Categories, attributes: ['name'], required: true },
-                        ]
-                    },
-                ],
-                where: { id }
-            });
-            return foundFood;
-        } catch {
-            return null;
-        }
-    }
-
-    async checkExist(id) {
-        try {
-            const foundFood = await Foods.findOne({
-                where: { id }
-            });
-            if (foundFood !== null) {
-                return true
-            }
-            return false
-        } catch (e) {
-            throw e;
         }
     }
 

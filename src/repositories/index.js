@@ -1,15 +1,11 @@
 const UserRepository = require("./UserRepository");
-const CategoryRepository = require("./CategoryRepository");
-const StoreRepository = require("./StoreRepository");
-const FoodRepository = require("./FoodRepository")
-const OptionRepository = require("./OptionRepository");
+const FoodRepository = require("./FoodRepository");
 const OptionLabelRepository = require("./OptionLabelRepository");
+const OptionRepository = require("./OptionRepository");
 
 module.exports = {
   UserRepository,
-  CategoryRepository,
-  StoreRepository,
   FoodRepository,
   OptionLabelRepository,
-  OptionRepository,
+  OptionRepository
 };
