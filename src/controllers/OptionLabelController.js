@@ -7,8 +7,8 @@ class OptionLabelController {
 
     async index(req, res) {
         try {
-            const allLabel = await OptionLabelService.getAllLabel();
-            return res.status(200).json({ status: 200, data: allLabel });
+            const data = await OptionLabelService.index(req.query);
+            return res.status(200).json(data);
         }
         catch (e) {
             if (e.errors && e.errors.length) {
@@ -18,12 +18,12 @@ class OptionLabelController {
         }
     }
 
-    async getById(req, res) {
+    async show(req, res) {
         try {
             const id = req.params.id;
-            const foundOption = await OptionLabelService.getLabelById(id);
+            const foundOption = await OptionLabelService.show(id);
             if (foundOption === null) {
-                return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             else {
                 return res.status(200).json({ status: 200, data: foundOption });
@@ -43,11 +43,7 @@ class OptionLabelController {
             return res.status(400).json({ status: 400, message: errors });
         }
         try {
-            const result = await FoodService.checkExist(req.body.food_id);
-            if (!result) {
-                return res.status(400).json({ status: 400, message: "Invalid food_id or record does not exist" });
-            }
-            const newLabel = await OptionLabelService.addLabel(req.body);
+            const newLabel = await OptionLabelService.store(req.body);
             return res.status(201).json(newLabel);
         } catch (e) {
             if (e.errors && e.errors.length) {
@@ -60,18 +56,19 @@ class OptionLabelController {
     }
 
     async update(req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ status: 400, message: errors });
+        }
         try {
             const id = req.params.id;
-            const foundOption = await OptionLabelService.getLabelById(id)
+            const foundOption = await OptionLabelService.show(id)
             if (foundOption === null) {
-                return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             else {
-                const result = await OptionLabelService.updateLabel(req.body, id)
-                if (result) {
-                    const data = await OptionLabelService.getLabelById(id)
-                    return res.status(200).json({ status: 200, data: data });
-                }
+                const data = await OptionLabelService.update(req.body, id)
+                return res.status(200).json({ status: 200, data: data[1][0] });
             }
         }
         catch (e) {
@@ -87,12 +84,12 @@ class OptionLabelController {
     async delete(req, res) {
         try {
             const id = req.params.id;
-            const deleteLabel = await OptionLabelService.getLabelById(id)
+            const deleteLabel = await OptionLabelService.show(id)
             if (deleteLabel === null) {
-                return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
             else {
-                await OptionLabelService.deleteLabel(id)
+                await OptionLabelService.delete(id)
                 return res.status(200).json({ status: 200, data: deleteLabel });
             }
         }

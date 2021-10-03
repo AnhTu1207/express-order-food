@@ -1,24 +1,24 @@
 const { OptionRepository } = require(appRoot + "/repositories");
 
 class OptionService {
-    async getAllOption() {
+    async index(q) {
         try {
-            return await OptionRepository.getAll();
+            return await OptionRepository.index(q);
         } catch (e) {
             throw e;
         }
     }
 
-    async getOptionById(id) {
+    async show(id) {
         try {
-            return await OptionRepository.getById(id);
+            return await OptionRepository.show(id);
         }
         catch (e) {
             throw e;
         }
     }
 
-    async addOption(newOption) {
+    async store(newOption) {
         try {
             return await OptionRepository.store(newOption);
         } catch (e) {
@@ -26,7 +26,7 @@ class OptionService {
         }
     }
 
-    async updateOption(updateOption, id) {
+    async update(updateOption, id) {
         try {
             return await OptionRepository.update(updateOption, id);
         } catch (e) {
@@ -34,15 +34,13 @@ class OptionService {
         }
     }
 
-    async deleteOption(id) {
+    async delete(id) {
         try {
             return await OptionRepository.delete(id);
         } catch (e) {
             throw e;
         }
     }
-
-    async index() { }
 }
 
 module.exports = new OptionService();

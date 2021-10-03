@@ -1,33 +1,24 @@
 const { OptionLabelRepository } = require(appRoot + "/repositories");
 
 class OptionLabelService {
-    async getAllLabel() {
+    async index(q) {
         try {
-            return await OptionLabelRepository.getAll();
+            return await OptionLabelRepository.index(q);
         } catch (e) {
             throw e;
         }
     }
 
-    async getLabelById(id) {
+    async show(id) {
         try {
-            return await OptionLabelRepository.getById(id);
+            return await OptionLabelRepository.show(id);
         }
         catch (e) {
             throw e;
         }
     }
 
-    async checkExist(id) {
-        try {
-            return await OptionLabelRepository.checkExist(id);
-        }
-        catch (e) {
-            throw e;
-        }
-    }
-
-    async addLabel(newLabel) {
+    async store(newLabel) {
         try {
             return await OptionLabelRepository.store(newLabel);
         } catch (e) {
@@ -35,7 +26,7 @@ class OptionLabelService {
         }
     }
 
-    async updateLabel(updateLabel, id) {
+    async update(updateLabel, id) {
         try {
             return await OptionLabelRepository.update(updateLabel, id);
         } catch (e) {
@@ -43,15 +34,13 @@ class OptionLabelService {
         }
     }
 
-    async deleteLabel(id) {
+    async delete(id) {
         try {
             return await OptionLabelRepository.delete(id);
         } catch (e) {
             throw e;
         }
     }
-
-    async index() { }
 }
 
 module.exports = new OptionLabelService();

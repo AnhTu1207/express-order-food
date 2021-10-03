@@ -60,15 +60,9 @@ class UserController {
     }
   }
 
-<<<<<<< HEAD
   async update() { }
 
   async delete() { }
-=======
-  async update() {}
-
-  async delete() {}
->>>>>>> master
 
 }
 

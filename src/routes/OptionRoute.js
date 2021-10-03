@@ -1,13 +1,14 @@
 const express = require("express");
 
-const { OptionController } = require(appRoot + "/controllers");
-
+const { AddOptionRequest, UpdateOptionRequest } = require(appRoot + "/requests");
 const router = express.Router();
 
+const { OptionController } = require(appRoot + "/controllers");
+
 router.get("/", OptionController.index);
-router.get("/getById/:id", OptionController.getById);
-router.post("/", OptionController.store);
-router.put("/:id", OptionController.update)
+router.get("/show/:id", OptionController.show);
+router.post("/", AddOptionRequest, OptionController.store);
+router.put("/:id", UpdateOptionRequest, OptionController.update)
 router.delete("/:id", OptionController.delete)
 
 module.exports = router;

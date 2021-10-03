@@ -8,8 +8,8 @@ class FoodController {
 
   async index(req, res) {
     try {
-      const allFood = await FoodService.index();
-      return res.status(200).json({ status: 200, data: allFood });
+      const data = await FoodService.index(req.query);
+      return res.status(200).json(data);
     }
     catch (e) {
       if (e.errors && e.errors.length) {
@@ -19,12 +19,12 @@ class FoodController {
     }
   }
 
-  async getById(req, res) {
+  async show(req, res) {
     try {
       const id = req.params.id;
       const foundFood = await FoodService.show(id);
       if (foundFood === null) {
-        return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+        return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
       }
       else {
         return res.status(200).json({ status: 200, data: foundFood });
@@ -38,17 +38,25 @@ class FoodController {
     }
   }
 
-  async getByCategory(req, res) {
+  async showByCategory(req, res) {
     try {
       const id = req.params.id;
-      const foundCategory = await CategoryService.checkExist(id);
-      if (!foundCategory) {
-        return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+      const data = await FoodService.showByCategory(id, req.query);
+      return res.status(200).json(data);
+    }
+    catch (e) {
+      if (e.errors && e.errors.length) {
+        return res.status(400).json({ status: 400, message: map(e.errors, (e) => e.message) });
       }
-      else {
-        const foundFood = await FoodService.getFoodByCategoryId(id);
-        return res.status(200).json({ status: 200, data: foundFood });
-      }
+      res.status(500).send();
+    }
+  }
+
+  async showByStore(req, res) {
+    try {
+      const id = req.params.id;
+      const data = await FoodService.showByStore(id, req.query);
+      return res.status(200).json(data);
     }
     catch (e) {
       if (e.errors && e.errors.length) {
@@ -81,7 +89,7 @@ class FoodController {
       const id = req.params.id;
       const foundStore = await FoodService.getFoodById(id)
       if (foundStore === null) {
-        return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+        return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
       }
       else {
         const flag = await CategoryService.checkExist(req.body.category_id);
@@ -110,7 +118,7 @@ class FoodController {
       const id = req.params.id;
       const deleteFood = await FoodService.getFoodById(id)
       if (deleteFood === null) {
-        return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+        return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
       }
       else {
         await FoodService.deleteFood(id)
@@ -136,7 +144,7 @@ class FoodController {
       const id = req.params.id
       const foundFood = await FoodService.getFoodById(req.params.id);
       if (foundFood === null) {
-        return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+        return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
       }
       const currUpload = utility.uploadImage('foods');
       currUpload(req, res, async function (err) {
@@ -167,7 +175,7 @@ class FoodController {
       const id = req.params.id
       const foundFood = await FoodService.getFoodById(req.params.id);
       if (foundFood === null) {
-        return res.status(404).json({ status: 404, message: "Invalid ID or record does not exist" });
+        return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
       }
       const currUpload = utility.uploadImage('foods');
       currUpload(req, res, async function (err) {

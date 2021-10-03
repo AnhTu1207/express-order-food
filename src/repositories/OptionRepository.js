@@ -1,19 +1,19 @@
 const { v4: uuidv4 } = require("uuid");
 
-const { Options, Foods } = require(appRoot + "/models");
+const { Options } = require(appRoot + "/models");
+const { pagination } = require(appRoot + "/helpers");
 
 class OptionRepository {
-    async getAll() {
+    async index(q) {
         try {
-            const allOptions = await Options.findAll();
-            return allOptions
+            return await pagination(Options, +q.page || 1, {});
         }
         catch {
             return null;
         }
     }
 
-    async getById(id) {
+    async show(id) {
         try {
             const foundOption = await Options.findOne({
                 where: { id }
@@ -38,7 +38,8 @@ class OptionRepository {
             const res = await Options.update({
                 ...updateOption
             }, {
-                where: { id }
+                where: { id },
+                returning: true
             })
             return res;
         } catch (e) {

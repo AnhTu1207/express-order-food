@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const { Foods, Categories, Stores, Options, OptionsLabels } = require(appRoot + "/models");
 const { pagination } = require(appRoot + "/helpers");
 class FoodRepository {
-    async index() {
+    async index(q) {
         try {
             return await pagination(Foods, +q.page || 1, {
                 include: [
@@ -33,6 +33,36 @@ class FoodRepository {
             });
             return foundFood;
         } catch {
+            return null;
+        }
+    }
+
+    async showByCategory(categoryId, q) {
+        try {
+            return await pagination(Foods, +q.page || 1, {
+                include: [
+                    { model: Categories, attributes: ['name'], required: true },
+                    { model: Stores, attributes: ['name', 'avatar'], required: true }
+                ],
+                where: { category_id: categoryId }
+            });
+        }
+        catch {
+            return null;
+        }
+    }
+
+    async showByStore(storeId, q) {
+        try {
+            return await pagination(Foods, +q.page || 1, {
+                include: [
+                    { model: Categories, attributes: ['name'], required: true },
+                    { model: Stores, attributes: ['name', 'avatar'], required: true }
+                ],
+                where: { store_id: storeId }
+            });
+        }
+        catch {
             return null;
         }
     }

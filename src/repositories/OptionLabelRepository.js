@@ -1,23 +1,23 @@
 const { v4: uuidv4 } = require("uuid");
 
 const { OptionsLabels, Options } = require(appRoot + "/models");
+const { pagination } = require(appRoot + "/helpers");
 
 class OptionLabelRepository {
-    async getAll() {
+    async index(q) {
         try {
-            const allLabel = await OptionsLabels.findAll({
+            return await pagination(OptionsLabels, +q.page || 1, {
                 include: [
                     { model: Options, attributes: ['name', 'price'] }
                 ]
             });
-            return allLabel
         }
         catch {
             return null;
         }
     }
 
-    async getById(id) {
+    async show(id) {
         try {
             const foundLabel = await OptionsLabels.findOne({
                 include: [
@@ -28,20 +28,6 @@ class OptionLabelRepository {
             return foundLabel;
         } catch {
             return null;
-        }
-    }
-
-    async checkExist(id) {
-        try {
-            const foundLabel = await OptionsLabels.findOne({
-                where: { id }
-            });
-            if (foundLabel !== null) {
-                return true
-            }
-            return false
-        } catch (e) {
-            throw e;
         }
     }
 
@@ -59,7 +45,8 @@ class OptionLabelRepository {
             const res = await OptionsLabels.update({
                 ...updateLabel
             }, {
-                where: { id }
+                where: { id },
+                returning: true
             })
             return res;
         } catch (e) {
