@@ -32,7 +32,7 @@ const Drivers = sequelizeConfig.define("drivers", {
   },
   total_rating: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
 });
 
