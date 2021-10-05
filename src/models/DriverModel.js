@@ -30,9 +30,15 @@ const Drivers = sequelizeConfig.define("drivers", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  is_verified: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   total_rating: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    defaultValue: 0
   },
 });
 

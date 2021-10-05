@@ -27,6 +27,11 @@ const Users = sequelizeConfig.define("users", {
     allowNull: true,
     defaultValue: "",
   },
+  is_verified: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   fb_id: {
     type: Sequelize.STRING,
     allowNull: true,
