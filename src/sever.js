@@ -4,6 +4,8 @@ const path = require("path");
 
 require("dotenv").config();
 global.appRoot = path.resolve(__dirname);
+const { sequelizeConfig } = require(appRoot + "/config");
+const { RequireAuth } = require(appRoot + "/middlewares");
 
 const { sequelizeConfig } = require(appRoot + "/config");
 const { RequireAuth } = require(appRoot + "/middlewares");
