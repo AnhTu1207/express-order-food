@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 
-const { Stores, Foods, Categories } = require(appRoot + "/models");
+const { Stores } = require(appRoot + "/models");
 const { jwt, pagination } = require(appRoot + "/helpers");
 
 class StoreRepository {
@@ -34,7 +34,12 @@ class StoreRepository {
             newStore.password = bcrypt.hashSync(newStore.password, salt);
             const res = await Stores.create({ ...newStore, id: uuidv4() });
             delete res.dataValues.password;
-            return res.dataValues;
+            const token = { ...res.dataValues, 'role': 'store' }
+            return {
+                ...res.dataValues,
+                verifyToken: jwt.sign(token)
+            }
+                ;
         } catch (e) {
             throw e;
         }
