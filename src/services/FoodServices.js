@@ -36,6 +36,15 @@ class FoodService {
         }
     }
 
+    async search(q) {
+        try {
+            return await FoodRepository.search(q);
+        }
+        catch (e) {
+            throw e;
+        }
+    }
+
     async store(newFood) {
         try {
             return await FoodRepository.store(newFood);

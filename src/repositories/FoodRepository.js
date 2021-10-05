@@ -1,4 +1,5 @@
 const { v4: uuidv4 } = require("uuid");
+const { Op } = require("sequelize");
 
 const { Foods, Categories, Stores, Options, OptionsLabels } = require(appRoot + "/models");
 const { pagination } = require(appRoot + "/helpers");
@@ -67,6 +68,26 @@ class FoodRepository {
         }
     }
 
+    async search(q) {
+        try {
+            return await pagination(Foods, +q.page || 1, {
+                include: [
+                    { model: Categories, attributes: ['name'], required: true },
+                    { model: Stores, attributes: ['name', 'avatar'], required: true }
+                ],
+                where: {
+                    [Op.or]: [
+                        { name: { [Op.iLike]: '%' + q.search + '%' } },
+                        { '$store.name$': { [Op.iLike]: '%' + q.search + '%' } }
+                    ]
+                },
+            });
+        }
+        catch {
+            return null;
+        }
+    }
+
     async store(newFood) {
         try {
             const res = await Foods.create({ ...newFood, id: uuidv4() });
@@ -81,7 +102,8 @@ class FoodRepository {
             const res = await Foods.update({
                 ...updateFood
             }, {
-                where: { id }
+                where: { id },
+                returning: true,
             })
             return res;
         } catch (e) {

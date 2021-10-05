@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
+const Sequelize = require('sequelize')
 
-const { FoodService, OptionLabelService } = require(appRoot + "/services");
+const { OptionLabelService } = require(appRoot + "/services");
 const { map } = require("lodash");
 
 class OptionLabelController {
@@ -46,6 +47,9 @@ class OptionLabelController {
             const newLabel = await OptionLabelService.store(req.body);
             return res.status(201).json(newLabel);
         } catch (e) {
+            if (e instanceof Sequelize.ForeignKeyConstraintError) {
+                return res.status(400).json({ status: 400, message: e.parent.detail });
+            }
             if (e.errors && e.errors.length) {
                 return res
                     .status(400)
