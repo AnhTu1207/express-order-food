@@ -1,16 +1,13 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
-
 require("dotenv").config();
+
 global.appRoot = path.resolve(__dirname);
-const { sequelizeConfig } = require(appRoot + "/config");
-const { RequireAuth } = require(appRoot + "/middlewares");
 
 const { sequelizeConfig } = require(appRoot + "/config");
 const { RequireAuth } = require(appRoot + "/middlewares");
-const { authRoutes, userRoutes, storeRoutes } = require(appRoot +
-  "/routes");
+const { authRoutes, userRoutes, storeRoutes } = require(appRoot + "/routes");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
