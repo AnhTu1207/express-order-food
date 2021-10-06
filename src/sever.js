@@ -9,8 +9,7 @@ const { RequireAuth } = require(appRoot + "/middlewares");
 
 const { sequelizeConfig } = require(appRoot + "/config");
 const { RequireAuth } = require(appRoot + "/middlewares");
-const { specs, swaggerUI } = require(appRoot + "/document");
-const { authRoutes, userRoutes, storeRoutes, driverRoutes } = require(appRoot +
+const { authRoutes, userRoutes, storeRoutes } = require(appRoot +
   "/routes");
 
 const app = express();
