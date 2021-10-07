@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 
 const { StoreService } = require(appRoot + "/services");
-const { utility } = require(appRoot + "/helpers");
+const { utility, mailer, jwt } = require(appRoot + "/helpers");
 const { map } = require("lodash");
 
 class StoreController {
@@ -50,8 +50,13 @@ class StoreController {
       return res.status(400).json({ status: 400, message: errors });
     }
     try {
-      const newCategory = await StoreService.store(req.body);
-      return res.status(201).json({ status: 201, data: newCategory });
+      const newStore = await StoreService.store(req.body);
+      // Send email to validate
+      const token = jwt.sign({ ...newStore, 'role': 'store' }, "1h");
+      const url = "http://" + req.headers.host + "/api/auth/verify/" + token;
+      await mailer.sendMail(newStore.email, "You need to verify in order to use our services!!!", url);
+
+      return res.status(201).json(newStore);
     } catch (e) {
       if (e.errors && e.errors.length) {
         return res

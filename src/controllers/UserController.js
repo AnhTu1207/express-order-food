@@ -59,9 +59,9 @@ class UserController {
     }
   }
 
-  async update() {}
+  async update() { }
 
-  async delete() {}
+  async delete() { }
 }
 
 module.exports = new UserController();

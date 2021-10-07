@@ -34,10 +34,8 @@ class StoreRepository {
             newStore.password = bcrypt.hashSync(newStore.password, salt);
             const res = await Stores.create({ ...newStore, id: uuidv4() });
             delete res.dataValues.password;
-            const token = { ...res.dataValues, 'role': 'store' }
             return {
                 ...res.dataValues,
-                verifyToken: jwt.sign(token)
             }
                 ;
         } catch (e) {
