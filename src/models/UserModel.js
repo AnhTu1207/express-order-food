@@ -32,6 +32,14 @@ const Users = sequelizeConfig.define("users", {
     allowNull: false,
     defaultValue: false,
   },
+  role: {
+    type: Sequelize.ENUM,
+    values: [
+      "user",
+      "admin"
+    ],
+    defaultValue: "user",
+  },
   fb_id: {
     type: Sequelize.STRING,
     allowNull: true,
