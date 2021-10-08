@@ -1,12 +1,19 @@
 const nodeMailer = require('nodemailer')
+const path = require('path');
+const hbs = require('nodemailer-express-handlebars')
 
-const mailHost = 'smtp.gmail.com'
-const mailPort = 465
+const handlebarOptions = {
+    viewEngine: {
+        partialsDir: path.resolve(appRoot + '/views'),
+        defaultLayout: false,
+    },
+    viewPath: path.resolve(appRoot + '/views'),
+};
 
 const sendMail = async (to, subject, data) => {
     const transporter = nodeMailer.createTransport({
-        host: mailHost,
-        port: mailPort,
+        host: process.env.MAIL_HOST,
+        port: process.env.MAIL_PORT,
         secure: true,
         auth: {
             type: 'OAuth2',
@@ -17,11 +24,17 @@ const sendMail = async (to, subject, data) => {
             accessToken: process.env.OAUTH_ACCESS_TOKEN
         }
     })
+    // Use template inside views
+    transporter.use('compile', hbs(handlebarOptions))
+
     const content = {
         from: process.env.SHOP_EMAIL,
         to: to,
         subject: subject,
-        html: `<a href="${data}"><H2>Click on this</H2></a>`
+        template: 'email',
+        context: {
+            url: data
+        }
     }
     return transporter.sendMail(content)
 }

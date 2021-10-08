@@ -1,10 +1,10 @@
 const express = require("express");
 
-const { Verify } = require(appRoot + "/middlewares");
+const { Verification } = require(appRoot + "/middlewares");
 const router = express.Router();
 
-const { UserController } = require(appRoot + "/controllers");
+const { MicsController } = require(appRoot + "/controllers");
 
-router.get("/verify/:token", Verify, UserController.verify);
+router.get("/verify/:token", Verification, MicsController.verify);
 
 module.exports = router;
