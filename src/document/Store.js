@@ -246,6 +246,8 @@
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters) And "name" or "email" must be unique
+ *       401:
+ *         description: Unauthorized
  *       500:
  *         description: Server errors
  */
@@ -296,6 +298,8 @@
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters) || "name" or "email" must be unique || Store was not found
+ *       401:
+ *         description: Unauthorized
  *       500:
  *         description: Server errors
  */
@@ -338,6 +342,8 @@
  *                       }
  *       400:
  *         description: Store was not found
+ *       401:
+ *         description: Unauthorized
  *       500:
  *         description: Server errors
  */
