@@ -10,6 +10,12 @@
  * /api/driver:
  *   get:
  *     summary: Get all driver
+ *     parameters:
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *        description: This is pagination query
  *     tags: [Driver]
  *     responses:
  *       200:

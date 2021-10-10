@@ -107,6 +107,12 @@
  *   get:
  *     summary: Returns the list of all the stores
  *     tags: [Store]
+ *     parameters:
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *        description: This is pagination query
  *     responses:
  *       200:
  *         description: Success

@@ -30,6 +30,12 @@
  * /api/category:
  *   get:
  *     summary: Returns the list of all the categories
+ *     parameters:
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *        description: This is pagination query
  *     tags: [Category]
  *     responses:
  *       200:
@@ -134,7 +140,7 @@
  *                          updatedAt :  2021-10-09T14:45:33.655Z
  *                       }
  *       400:
- *         description: Validate fields (not empty or extra parameters) only name field allowed
+ *         description: Validate fields (not empty or extra parameters)
  *       401:
  *         description: Unauthorized
  *       500:
