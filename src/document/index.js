@@ -13,7 +13,7 @@ const options = {
     },
     servers: [
       {
-        url: `http://localhost:${PORT}`,
+        url: process.env.HOST_URL,
       },
     ],
   },
