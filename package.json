@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/sever.js",
-    "start:prod": "node src/sever.js"
+    "start": "node src/sever.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
