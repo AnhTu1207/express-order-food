@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
+const cors = require("cors");
 require("dotenv").config();
 
 global.appRoot = path.resolve(__dirname);
@@ -8,18 +9,24 @@ global.appRoot = path.resolve(__dirname);
 const { sequelizeConfig } = require(appRoot + "/config");
 const { RequireAuth } = require(appRoot + "/middlewares");
 const { authRoutes, userRoutes, storeRoutes, micsRoutes } = require(appRoot + "/routes");
+const { specs, swaggerUI } = require(appRoot + "/document");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors({
+  origin: '*'
+}));
 app.use(morgan("tiny"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/mics", micsRoutes);
 app.use("/api/users", RequireAuth, userRoutes);
 app.use("/api/store", RequireAuth, storeRoutes);
+app.use("/document-api", swaggerUI.serve, swaggerUI.setup(specs));
+
 
 app.listen(PORT, () => {
   console.log("Sever is running at port: ", PORT);

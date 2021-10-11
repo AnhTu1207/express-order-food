@@ -9,7 +9,7 @@ class MicsController {
             case "store":
                 const updateStore = await StoreService.update({ is_verified: true }, data.id);
                 if (updateStore) {
-                    return res.status(200).json({ "status": 200, data: updateStore[1][0] });
+                    return res.status(200).json({ "status": 200, meesage: "Your account has been successfully verified" });
                 }
                 break;
             case "user":
