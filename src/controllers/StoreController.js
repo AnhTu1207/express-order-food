@@ -49,22 +49,22 @@ class StoreController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ status: 400, message: errors });
     }
-    // try {
-    const newStore = await StoreService.store(req.body);
-    // Send email to validate
-    const token = jwt.sign({ ...newStore, 'role': 'store' }, "1h");
-    const url = "http://" + req.headers.host + "/api/mics/verify/" + token;
-    await mailer.sendMail(newStore.email, "You need to verify in order to use our services!!!", url);
+    try {
+      const newStore = await StoreService.store(req.body);
+      // Send email to validate
+      const token = jwt.sign({ ...newStore, 'role': 'store' }, "1h");
+      const url = "http://" + req.headers.host + "/api/mics/verify/" + token;
+      await mailer.sendMail(newStore.email, "You need to verify in order to use our services!!!", url);
 
-    return res.status(201).json(newStore);
-    // } catch (e) {
-    if (e.errors && e.errors.length) {
-      return res
-        .status(400)
-        .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      return res.status(201).json({ status: 201, data: newStore });
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
     }
-    res.status(500).send();
-    // }
   }
 
   async update(req, res) {
