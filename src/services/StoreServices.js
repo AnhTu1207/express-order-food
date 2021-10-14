@@ -34,6 +34,14 @@ class StoreService {
         }
     }
 
+    async updatePassword(updateStore, id) {
+        try {
+            return await StoreRepository.updatePassword(updateStore, id);
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async delete(id) {
         try {
             return await StoreRepository.delete(id);

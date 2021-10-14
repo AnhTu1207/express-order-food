@@ -30,20 +30,6 @@ class MicsController {
             res.status(500).send();
         }
     }
-
-    async resent(req, res) {
-        try {
-
-        } catch (e) {
-            if (e.errors && e.errors.length) {
-                return res.status(400).json({
-                    status: 400,
-                    message: map(e.errors, (e) => e.message),
-                });
-            }
-            res.status(500).send();
-        }
-    }
 }
 
 module.exports = new MicsController();

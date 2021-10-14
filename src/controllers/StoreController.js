@@ -53,7 +53,7 @@ class StoreController {
       const newStore = await StoreService.store(req.body);
       // Send email to validate
       const token = jwt.sign({ ...newStore, 'role': 'store' }, "1h");
-      const url = "http://" + req.headers.host + "/api/mics/verify/" + token;
+      const url = "http://" + req.headers.host + "/api/auth/verify/" + token;
       await mailer.sendMail(newStore.email, "You need to verify in order to use our services!!!", url);
 
       return res.status(201).json({ status: 201, data: newStore });
@@ -82,6 +82,36 @@ class StoreController {
         });
       } else {
         const data = await StoreService.update(req.body, id);
+        return res.status(200).json({ status: 200, data: data[1][0] });
+      }
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
+    }
+  }
+
+  async updatePassword(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: 400, message: errors });
+    }
+    try {
+      const id = req.params.id;
+      const foundStore = await StoreService.show(id);
+      if (foundStore === null) {
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid ID or record does not exist",
+        });
+      } else {
+        const data = await StoreService.updatePassword(req.body, id);
+        if (!data) {
+          return res.status(400).json({ status: 400, message: "Old password does not match" });
+        }
         return res.status(200).json({ status: 200, data: data[1][0] });
       }
     } catch (e) {

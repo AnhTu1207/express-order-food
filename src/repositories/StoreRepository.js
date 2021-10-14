@@ -45,10 +45,6 @@ class StoreRepository {
 
     async update(updateStore, id) {
         try {
-            const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
-            if (updateStore.password) {
-                updateStore.password = bcrypt.hashSync(updateStore.password, salt);
-            }
             const res = await Stores.update({
                 ...updateStore
             }, {
@@ -57,6 +53,34 @@ class StoreRepository {
             })
             return res;
         } catch (e) {
+            throw e
+        }
+    }
+
+    async updatePassword(updateStore, id) {
+        try {
+            const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
+            const foundStore = await Stores.findOne({
+                where: { id }
+            })
+
+            const matchPassword = await bcrypt.compare(
+                updateStore.oldpassword,
+                foundStore.dataValues.password
+            );
+            if (!matchPassword) {
+                return null;
+            }
+            updateStore.password = bcrypt.hashSync(updateStore.password, salt);
+            const res = await Stores.update({
+                password: updateStore.password
+            }, {
+                where: { id },
+                returning: true
+            })
+            return res;
+        }
+        catch (e) {
             throw e
         }
     }
