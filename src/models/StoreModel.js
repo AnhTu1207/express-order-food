@@ -43,6 +43,11 @@ const Stores = sequelizeConfig.define("stores", {
     allowNull: false,
     defaultValue: false,
   },
+  is_open: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   open: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
