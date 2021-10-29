@@ -72,7 +72,7 @@
  *         email: binh@gmail.com
  *         password: binh123
  *         name: Tran Hai Binh
- *         phone: 0998754469
+ *         phone: "0998754469"
  *         address: Tiem Gao So 1 Binh Tan
  */
 
