@@ -55,6 +55,15 @@
  *         password:
  *           type: string
  *           description: Password
+ *         name:
+ *           type: string
+ *           description: User's real name
+ *         phone:
+ *           type: string
+ *           description: User's phone number
+ *         address:
+ *           type: string
+ *           description: User's address
  *         fb_id:
  *           type: string
  *           description: Facebook ID of user (Login with facebook)
@@ -62,6 +71,9 @@
  *         username: binh
  *         email: binh@gmail.com
  *         password: binh123
+ *         name: Tran Hai Binh
+ *         phone: 0998754469
+ *         address: Tiem Gao So 1 Binh Tan
  */
 
 /**
