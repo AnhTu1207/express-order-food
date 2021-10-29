@@ -16,6 +16,20 @@ const options = {
         url: process.env.HOST_URL,
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "apiKey",
+          name: "authorization",
+          in: "header",
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   apis: ["./src/document/*.js"],
 };
