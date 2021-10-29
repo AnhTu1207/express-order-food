@@ -6,29 +6,33 @@ const Orders = require("./OrderModel");
 
 const OrdersItems = sequelizeConfig.define(
   "orders_item", {
-    order_id: {
-      type: Sequelize.STRING,
-      references: {
-        model: Orders,
-        key: "id",
-      },
-      allowNull: false,
+  order_id: {
+    type: Sequelize.STRING,
+    references: {
+      model: Orders,
+      key: "id",
     },
-    food_id: {
-      type: Sequelize.STRING,
-      references: {
-        model: Foods,
-        key: "id",
-      },
-      allowNull: false,
+    allowNull: false,
+  },
+  food_id: {
+    type: Sequelize.STRING,
+    references: {
+      model: Foods,
+      key: "id",
     },
-    qty: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-  }, {
-    freezeTableName: true
-  }
+    allowNull: false,
+  },
+  qty: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  options: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+}, {
+  freezeTableName: true
+}
 );
 OrdersItems.removeAttribute("id");
 
