@@ -21,18 +21,10 @@ const Orders = sequelizeConfig.define("orders", {
   },
   driver_id: {
     type: Sequelize.STRING,
-    references: {
-      model: Drivers,
-      key: "id",
-    },
     allowNull: false,
   },
   user_id: {
     type: Sequelize.STRING,
-    references: {
-      model: Users,
-      key: "id",
-    },
     allowNull: false,
   },
   total: {

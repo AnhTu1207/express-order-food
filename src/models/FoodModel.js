@@ -18,30 +18,27 @@ const Foods = sequelizeConfig.define("foods", {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  qty: {
+  price: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  detail: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
   store_id: {
     type: Sequelize.STRING,
-    references: {
-      model: Stores,
-      key: "id",
-    },
     allowNull: false,
   },
   category_id: {
     type: Sequelize.STRING,
-    references: {
-      model: Categories,
-      key: "id",
-    },
     allowNull: false,
   },
 });
 
 Categories.hasMany(Foods, {
-  foreignKey: "category_id"
+  foreignKey: "category_id",
+  onDelete: 'restrict',
 });
 Foods.belongsTo(Categories, {
   foreignKey: "category_id"
