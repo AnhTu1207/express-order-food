@@ -13,10 +13,6 @@ const Orders = sequelizeConfig.define("orders", {
   },
   store_id: {
     type: Sequelize.STRING,
-    references: {
-      model: Stores,
-      key: "id",
-    },
     allowNull: false,
   },
   driver_id: {
