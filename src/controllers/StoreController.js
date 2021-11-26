@@ -137,7 +137,7 @@ class StoreController {
         await StoreService.delete(id);
         // Removing image
         if (deleteStore.avatar) {
-          await utility.removeImage(utility.getPath(deleteStore.avatar));
+          await utility.removeImage(deleteStore.avatar);
         }
         return res.status(200).json({ status: 200, data: deleteStore });
       }
@@ -184,7 +184,7 @@ class StoreController {
           message: "Invalid ID or record does not exist",
         });
       }
-      const currUpload = utility.uploadImage("stores");
+      const currUpload = utility.uploadImage();
       currUpload(req, res, async function (err) {
         if (err) {
           return res.status(400).json({ status: 400, message: err.message });
@@ -194,13 +194,9 @@ class StoreController {
             .status(400)
             .json({ status: 400, message: "No image received" });
         }
-        const url =
-          "http://" +
-          req.headers.host +
-          utility.getUrl(req.file.destination, req.file.filename);
-        const result = await StoreService.updateImage(url, id);
+        const result = await StoreService.updateImage(req.file.location, id);
         if (result) {
-          return res.status(201).json({ status: 201, data: url });
+          return res.status(201).json({ status: 201, data: req.file.location });
         }
         res
           .status(400)
@@ -226,7 +222,11 @@ class StoreController {
           message: "Invalid ID or record does not exist",
         });
       }
-      const currUpload = utility.uploadImage("stores");
+      // Check if avatar is null or not
+      if (!foundStore.avatar) {
+        return res.status(200).json({ status: 400, message: "Please upload avatar before editing" })
+      }
+      const currUpload = utility.uploadImage();
       currUpload(req, res, async function (err) {
         if (err) {
           return res.status(400).json({ status: 400, message: err.message });
@@ -236,15 +236,11 @@ class StoreController {
             .status(400)
             .json({ status: 400, message: "No image received" });
         }
-        // Removing old image before editing
-        await utility.removeImage(utility.getPath(foundStore.avatar));
-        const url =
-          "http://" +
-          req.headers.host +
-          utility.getUrl(req.file.destination, req.file.filename);
-        const result = await StoreService.updateImage(url, id);
+        // Removing old image on Bucket
+        await utility.removeImage(foundStore.avatar);
+        const result = await StoreService.updateImage(req.file.location, id);
         if (result) {
-          return res.status(201).json({ status: 201, data: url });
+          return res.status(201).json({ status: 201, data: req.file.location });
         }
         res
           .status(400)
