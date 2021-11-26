@@ -30,6 +30,7 @@ const Orders = sequelizeConfig.define("orders", {
   rating: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    defaultValue: '0',
   },
   status: {
     type: Sequelize.ENUM,
