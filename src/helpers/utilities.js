@@ -30,7 +30,7 @@ const uploadImage = () => {
         callback(undefined, true)
     }
 
-    const upload = multer({ //multer settings
+    const upload = multer({ //multer s3 settings
         storage: multerS3Config,
         fileFilter: fileFilter,
     }).single("avatar");

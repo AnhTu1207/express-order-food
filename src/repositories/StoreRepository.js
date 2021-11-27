@@ -129,7 +129,7 @@ class StoreRepository {
             if (!matchPassword) {
                 return null;
             }
-
+            foundStore.dataValues.role = "store";
             delete foundStore.dataValues.password;
             return {
                 ...foundStore.dataValues,

@@ -23,7 +23,7 @@ app.use(morgan("tiny"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", RequireAuth, userRoutes);
-app.use("/api/store", RequireAuth, storeRoutes);
+app.use("/api/store", storeRoutes);
 app.use("/document-api", swaggerUI.serve, swaggerUI.setup(specs));
 
 
