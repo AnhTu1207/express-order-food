@@ -163,7 +163,7 @@ class FoodController {
       if (foundFood === null) {
         return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
       }
-      const currUpload = utility.uploadImage('foods');
+      const currUpload = utility.uploadImage();
       currUpload(req, res, async function (err) {
         if (err) {
           return res.status(400).json({ status: 400, message: err.message });
@@ -171,10 +171,9 @@ class FoodController {
         if (!req.file) {
           return res.status(400).json({ status: 400, message: "No image received" });
         }
-        const url = "http://" + req.headers.host + utility.getUrl(req.file.destination, req.file.filename)
-        const result = await FoodService.updateImage(url, id)
+        const result = await FoodService.updateImage(req.file.location, id)
         if (result) {
-          return res.status(201).json({ status: 201, data: url });
+          return res.status(201).json({ status: 201, data: req.file.location });
         }
         res.status(400).json({ status: 400, message: "Error during uploading" })
       });

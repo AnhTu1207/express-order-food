@@ -1,20 +1,24 @@
 const multer = require("multer");
-const fs = require("fs")
+const multerS3 = require("multer-s3");
+const aws = require('aws-sdk')
 const { v4: uuidv4 } = require("uuid");
 
-const uploadImage = (destination) => {
-    const storage = multer.diskStorage({ //multers disk storage settings
-        destination: function (req, file, callback) {
-            const path = appRoot + "/upload/" + destination + "/";
-            if (!fs.existsSync(path)) {
-                fs.mkdirSync(path, { recursive: true })
-            }
-            return callback(null, path);
+const s3Config = new aws.S3({
+    accessKeyId: process.env.AWS_USER_KEY,
+    secretAccessKey: process.env.AWS_USER_SECRET,
+});
+
+const uploadImage = () => {
+    // S3 config
+    const multerS3Config = multerS3({
+        s3: s3Config,
+        bucket: process.env.AWS_BUCKET_NAME,
+        acl: 'public-read',
+        metadata: function (req, file, cb) {
+            cb(null, { fieldName: file.fieldname });
         },
-        filename: function (req, file, callback) {
-            if (file) {
-                return callback(null, uuidv4() + "_" + file.originalname);
-            }
+        key: function (req, file, cb) {
+            cb(null, uuidv4() + '_' + file.originalname)
         }
     });
 
@@ -26,28 +30,25 @@ const uploadImage = (destination) => {
         callback(undefined, true)
     }
 
-    const upload = multer({ //multer settings
-        storage: storage,
+    const upload = multer({ //multer s3 settings
+        storage: multerS3Config,
         fileFilter: fileFilter,
     }).single("avatar");
 
     return upload;
 }
 
-const removeImage = (path) => {
-    fs.unlink(path, (err) => {
+const removeImage = (file_location) => {
+    const file_name = file_location.substring(file_location.lastIndexOf("/") + 1);
+    const params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: file_name
+    }
+    s3Config.deleteObject(params, (err, data) => {
         if (err) {
-            throw err
-        };
+            console.log(err);
+        }
     })
 }
 
-const getUrl = (path, filename) => {
-    return "/" + path.substring(path.indexOf("/upload") + 1) + filename;
-}
-
-const getPath = (url) => {
-    return appRoot + "/" + url.substring(url.indexOf("/upload") + 1);
-}
-
-module.exports = { uploadImage, getUrl, getPath, removeImage }
+module.exports = { uploadImage, removeImage }
