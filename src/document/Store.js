@@ -12,17 +12,12 @@
  *      UpdateStorePassword:
  *          type: object
  *          required:
- *              - oldpassword
  *              - password
  *          properties:
- *              oldpassword:
- *                  type: string
- *                  description: Old password of the store
  *              password:
  *                  type: string
  *                  description: New password for the store
  *          example:
- *              oldpassword: 123456
  *              password : 123456789abc!@#
  *      UpdateStore:
  *          type: object
@@ -281,7 +276,9 @@
  *        content:
  *          application/json:
  *              schema:
- *                      $ref: '#/components/schemas/UpdateStore'
+ *                  oneOf:
+ *                      - $ref: '#/components/schemas/UpdateStore'
+ *                      - $ref: '#/components/schemas/UpdateStorePassword'
  *     responses:
  *       200:
  *         description: Success
@@ -301,64 +298,12 @@
  *                          email  :   sdfsdfsd@gmail.com ,
  *                          avatar  : null,
  *                          is_verified  : false,
- *                          password: $2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy,
  *                          open  : false,
  *                          createdAt  :   2021-10-08T13:25:36.339Z ,
  *                          updatedAt  :   2021-10-08T13:29:28.907Z
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters) || "name" or "email" must be unique || Store was not found
- *       401:
- *         description: Unauthorized
- *       500:
- *         description: Server errors
- */
-
-/**
- * @swagger
- * /api/store/update-password/{id}:
- *   put:
- *     summary: Update store password
- *     tags: [Store]
- *     parameters:
- *      - in: path
- *        name: id
- *        schema:
- *          type: string
- *        required: true
- *        description: The store id
- *     requestBody:
- *        required: true
- *        content:
- *          application/json:
- *              schema:
- *                      $ref: '#/components/schemas/UpdateStorePassword'
- *     responses:
- *       200:
- *         description: Success
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               example:
- *                 status: 200
- *                 data:
- *                       {
- *                          id  :   4bdb9aee-5984-4172-8d16-57105d58655b,
- *                          name  :   Cửa hàng 4,
- *                          address  :   123 Nguyễn Thị Minh Khai,
- *                          latitude  : 2000000,
- *                          longitude  : 3400000,
- *                          email  :   sdfsdfsd@gmail.com,
- *                          password: $2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy,
- *                          avatar  : null,
- *                          is_verified  : false,
- *                          open  : false,
- *                          createdAt  :   2021-10-08T13:25:36.339Z ,
- *                          updatedAt  :   2021-10-08T13:29:28.907Z
- *                       }
- *       400:
- *         description: Validate fields (not empty or extra parameters) || Old password does not match || Store was not found
  *       401:
  *         description: Unauthorized
  *       500:

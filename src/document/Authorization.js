@@ -2,7 +2,7 @@
  * @swagger
  * components:
  *   schemas:
- *     LoginUsername:
+ *     Login:
  *       type: object
  *       required:
  *         - username
@@ -17,22 +17,6 @@
  *       example:
  *         username: binh
  *         password: binh123
- *     LoginEmail:
- *       type: object
- *       required:
- *         - email
- *         - password
- *       properties:
- *         email:
- *           type: string
- *           description: The email of user
- *         password:
- *           type: string
- *           description: The password of user
- *       example:
- *         email: binh1234@gmail.com
- *         password: binh123
- *
  */
 
 /**
@@ -55,25 +39,10 @@
  *         password:
  *           type: string
  *           description: Password
- *         name:
- *           type: string
- *           description: User's real name
- *         phone:
- *           type: string
- *           description: User's phone number
- *         address:
- *           type: string
- *           description: User's address
- *         fb_id:
- *           type: string
- *           description: Facebook ID of user (Login with facebook)
  *       example:
  *         username: binh
  *         email: binh@gmail.com
  *         password: binh123
- *         name: Tran Hai Binh
- *         phone: "0998754469"
- *         address: Tiem Gao So 1 Binh Tan
  */
 
 /**
@@ -89,14 +58,6 @@
  *   post:
  *     summary: User login
  *     tags: [Authorization]
- *     requestBody:
- *       required: true
- *       content:
- *          application/json:
- *              schema:
- *                oneOf:
- *                 - $ref: '#/components/schemas/LoginUsername'
- *                 - $ref: '#/components/schemas/LoginEmail'
  *     responses:
  *       200:
  *         description: Login successfully
@@ -114,10 +75,8 @@
  *                   updatedAt: 2021-10-05T13:45:26.545Z
  *                   createdAt: 2021-10-05T13:45:26.545Z
  *                   accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiMmZiMDk1N2YtMmVkYS00NDMyLWJlZDktMmY1ZGQ3OTQyNzc2IiwidXNlcm5hbWUiOiJiaW5oMiIsImVtYWlsIjoiYmluaDJAZ21haWwuY29tIiwiYXZhdGFyIjoiIiwiZmJfaWQiOm51bGwsImNyZWF0ZWRBdCI6IjIwMjEtMTAtMDVUMTM6NDU6MjYuNTQ1WiIsInVwZGF0ZWRBdCI6IjIwMjEtMTAtMDVUMTM6NDU6MjYuNTQ1WiJ9LCJpYXQiOjE2MzM0NDE4MTIsImV4cCI6MTYzMzUyODIxMn0.drMo0m54ZGTgZl7fxsmz0QwNMrGrMQBfOArrlJeMuKc
- *       400:
- *         description: The user not found || Invalid username or email or password
- *       500:
- *         description: Server errors
+ *       404:
+ *         description: The user not found
  */
 
 /**
@@ -126,12 +85,6 @@
  *   post:
  *     summary: User register
  *     tags: [Authorization]
- *     requestBody:
- *       required: true
- *       content:
- *          application/json:
- *              schema:
- *                 $ref: '#/components/schemas/Register'
  *     responses:
  *       200:
  *         description: Success
@@ -147,8 +100,6 @@
  *                 updatedAt: 2021-10-05T13:45:26.545Z
  *                 createdAt: 2021-10-05T13:45:26.545Z
  *                 fb_id: null
- *       400:
- *         description: Username || Email must be unique
- *       500:
- *         description: Server errors
+ *       404:
+ *         description: Username must be unique
  */
