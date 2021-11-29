@@ -4,7 +4,6 @@ const { UserService } = require(appRoot + "/services");
 const { map } = require("lodash");
 
 class UserController {
-
   async index(req, res) {
     try {
       const data = await UserService.index(req.query);
@@ -61,9 +60,13 @@ class UserController {
   }
 
   async update() { }
+<<<<<<< HEAD
 
   async delete() { }
+=======
+>>>>>>> master
 
+  async delete() { }
 }
 
 module.exports = new UserController();
