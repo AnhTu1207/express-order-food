@@ -8,6 +8,7 @@ const OptionsLabels = require("./OptionLabelModel")
 const Coupons = require("./CouponModel");
 const Orders = require("./OrderModel");
 const OrdersItems = require("./OrderItemModel");
+const OrdersItemsOptions = require("./OrderItemOptionModel");
 
 module.exports = {
   Users,
@@ -20,4 +21,5 @@ module.exports = {
   Coupons,
   Orders,
   OrdersItems,
+  OrdersItemsOptions,
 };

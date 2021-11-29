@@ -6,35 +6,27 @@ const Orders = require("./OrderModel");
 
 const OrdersItems = sequelizeConfig.define(
   "orders_item", {
+  id: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    primaryKey: true,
+  },
   order_id: {
     type: Sequelize.STRING,
-    references: {
-      model: Orders,
-      key: "id",
-    },
     allowNull: false,
   },
   food_id: {
     type: Sequelize.STRING,
-    references: {
-      model: Foods,
-      key: "id",
-    },
     allowNull: false,
   },
   qty: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  options: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
 }, {
   freezeTableName: true
 }
 );
-OrdersItems.removeAttribute("id");
 
 Orders.hasMany(OrdersItems, {
   foreignKey: "order_id"

@@ -5,10 +5,11 @@ const cors = require("cors");
 require("dotenv").config();
 
 global.appRoot = path.resolve(__dirname);
+
 const { sequelizeConfig } = require(appRoot + "/config");
 const { RequireAuth } = require(appRoot + "/middlewares");
+const { authRoutes, userRoutes, storeRoutes } = require(appRoot + "/routes");
 const { specs, swaggerUI } = require(appRoot + "/document");
-const { authRoutes, userRoutes } = require(appRoot + "/routes");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -22,6 +23,7 @@ app.use(morgan("tiny"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", RequireAuth, userRoutes);
+app.use("/api/store", storeRoutes);
 app.use("/document-api", swaggerUI.serve, swaggerUI.setup(specs));
 
 
