@@ -8,7 +8,7 @@ module.exports = [
     check("email").not().isEmpty().escape().trim(),
     check("open").not().isEmpty().escape().trim(),
     body().custom(body => {
-        const keys = ['name', 'address', 'latitude', 'longitude', 'open', 'email'];
+        const keys = ['name', 'address', 'latitude', 'longitude', 'open', 'email', "open_time", "close_time"];
         return Object.keys(body).every(key => keys.includes(key));
     }).withMessage('Some extra parameters are sent')
 ];
