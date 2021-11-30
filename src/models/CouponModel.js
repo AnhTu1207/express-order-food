@@ -18,12 +18,12 @@ const Coupons = sequelizeConfig.define("coupons", {
         allowNull: false,
     },
     discount: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
     expiry_day: {
         type: Sequelize.DATE,
-        allowNull: true,
+        allowNull: false,
     },
     store_id: {
         type: Sequelize.STRING,
