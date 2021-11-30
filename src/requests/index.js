@@ -1,5 +1,7 @@
 const AddUserRequest = require("./AddUserRequest");
 const LoginRequest = require("./LoginRequest");
+const AddCategoryRequest = require("./AddCategoryRequest");
+const UpdateCategoryRequest = require("./UpdateCategoryRequest");
 const AddFoodRequest = require("./AddFoodRequest");
 const UpdateFoodRequest = require("./UpdateFoodRequest");
 const AddOptionLabelRequest = require("./AddOptionLabelRequest");
@@ -14,6 +16,8 @@ const UpdateStorePasswordRequest = require("./UpdateStorePasswordRequest");
 module.exports = {
   AddUserRequest,
   LoginRequest,
+  AddCategoryRequest,
+  UpdateCategoryRequest,
   AddFoodRequest,
   UpdateFoodRequest,
   AddOptionLabelRequest,
