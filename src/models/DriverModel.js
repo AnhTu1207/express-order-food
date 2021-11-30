@@ -35,6 +35,11 @@ const Drivers = sequelizeConfig.define("drivers", {
     allowNull: false,
     defaultValue: false,
   },
+  is_open: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   total_rating: {
     type: Sequelize.INTEGER,
     allowNull: false,
