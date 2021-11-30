@@ -1,4 +1,4 @@
-const { StoreService } = require(appRoot + "/services");
+const { StoreService, UserService } = require(appRoot + "/services");
 const { mailer, jwt } = require(appRoot + "/helpers");
 const { map } = require("lodash");
 class MicsController {
@@ -14,6 +14,10 @@ class MicsController {
                     }
                     break;
                 case "user":
+                    const updateUser = await UserService.update({ is_verified: true }, data.id);
+                    if (updateUser) {
+                        return res.status(200).json({ "status": 200, meesage: "Your account has been successfully verified" });
+                    }
                     break;
                 case "driver":
                     break;
