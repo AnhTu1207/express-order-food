@@ -14,6 +14,7 @@ module.exports = async (req, res, next) => {
                 if (!foundStore) {
                     return res.status(401).send();
                 } else {
+                    res.locals.isStore = true;
                     next();
                 }
                 break;
