@@ -146,8 +146,6 @@
  *             schema:
  *               type: object
  *               example:
- *                 status: 201
- *                 data:
  *                       {
  *                       id: 9300e303-bc2e-4cab-8c68-96a88b5954d1,
  *                       food_id: eecacf72-2c56-4486-b96d-94855ccb57b0,

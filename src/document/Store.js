@@ -68,7 +68,6 @@
  *            - latitude
  *            - longitude
  *            - address
- *            - open
  *          properties:
  *              id:
  *                  type: string
@@ -85,9 +84,6 @@
  *              address:
  *                  type: string
  *                  description: Address of the store
- *              open:
- *                  type: boolean
- *                  description: Status of the store (true or false)
  *              latitude:
  *                  type: integer
  *                  description: Latitude value of the store (can be negative number)
@@ -100,8 +96,7 @@
  *              password: "123456abc!@#"
  *              latitude  : 2323232
  *              longitude  : 23123
- *              email  :   fgfgfgfgfg@gmail.com
- *              open  : true
+ *              email  :   dinhanhtu1207@gmail.com
  *
  */
 
@@ -240,14 +235,12 @@
  *             schema:
  *               type: object
  *               example:
- *                 status: 201
- *                 data:
  *                       {
  *                          id  :   4bdb9aee-5984-4172-8d16-57105d58655b,
  *                          name  :   Tạp hóa 4,
  *                          address  :   150 Nguyen Thuong Hien,
- *                          latitude  : 2323232,
- *                          longitude  : 23123,
+ *                          latitude  : 23.23232,
+ *                          longitude  : 231.2333,
  *                          email  :   fgfgfgfgfg@gmail.com ,
  *                          avatar  : null,
  *                          is_verified  : false,
@@ -257,6 +250,86 @@
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters) And "name" or "email" must be unique
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/store/uploadImage/{id}:
+ *   post:
+ *     summary: Upload avatar for food
+ *     tags: [Store]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The store id
+ *     requestBody:
+ *      content:
+ *       multipart/form-data:
+ *        schema:
+ *         type: object
+ *         properties:
+ *          avatar:
+ *           type: string
+ *           format: binary
+ *     responses:
+ *       201:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                 status: 201
+ *                 data: https://guru-food-app.s3.amazonaws.com/9692061f-2f94-46a3-9be8-d00a605f74ff_41866333_2133346073572546_7887818932160036864_n.jpg
+ *       400:
+ *         description: Invalid image || No image received || Invalid ID
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/store/editImage/{id}:
+ *   post:
+ *     summary: Edit avatar for food
+ *     tags: [Store]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The food id
+ *     requestBody:
+ *      content:
+ *       multipart/form-data:
+ *        schema:
+ *         type: object
+ *         properties:
+ *          avatar:
+ *           type: string
+ *           format: binary
+ *     responses:
+ *       201:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                 status: 201
+ *                 data: https://guru-food-app.s3.amazonaws.com/9692061f-2f94-46a3-9be8-d00a605f74ff_41866333_2133346073572546_7887818932160036864_n.jpg
+ *       400:
+ *         description: Invalid image || No image received || Invalid ID
  *       401:
  *         description: Unauthorized
  *       500:

@@ -131,8 +131,6 @@
  *             schema:
  *               type: object
  *               example:
- *                 status: 201
- *                 data:
  *                       {
  *                          id :  6dc490a2-5ff3-431c-ae7f-428e5ee4aee0,
  *                          name :  Trà sữa,

@@ -14,6 +14,7 @@ const LoginStoreRequest = require("./LoginStoreRequest");
 const UpdateStoreRequest = require("./UpdateStoreRequest");
 const UpdatePasswordRequest = require("./UpdatePasswordRequest");
 const AddCouponRequest = require("./AddCouponRequest");
+const AddCouponRequest_Admin = require("./AddCouponRequest_Admin")
 const UpdateCouponRequest = require("./UpdateCouponRequest");
 
 module.exports = {
@@ -33,5 +34,6 @@ module.exports = {
   UpdateStoreRequest,
   UpdatePasswordRequest,
   AddCouponRequest,
+  AddCouponRequest_Admin,
   UpdateCouponRequest
 };
