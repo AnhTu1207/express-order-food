@@ -15,6 +15,7 @@
  *            - name
  *            - price
  *            - category_id
+ *            - status
  *          properties:
  *              id:
  *                  type: string
@@ -31,11 +32,15 @@
  *              category_id:
  *                  type: string
  *                  description: The category id
+*              status:
+ *                  type: boolean
+ *                  description: The food status
  *          example:
  *              name : Trà sữa Hồng Kông
  *              price  : 45000
  *              detail  : Trà sữa ngon bổ rẻ
  *              category_id : d2696592-b096-42ef-9a00-42adc4905ce1
+ *              status: true
  *      Food:
  *          type: object
  *          required:
@@ -43,6 +48,7 @@
  *            - price
  *            - store_id
  *            - category_id
+ *            - status
  *          properties:
  *              id:
  *                  type: string
@@ -62,12 +68,16 @@
  *              category_id:
  *                  type: string
  *                  description: The category id
+ *              status:
+ *                  type: boolean
+ *                  description: The food status
  *          example:
  *              name : Trà sữa Hồng Kông
  *              price  : 45000
  *              detail  :
  *              store_id  :   42009094-7b69-4657-90c5-202a3e497f31
  *              category_id : d2696592-b096-42ef-9a00-42adc4905ce1
+ *              status: true
  *
  */
 
@@ -83,6 +93,11 @@
  *        schema:
  *          type: integer
  *        description: This is pagination query
+ *      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *        description: This is limit query
  *     responses:
  *       200:
  *         description: Success
@@ -168,6 +183,11 @@
  *        schema:
  *          type: integer
  *        description: This is pagination query
+*      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *        description: This is limit query
  *      - in: path
  *        name: id
  *        schema:
@@ -241,6 +261,11 @@
  *        schema:
  *          type: integer
  *        description: This is pagination query
+*      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *        description: This is limit query
  *      - in: path
  *        name: id
  *        schema:
@@ -399,6 +424,11 @@
  *        schema:
  *          type: integer
  *        description: This is pagination query
+ *      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *        description: This is limit query
  *      - in: query
  *        name: search
  *        schema:
@@ -572,6 +602,7 @@
  *                          detail : null,
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
  *                          category_id :  d2696592-b096-42ef-9a00-42adc4905ce1,
+ *                          status: true,
  *                          createdAt :  2021-10-10T11:26:46.226Z,
  *                          updatedAt :  2021-10-10T11:26:46.226Z,
  *                       }
@@ -693,15 +724,16 @@
  *                 status: 200
  *                 data:
  *                       {
- *                          id :  f0e29c5a-b9a5-409b-89c3-122d42856e86,
- *                          name :  Món ăn edited,
+ *                          id :  eecacf72-2c56-4486-b96d-94855ccb57b0,
+ *                          name :  Món ăn 4,
  *                          avatar : null,
  *                          price : 70000,
- *                          detail : "This food is very delicious",
+ *                          detail : null,
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
- *                          category_id :  42009094-7b69-4657-90c5-202a3e497f31,
- *                          createdAt :  2021-10-10T10:46:14.020Z,
- *                          updatedAt :  2021-10-10T11:35:13.221Z,
+ *                          category_id :  d2696592-b096-42ef-9a00-42adc4905ce1,
+ *                          status: true,
+ *                          createdAt :  2021-10-10T11:26:46.226Z,
+ *                          updatedAt :  2021-10-10T11:26:46.226Z,
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters) ||  Food was not found || category_id is invalid

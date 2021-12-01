@@ -1,5 +1,5 @@
-module.exports = async (model, currentPage, options) => {
-  const size = 50;
+module.exports = async (model, currentPage, limit, options) => {
+  const size = parseInt(limit) || 50;
   const data = await model.findAndCountAll({
     limit: size,
     offset: size * (currentPage - 1),
@@ -9,7 +9,7 @@ module.exports = async (model, currentPage, options) => {
   return {
     size,
     currentPage,
-    total: data.count,
+    total: size || data.count,
     data: data.rows,
   };
 };

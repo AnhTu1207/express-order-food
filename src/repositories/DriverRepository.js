@@ -6,7 +6,7 @@ const { pagination, jwt } = require(appRoot + "/helpers");
 class DriverRepository {
   async index(q) {
     try {
-      return await pagination(Drivers, +q.page || 1, {
+      return await pagination(Drivers, +q.page || 1, q.limit, {
         attributes: { exclude: ["password"] },
       });
     } catch {

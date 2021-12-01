@@ -18,6 +18,10 @@ const Foods = sequelizeConfig.define("foods", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  avatar_placeholder: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   price: {
     type: Sequelize.INTEGER,
     allowNull: false,

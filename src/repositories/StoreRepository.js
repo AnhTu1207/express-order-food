@@ -7,7 +7,7 @@ const { jwt, pagination } = require(appRoot + "/helpers");
 class StoreRepository {
     async index(q) {
         try {
-            return await pagination(Stores, +q.page || 1, {
+            return await pagination(Stores, +q.page || 1, q.limit, {
                 attributes: { exclude: ["password"] },
             });
         }
@@ -32,7 +32,7 @@ class StoreRepository {
         try {
             const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
             newStore.password = bcrypt.hashSync(newStore.password, salt);
-            const res = await Stores.create({ ...newStore, id: uuidv4() });
+            const res = await Stores.create({ ...newStore, id: uuidv4(), avatar_placeholder: "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png" });
             delete res.dataValues.password;
             return {
                 ...res.dataValues,
