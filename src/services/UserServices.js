@@ -24,6 +24,46 @@ class UserService {
       throw e;
     }
   }
+
+  async show(id) {
+    try {
+      return await UserRepository.show(id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async update(updateUser, id) {
+    try {
+      return await UserRepository.update(updateUser, id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async updatePassword(updateUser, id) {
+    try {
+      return await UserRepository.updatePassword(updateUser, id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async delete(id) {
+    try {
+      return await UserRepository.delete(id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async updateImage(filename, id) {
+    try {
+      return await UserRepository.updateImage(filename, id);
+    } catch (e) {
+      throw e;
+    }
+  }
 }
 
 module.exports = new UserService();

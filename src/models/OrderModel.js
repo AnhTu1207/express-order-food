@@ -13,26 +13,14 @@ const Orders = sequelizeConfig.define("orders", {
   },
   store_id: {
     type: Sequelize.STRING,
-    references: {
-      model: Stores,
-      key: "id",
-    },
     allowNull: false,
   },
   driver_id: {
     type: Sequelize.STRING,
-    references: {
-      model: Drivers,
-      key: "id",
-    },
     allowNull: false,
   },
   user_id: {
     type: Sequelize.STRING,
-    references: {
-      model: Users,
-      key: "id",
-    },
     allowNull: false,
   },
   total: {
@@ -42,6 +30,7 @@ const Orders = sequelizeConfig.define("orders", {
   rating: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    defaultValue: '0',
   },
   status: {
     type: Sequelize.ENUM,

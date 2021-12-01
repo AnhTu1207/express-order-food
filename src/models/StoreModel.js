@@ -18,11 +18,11 @@ const Stores = sequelizeConfig.define("stores", {
     allowNull: false,
   },
   latitude: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL(8, 6),
     allowNull: false,
   },
   longitude: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL(9, 6),
     allowNull: false,
   },
   email: {
@@ -38,9 +38,28 @@ const Stores = sequelizeConfig.define("stores", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  open_time: {
+    type: Sequelize.TIME,
+    allowNull: true,
+  },
+  close_time: {
+    type: Sequelize.TIME,
+    allowNull: true,
+  },
+  is_verified: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  is_open: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   open: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
+    defaultValue: false,
   },
 });
 
