@@ -260,7 +260,7 @@
  * @swagger
  * /api/store/uploadImage/{id}:
  *   post:
- *     summary: Upload avatar for store
+ *     summary: Upload avatar for store (Required Store Auth)
  *     tags: [Store]
  *     parameters:
  *      - in: path
@@ -300,7 +300,7 @@
  * @swagger
  * /api/store/editImage/{id}:
  *   post:
- *     summary: Edit avatar for store
+ *     summary: Edit avatar for store (Required Store Auth)
  *     tags: [Store]
  *     parameters:
  *      - in: path
@@ -340,7 +340,7 @@
  * @swagger
  * /api/store/{id}:
  *   put:
- *     summary: Update store information
+ *     summary: Update store information (Required Store Auth)
  *     tags: [Store]
  *     parameters:
  *      - in: path
@@ -391,7 +391,7 @@
  * @swagger
  * /api/store/update-password/{id}:
  *   put:
- *     summary: Update store password
+ *     summary: Update store password (Required Store Auth)
  *     tags: [Store]
  *     parameters:
  *      - in: path
@@ -442,7 +442,7 @@
  * @swagger
  * /api/store/{id}:
  *   delete:
- *     summary: Remove the store
+ *     summary: Remove the store (Required Store Auth || Admin Auth)
  *     tags: [Store]
  *     parameters:
  *      - in: path

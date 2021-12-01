@@ -115,7 +115,7 @@
  * @swagger
  * /api/category/:
  *   post:
- *     summary: Add new category
+ *     summary: Add new category (Required Admin Auth)
  *     tags: [Category]
  *     requestBody:
  *       required: true
@@ -149,7 +149,7 @@
  * @swagger
  * /api/category/{id}:
  *   put:
- *     summary: Update category information
+ *     summary: Update category information (Required Admin Auth)
  *     tags: [Category]
  *     parameters:
  *      - in: path
@@ -192,7 +192,7 @@
  * @swagger
  * /api/category/{id}:
  *   delete:
- *     summary: Remove the category
+ *     summary: Remove the category (Required Admin Auth)
  *     tags: [Category]
  *     parameters:
  *      - in: path

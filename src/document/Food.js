@@ -548,7 +548,7 @@
  * @swagger
  * /api/food/:
  *   post:
- *     summary: Add new food
+ *     summary: Add new food (Required Store Auth)
  *     tags: [Food]
  *     requestBody:
  *       required: true
@@ -587,7 +587,7 @@
  * @swagger
  * /api/food/uploadImage/{id}:
  *   post:
- *     summary: Upload avatar for food
+ *     summary: Upload avatar for food (Required Store Auth)
  *     tags: [Food]
  *     parameters:
  *      - in: path
@@ -627,7 +627,7 @@
  * @swagger
  * /api/food/editImage/{id}:
  *   post:
- *     summary: Edit avatar for food
+ *     summary: Edit avatar for food (Required Store Auth)
  *     tags: [Food]
  *     parameters:
  *      - in: path
@@ -667,7 +667,7 @@
  * @swagger
  * /api/food/{id}:
  *   put:
- *     summary: Update food information
+ *     summary: Update food information (Required Store Auth)
  *     tags: [Food]
  *     parameters:
  *      - in: path
@@ -716,7 +716,7 @@
  * @swagger
  * /api/food/{id}:
  *   delete:
- *     summary: Remove the food
+ *     summary: Remove the food (Required Store Auth || Admin Auth)
  *     tags: [Food]
  *     parameters:
  *      - in: path

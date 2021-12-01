@@ -310,7 +310,7 @@
  * @swagger
  * /api/coupon/:
  *   post:
- *     summary: Add new coupon (Required Store Authentication)
+ *     summary: Add new coupon (Required Store Auth)
  *     tags: [Coupon]
  *     requestBody:
  *       required: true
@@ -347,7 +347,7 @@
  * @swagger
  * /api/coupon/addCoupon:
  *   post:
- *     summary: Add new coupon (Required Admin Authentication)
+ *     summary: Add new coupon (Required Admin Auth)
  *     tags: [Coupon]
  *     requestBody:
  *       required: true

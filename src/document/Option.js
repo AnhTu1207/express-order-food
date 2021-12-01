@@ -157,7 +157,7 @@
  * @swagger
  * /api/option/:
  *   post:
- *     summary: Add new option
+ *     summary: Add new option (Required Store Auth)
  *     tags: [Option]
  *     requestBody:
  *       required: true
@@ -194,7 +194,7 @@
  * @swagger
  * /api/option/{id}:
  *   put:
- *     summary: Update option information
+ *     summary: Update option information (Required Store Auth)
  *     tags: [Option]
  *     parameters:
  *      - in: path
@@ -240,7 +240,7 @@
  * @swagger
  * /api/option/{id}:
  *   delete:
- *     summary: Remove the option
+ *     summary: Remove the option (Required Store Auth)
  *     tags: [Option]
  *     parameters:
  *      - in: path

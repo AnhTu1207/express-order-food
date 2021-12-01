@@ -130,7 +130,7 @@
  * @swagger
  * /api/label/:
  *   post:
- *     summary: Add new label
+ *     summary: Add new label (Required Store Auth)
  *     tags: [Label]
  *     requestBody:
  *       required: true
@@ -165,7 +165,7 @@
  * @swagger
  * /api/label/{id}:
  *   put:
- *     summary: Update label information
+ *     summary: Update label information (Required Store Auth)
  *     tags: [Label]
  *     parameters:
  *      - in: path
@@ -209,7 +209,7 @@
  * @swagger
  * /api/label/{id}:
  *   delete:
- *     summary: Remove the label
+ *     summary: Remove the label (Required Store Auth)
  *     tags: [Label]
  *     parameters:
  *      - in: path
