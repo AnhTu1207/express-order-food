@@ -4,6 +4,7 @@ const OptionLabelService = require("./OptionLabelServices");
 const OptionService = require("./OptionServices");
 const StoreService = require("./StoreServices");
 const CategoryService = require("./CategoryServices");
+const CouponService = require("./CouponServices");
 
 module.exports = {
   UserService,
@@ -11,5 +12,6 @@ module.exports = {
   OptionLabelService,
   OptionService,
   StoreService,
-  CategoryService
+  CategoryService,
+  CouponService
 };
