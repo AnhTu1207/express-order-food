@@ -7,7 +7,7 @@ const { pagination } = require(appRoot + "/helpers");
 class CouponRepository {
     async index(q) {
         try {
-            return await pagination(Coupons, +q.page || 1, {});
+            return await pagination(Coupons, +q.page || 1, q.limit, {});
         }
         catch {
             return null;
@@ -28,7 +28,7 @@ class CouponRepository {
 
     async showByStore(storeId, q) {
         try {
-            return await pagination(Coupons, +q.page || 1, {
+            return await pagination(Coupons, +q.page || 1, q.limit, {
                 where: { store_id: storeId }
             });
         }
@@ -39,7 +39,7 @@ class CouponRepository {
 
     async search(q) {
         try {
-            return await pagination(Coupons, +q.page || 1, {
+            return await pagination(Coupons, +q.page || 1, q.limit, {
                 where: {
                     [Op.or]: [
                         { name: { [Op.iLike]: '%' + q.search + '%' } },

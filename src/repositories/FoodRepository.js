@@ -6,7 +6,7 @@ const { pagination } = require(appRoot + "/helpers");
 class FoodRepository {
     async index(q) {
         try {
-            return await pagination(Foods, +q.page || 1, {
+            return await pagination(Foods, +q.page || 1, q.limit, {
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
                     { model: Stores, attributes: ['name', 'avatar'], required: true }
@@ -35,7 +35,7 @@ class FoodRepository {
 
     async showByCategory(categoryId, q) {
         try {
-            return await pagination(Foods, +q.page || 1, {
+            return await pagination(Foods, +q.page || 1, q.limit, {
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
                     { model: Stores, attributes: ['name', 'avatar'], required: true }
@@ -50,7 +50,7 @@ class FoodRepository {
 
     async showByStore(storeId, q) {
         try {
-            return await pagination(Foods, +q.page || 1, {
+            return await pagination(Foods, +q.page || 1, q.limit, {
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
                     { model: Stores, attributes: ['name', 'avatar'], required: true }
@@ -65,7 +65,7 @@ class FoodRepository {
 
     async search(q) {
         try {
-            return await pagination(Foods, +q.page || 1, {
+            return await pagination(Foods, +q.page || 1, q.limit, {
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
                     { model: Stores, attributes: ['name', 'avatar'], required: true }
@@ -85,7 +85,7 @@ class FoodRepository {
 
     async store(newFood) {
         try {
-            const res = await Foods.create({ ...newFood, id: uuidv4() });
+            const res = await Foods.create({ ...newFood, id: uuidv4(), avatar_placeholder: "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png" });
             return res.dataValues;
         } catch (e) {
             throw e;

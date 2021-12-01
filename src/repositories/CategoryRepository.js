@@ -6,7 +6,7 @@ const { pagination } = require(appRoot + "/helpers");
 class CategoryRepository {
     async index(q) {
         try {
-            return await pagination(Categories, +q.page || 1, {});
+            return await pagination(Categories, +q.page || 1, q.limit, {});
         }
         catch {
             return null;

@@ -66,7 +66,7 @@ class UserRepository {
 
   async index(q) {
     try {
-      return await pagination(Users, +q.page || 1, {
+      return await pagination(Users, +q.page || 1, q.limit, {
         attributes: { exclude: ["password"] },
       });
     } catch (e) {

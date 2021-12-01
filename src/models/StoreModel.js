@@ -43,6 +43,10 @@ const Stores = sequelizeConfig.define("stores", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  avatar_placeholder: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   open_time: {
     type: Sequelize.TIME,
     allowNull: true,
