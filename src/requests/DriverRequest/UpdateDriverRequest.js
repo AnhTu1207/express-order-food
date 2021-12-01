@@ -1,16 +1,10 @@
-const { check, body, oneOf } = require("express-validator");
+const { check, body } = require("express-validator");
 
 module.exports = [
-  oneOf([
-    [
-      check("email").not().isEmpty().escape().trim(),
-      check("email").isEmail(),
-      check("fullname").not().isEmpty().escape().trim(),
-      check("phone").not().isEmpty().escape().trim(),
-      check("phone").isMobilePhone(),
-    ],
-    [check("password").not().isEmpty().escape().trim()],
-  ]),
+  check("email").not().isEmpty().escape().trim(),
+  check("email").isEmail(),
+  check("fullname").not().isEmpty().escape().trim(),
+  check("phone").not().isEmpty().trim().escape().matches(/((09|03|07|08|05)+([0-9]{8})\b)/g).withMessage("Your phone number is not in the correct format"),
   body()
     .custom((body) => {
       const keys = ["email", "fullname", "phone", "password"];

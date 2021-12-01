@@ -1,9 +1,8 @@
-const { Drivers } = require(appRoot + "/models");
-const { pagination, jwt } = require(appRoot + "/helpers");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
-const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
 
+const { Drivers } = require(appRoot + "/models");
+const { pagination, jwt } = require(appRoot + "/helpers");
 class DriverRepository {
   async index(q) {
     try {
@@ -27,12 +26,16 @@ class DriverRepository {
     }
   }
 
-  async driver(newDriver) {
+  async store(newDriver) {
     try {
+      const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
       newDriver.password = bcrypt.hashSync(newDriver.password, salt);
       const res = await Drivers.create({ ...newDriver, id: uuidv4() });
       delete res.dataValues.password;
-      return res.dataValues;
+      return {
+        ...res.dataValues,
+      }
+        ;
     } catch (e) {
       throw e;
     }
@@ -40,9 +43,6 @@ class DriverRepository {
 
   async update(updateDriver, id) {
     try {
-      if (updateDriver.password) {
-        updateDriver.password = bcrypt.hashSync(updateDriver.password, salt);
-      }
       const res = await Drivers.update(
         {
           ...updateDriver,
@@ -55,6 +55,47 @@ class DriverRepository {
       return res;
     } catch (e) {
       throw e;
+    }
+  }
+
+  async updatePassword(updateDriver, id) {
+    try {
+      const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
+      const foundDriver = await Drivers.findOne({
+        where: { id }
+      })
+
+      const matchPassword = await bcrypt.compare(
+        updateDriver.oldpassword,
+        foundDriver.dataValues.password
+      );
+      if (!matchPassword) {
+        return null;
+      }
+      updateDriver.password = bcrypt.hashSync(updateDriver.password, salt);
+      const res = await Drivers.update({
+        password: updateDriver.password
+      }, {
+        where: { id },
+        returning: true
+      })
+      return res;
+    }
+    catch (e) {
+      throw e
+    }
+  }
+
+  async updateImage(filename, id) {
+    try {
+      const res = await Drivers.update({
+        avatar: filename,
+      }, {
+        where: { id }
+      })
+      return res;
+    } catch (e) {
+      throw e
     }
   }
 
@@ -71,9 +112,9 @@ class DriverRepository {
 
   async login(infoLogin) {
     try {
-      let fondDriver = null;
+      let foundDriver = null;
       if (infoLogin.email) {
-        fondDriver = await Drivers.findOne({
+        foundDriver = await Drivers.findOne({
           where: { email: infoLogin.email.trim() },
         });
       }
@@ -84,7 +125,7 @@ class DriverRepository {
         foundDriver.dataValues.password
       );
       if (!matchPassword) return null;
-
+      foundDriver.dataValues.role = "driver"
       delete foundDriver.dataValues.password;
       return {
         ...foundDriver.dataValues,

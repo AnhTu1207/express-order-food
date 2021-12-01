@@ -1,5 +1,5 @@
 const { jwt } = require(appRoot + "/helpers");
-const { StoreRepository, UserRepository } = require(appRoot + "/repositories");
+const { StoreRepository, UserRepository, DriverRepository } = require(appRoot + "/repositories");
 
 module.exports = async (req, res, next) => {
     try {
@@ -26,6 +26,19 @@ module.exports = async (req, res, next) => {
                 const foundUser = await UserRepository.show(data.id);
                 if (foundUser) {
                     if (foundUser.is_verified) {
+                        return res.status(401).send();
+                    }
+                    else {
+                        next();
+                    }
+                } else {
+                    return res.status(400).send();
+                }
+                break;
+            case "driver":
+                const foundDriver = await DriverRepository.show(data.id);
+                if (foundDriver) {
+                    if (foundDriver.is_verified) {
                         return res.status(401).send();
                     }
                     else {

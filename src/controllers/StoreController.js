@@ -1,13 +1,11 @@
 const { validationResult } = require("express-validator");
-
-const { StoreService } = require(appRoot + "/services");
-const { utility, mailer, jwt } = require(appRoot + "/helpers");
 const { map } = require("lodash");
 
+const { utility, mailer, jwt } = require(appRoot + "/helpers");
+const { StoreService } = require(appRoot + "/services");
 class StoreController {
   async index(req, res) {
     try {
-      console.log(req.query);
       const data = await StoreService.index(req.query);
       return res.status(200).json(data);
     } catch (e) {

@@ -1,4 +1,4 @@
-const { StoreService, UserService } = require(appRoot + "/services");
+const { StoreService, UserService, DriverService } = require(appRoot + "/services");
 const { mailer, jwt } = require(appRoot + "/helpers");
 const { map } = require("lodash");
 class MicsController {
@@ -20,6 +20,10 @@ class MicsController {
                     }
                     break;
                 case "driver":
+                    const updateDriver = await DriverService.update({ is_verified: true }, data.id);
+                    if (updateDriver) {
+                        return res.status(200).json({ "status": 200, meesage: "Your account has been successfully verified" });
+                    }
                     break;
                 default:
                     return res.status(400).json("Invalid");

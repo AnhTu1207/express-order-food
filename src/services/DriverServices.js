@@ -17,9 +17,9 @@ class DriverService {
     }
   }
 
-  async driver(newDriver) {
+  async store(newDriver) {
     try {
-      return await DriverRepository.driver(newDriver);
+      return await DriverRepository.store(newDriver);
     } catch (e) {
       throw e;
     }
@@ -33,9 +33,25 @@ class DriverService {
     }
   }
 
+  async updatePassword(updateDriver, id) {
+    try {
+      return await DriverRepository.updatePassword(updateDriver, id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   async delete(id) {
     try {
       return await DriverRepository.delete(id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async updateImage(filename, id) {
+    try {
+      return await DriverRepository.updateImage(filename, id);
     } catch (e) {
       throw e;
     }
