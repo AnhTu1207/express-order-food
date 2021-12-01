@@ -55,6 +55,7 @@ class UserRepository {
     try {
       const foundUser = await Users.findOne({
         where: { id },
+        attributes: { exclude: ["password"] },
       });
 
       return foundUser;
@@ -70,6 +71,73 @@ class UserRepository {
       });
     } catch (e) {
       throw e;
+    }
+  }
+
+  async update(updateUser, id) {
+    try {
+      const res = await Users.update({
+        ...updateUser
+      }, {
+        where: { id },
+        returning: true
+      })
+      return res;
+    } catch (e) {
+      throw e
+    }
+  }
+
+  async updatePassword(updateUser, id) {
+    try {
+      const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
+      const foundUser = await Users.findOne({
+        where: { id }
+      })
+
+      const matchPassword = await bcrypt.compare(
+        updateUser.oldpassword,
+        foundUser.dataValues.password
+      );
+      if (!matchPassword) {
+        return null;
+      }
+      updateUser.password = bcrypt.hashSync(updateUser.password, salt);
+      const res = await Users.update({
+        password: updateUser.password
+      }, {
+        where: { id },
+        attributes: { exclude: ["password"] },
+        returning: true
+      })
+      return res;
+    }
+    catch (e) {
+      throw e
+    }
+  }
+
+  async updateImage(filename, id) {
+    try {
+      const res = await Users.update({
+        avatar: filename,
+      }, {
+        where: { id }
+      })
+      return res;
+    } catch (e) {
+      throw e
+    }
+  }
+
+  async delete(id) {
+    try {
+      const res = await Users.destroy({
+        where: { id }
+      })
+      return res;
+    } catch (e) {
+      throw e
     }
   }
 }

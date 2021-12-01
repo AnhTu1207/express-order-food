@@ -112,7 +112,7 @@ class StoreController {
         if (!data) {
           return res.status(400).json({ status: 400, message: "Old password does not match" });
         }
-        return res.status(200).json({ status: 200, data: data[1][0] });
+        return res.status(200).json({ status: 200, message: "Password has been updated!" });
       }
     } catch (e) {
       if (e.errors && e.errors.length) {
