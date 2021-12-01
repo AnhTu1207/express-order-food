@@ -46,17 +46,17 @@ const Stores = sequelizeConfig.define("stores", {
     type: Sequelize.TIME,
     allowNull: true,
   },
+  status: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   is_verified: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false,
   },
   is_open: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
-  },
-  open: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false,

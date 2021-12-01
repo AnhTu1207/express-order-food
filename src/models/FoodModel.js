@@ -26,6 +26,10 @@ const Foods = sequelizeConfig.define("foods", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  status: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
+  },
   store_id: {
     type: Sequelize.STRING,
     allowNull: false,
