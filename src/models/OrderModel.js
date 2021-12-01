@@ -4,6 +4,7 @@ const { sequelizeConfig } = require(appRoot + "/config");
 const Drivers = require("./DriverModel");
 const Stores = require("./StoreModel");
 const Users = require("./UserModel");
+const Coupons = require("./CouponModel");
 
 const Orders = sequelizeConfig.define("orders", {
   id: {
@@ -18,6 +19,10 @@ const Orders = sequelizeConfig.define("orders", {
   driver_id: {
     type: Sequelize.STRING,
     allowNull: false,
+  },
+  coupon_id: {
+    type: Sequelize.STRING,
+    allowNull: true
   },
   user_id: {
     type: Sequelize.STRING,
@@ -42,7 +47,15 @@ const Orders = sequelizeConfig.define("orders", {
       "delivering",
       "done",
     ],
+    defaultValue: 'processing_order',
   },
+  payment_option: {
+    type: Sequelize.ENUM,
+    values: [
+      "cash",
+      "banking",
+    ],
+  }
 });
 
 Drivers.hasMany(Orders, {
@@ -64,6 +77,13 @@ Users.hasMany(Orders, {
 });
 Orders.belongsTo(Users, {
   foreignKey: "user_id"
+});
+
+Coupons.hasMany(Orders, {
+  foreignKey: "coupon_id"
+});
+Orders.belongsTo(Coupons, {
+  foreignKey: "coupon_id"
 });
 
 module.exports = Orders;

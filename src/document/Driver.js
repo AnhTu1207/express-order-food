@@ -31,6 +31,8 @@
  *            - email
  *            - password
  *            - phone
+ *            - bike_number
+ *            - address
  *          properties:
  *              id:
  *                  type: string
@@ -47,18 +49,28 @@
  *              password:
  *                  type: string
  *                  description: The account password
+ *              bike_number:
+ *                  type: string
+ *                  description: The driver's license plate
+ *              address:
+ *                  type: string
+ *                  description: The driver's address
  *          example:
  *              email: "dinhanhtu1207@gmail.com"
  *              password: "123456"
  *              fullname: "Đinh Anh Tú"
  *              phone: "0975585245"
- *
+ *              bike_number: "80A-23500"
+ *              address: "230/A Tôn Đức Thắng"
  *      UpdateDriver:
  *          type: object
  *          required:
  *            - fullname
  *            - email
  *            - phone
+ *            - bike_number
+ *            - address
+ *            - status
  *          properties:
  *              fullname:
  *                  type: string
@@ -69,10 +81,22 @@
  *              phone:
  *                  type: string
  *                  description: The driver's phonenumber
+ *              bike_number:
+ *                  type: string
+ *                  description: The driver's license plate
+ *              address:
+ *                  type: string
+ *                  description: The driver's address
+ *              status:
+ *                  type: boolean
+ *                  description: The driver's status
  *          example:
  *              email: "emailmoi@gmail.com"
- *              fullname: "Trần tiến"
+ *              fullname: "Trần tiến sửa"
  *              phone: "0975585245"
+ *              bike_number: "40A-23500"
+ *              address: "222 Nguyễn Văn Đậu Phường 6 Q.Bình Thạnh"
+ *              status: true
  *
  */
 
@@ -168,16 +192,20 @@
  *               type: object
  *               example:
  *                       {
+ *                          "id": "6685911d-dca1-4201-9b38-2afcdbededa2",
+ *                          "email": "dinhanhtu1207@gmail.com",
+ *                          "password": "$2b$10$uKk5zGBYeUxytmW6Q48idul5GhDMoDGzvnAqLIL3lYnBFfWKl2336",
+ *                          "fullname": "Trần tiến sửa",
+ *                          "phone": "0986662544",
+ *                          "address": "222 Nguyễn Văn Đậu Phường 6 Q.Bình Thạnh",
+ *                          "bike_number": "40A-23500",
+ *                          "status": true,
+ *                          "avatar": null,
+ *                          "total_rating": 0,
  *                          "is_verified": false,
  *                          "is_open": false,
- *                          "total_rating": 0,
- *                          "email": "dinhanhtu1207@gmail.com",
- *                          "fullname": "Đinh Anh Tú",
- *                          "phone": "0937773255",
- *                          "id": "d7830767-849e-4ced-a0a5-e4877fe78118",
- *                          "updatedAt": "2021-12-01T11:21:52.336Z",
- *                          "createdAt": "2021-12-01T11:21:52.336Z",
- *                          "avatar": null
+ *                          "createdAt": "2021-12-01T16:02:12.084Z",
+ *                          "updatedAt": "2021-12-01T16:18:27.681Z"
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters) || Email or phone number must be unique
@@ -297,17 +325,20 @@
  *                 status: 200
  *                 data:
  *                       {
- *                          "id": "dc20a31a-8dc3-441d-ad56-ce90b0632e6f",
- *                          "email": "asdasd@gmail.com",
- *                          "password": "$2b$10$uCkigoaB27BDUF.u00z8s.mIX8CO1vi2KMPnoF9jh63.yQAoYO6U6",
- *                          "fullname": "Trần Dũng",
- *                          "phone": "0777812797",
+ *                          "id": "6685911d-dca1-4201-9b38-2afcdbededa2",
+ *                          "email": "dinhanhtu1207@gmail.com",
+ *                          "password": "$2b$10$uKk5zGBYeUxytmW6Q48idul5GhDMoDGzvnAqLIL3lYnBFfWKl2336",
+ *                          "fullname": "Trần tiến sửa",
+ *                          "phone": "0986662544",
+ *                          "address": "222 Nguyễn Văn Đậu Phường 6 Q.Bình Thạnh",
+ *                          "bike_number": "40A-23500",
+ *                          "status": true,
  *                          "avatar": null,
+ *                          "total_rating": 0,
  *                          "is_verified": false,
  *                          "is_open": false,
- *                          "total_rating": 0,
- *                          "createdAt": "2021-12-01T11:32:17.810Z",
- *                          "updatedAt": "2021-12-01T11:33:51.687Z"
+ *                          "createdAt": "2021-12-01T16:02:12.084Z",
+ *                          "updatedAt": "2021-12-01T16:18:27.681Z"
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters) || Driver was not found
@@ -378,17 +409,20 @@
  *                 status: 200
  *                 data:
  *                       {
- *                          "id": "dc20a31a-8dc3-441d-ad56-ce90b0632e6f",
- *                          "email": "asdasd@gmail.com",
- *                          "password": "$2b$10$uCkigoaB27BDUF.u00z8s.mIX8CO1vi2KMPnoF9jh63.yQAoYO6U6",
- *                          "fullname": "Trần Dũng",
- *                          "phone": "0777812797",
+ *                          "id": "6685911d-dca1-4201-9b38-2afcdbededa2",
+ *                          "email": "dinhanhtu1207@gmail.com",
+ *                          "password": "$2b$10$uKk5zGBYeUxytmW6Q48idul5GhDMoDGzvnAqLIL3lYnBFfWKl2336",
+ *                          "fullname": "Trần tiến sửa",
+ *                          "phone": "0986662544",
+ *                          "address": "222 Nguyễn Văn Đậu Phường 6 Q.Bình Thạnh",
+ *                          "bike_number": "40A-23500",
+ *                          "status": true,
  *                          "avatar": null,
+ *                          "total_rating": 0,
  *                          "is_verified": false,
  *                          "is_open": false,
- *                          "total_rating": 0,
- *                          "createdAt": "2021-12-01T11:32:17.810Z",
- *                          "updatedAt": "2021-12-01T11:33:51.687Z"
+ *                          "createdAt": "2021-12-01T16:02:12.084Z",
+ *                          "updatedAt": "2021-12-01T16:18:27.681Z"
  *                       }
  *       400:
  *         description: Driver was not found

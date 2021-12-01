@@ -29,10 +29,11 @@
  *          required:
  *            - name
  *            - email
+ *            - phone
  *            - latitude
  *            - longitude
  *            - address
- *            - open
+ *            - status
  *          properties:
  *              name:
  *                  type: string
@@ -43,22 +44,34 @@
  *              address:
  *                  type: string
  *                  description: Address of the store
- *              open:
+ *              status:
  *                  type: boolean
  *                  description: Status of the store (true or false)
+ *              phone:
+ *                  type: string
+ *                  description: The store owner's phone number
  *              latitude:
  *                  type: integer
  *                  description: Latitude value of the store (can be negative number)
  *              longitude:
  *                  type: integer
  *                  description: Longitude value of the store (can be negative number)
+ *              close_time:
+ *                  type: time
+ *                  description: Opening time of the store
+ *              open_time:
+ *                  type: time
+ *                  description: Closing time of thr store
  *          example:
  *              name : Cửa hàng 4
  *              address  : 123 Nguyễn Thị Minh Khai
- *              latitude  : 2000000
- *              longitude  : 3400000
+ *              latitude  : 25.458752
+ *              longitude  : 38.654258
+ *              phone: "0946663255"
  *              email  :   sdfsdfsd@gmail.com
- *              open  : false
+ *              status  : false
+ *              open_time: 7:00:00
+ *              close_time: 22:00:00
  *      Store:
  *          type: object
  *          required:
@@ -68,6 +81,7 @@
  *            - latitude
  *            - longitude
  *            - address
+ *            - phone
  *          properties:
  *              id:
  *                  type: string
@@ -90,12 +104,16 @@
  *              longitude:
  *                  type: integer
  *                  description: Longitude value of the store (can be negative number)
+ *              phone:
+ *                  type: string
+ *                  description: The store owner's phone number
  *          example:
  *              name : Tạp hóa 4
  *              address  :   150 Nguyen Thuong Hien
  *              password: "123456abc!@#"
- *              latitude  : 2323232
- *              longitude  : 23123
+ *              phone: "0946663255"
+ *              latitude  : 35.854658
+ *              longitude  : 159.875423
  *              email  :   dinhanhtu1207@gmail.com
  *
  */
@@ -236,17 +254,20 @@
  *               type: object
  *               example:
  *                       {
- *                          id  :   4bdb9aee-5984-4172-8d16-57105d58655b,
- *                          name  :   Tạp hóa 4,
- *                          address  :   150 Nguyen Thuong Hien,
- *                          latitude  : 23.23232,
- *                          longitude  : 231.2333,
- *                          email  :   fgfgfgfgfg@gmail.com ,
- *                          avatar  : null,
- *                          is_verified  : false,
- *                          open  : true,
- *                          createdAt  :   2021-10-08T13:25:36.339Z ,
- *                          updatedAt  :   2021-10-08T13:29:28.907Z
+ *                           "status": false,
+ *                           "is_verified": false,
+ *                           "is_open": false,
+ *                           "name": "Tạp hóa 4",
+ *                           "address": "150 Nguyen Thuong Hien",
+ *                           "latitude": "52.554665",
+ *                           "longitude": "106.504256",
+ *                           "email": "asdasdas@gmail.com",
+ *                           "id": "d90e179f-7b67-4f84-bcd7-7ae016c45b73",
+ *                           "updatedAt": "2021-12-01T16:23:14.352Z",
+ *                           "createdAt": "2021-12-01T16:23:14.352Z",
+ *                           "avatar": null,
+ *                           "open_time": null,
+ *                           "close_time": null
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters) And "name" or "email" must be unique

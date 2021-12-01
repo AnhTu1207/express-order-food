@@ -1,5 +1,4 @@
 const RequireAuth = require("./RequireAuth");
-const FoodAuth = require("./FoodAuth");
 const StoreAuth = require("./StoreAuth");
 const DriverAuth = require("./DriverAuth");
 const Verification = require("./Verification");
@@ -10,6 +9,5 @@ module.exports = {
   Verification,
   StoreAuth,
   AdminAuth,
-  FoodAuth,
   DriverAuth
 };

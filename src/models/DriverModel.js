@@ -26,9 +26,27 @@ const Drivers = sequelizeConfig.define("drivers", {
     allowNull: false,
     unique: true,
   },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  bike_number: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  status: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   avatar: {
     type: Sequelize.STRING,
     allowNull: true,
+  },
+  total_rating: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0
   },
   is_verified: {
     type: Sequelize.BOOLEAN,
@@ -39,12 +57,7 @@ const Drivers = sequelizeConfig.define("drivers", {
     type: Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false,
-  },
-  total_rating: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0
-  },
+  }
 });
 
 module.exports = Drivers;
