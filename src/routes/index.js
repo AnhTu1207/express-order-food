@@ -5,6 +5,7 @@ const optionLabelRoutes = require("./OptionLabelRoute");
 const optionRoutes = require("./OptionRoute");
 const storeRoutes = require("./StoreRoute");
 const categoryRoutes = require("./CategoryRoute");
+const couponRoutes = require("./CouponRoute");
 
 module.exports = {
   authRoutes,
@@ -13,5 +14,6 @@ module.exports = {
   optionLabelRoutes,
   optionRoutes,
   storeRoutes,
-  categoryRoutes
+  categoryRoutes,
+  couponRoutes
 };

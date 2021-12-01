@@ -12,6 +12,8 @@ const AddStoreRequest = require("./AddStoreRequest");
 const LoginStoreRequest = require("./LoginStoreRequest");
 const UpdateStoreRequest = require("./UpdateStoreRequest");
 const UpdateStorePasswordRequest = require("./UpdateStorePasswordRequest");
+const AddCouponRequest = require("./AddCouponRequest");
+const UpdateCouponRequest = require("./UpdateCouponRequest");
 
 module.exports = {
   AddUserRequest,
@@ -27,5 +29,7 @@ module.exports = {
   AddStoreRequest,
   LoginStoreRequest,
   UpdateStoreRequest,
-  UpdateStorePasswordRequest
+  UpdateStorePasswordRequest,
+  AddCouponRequest,
+  UpdateCouponRequest
 };
