@@ -1,4 +1,5 @@
 const UserRepository = require("./UserRepository");
+const DriverRepository = require("./DriverRepository");
 const FoodRepository = require("./FoodRepository");
 const OptionLabelRepository = require("./OptionLabelRepository");
 const OptionRepository = require("./OptionRepository");
@@ -9,6 +10,7 @@ const CategoryRepository = require("./CategoryRepository")
 module.exports = {
   UserRepository,
   StoreRepository,
+  DriverRepository,
   CategoryRepository,
   FoodRepository,
   OptionLabelRepository,

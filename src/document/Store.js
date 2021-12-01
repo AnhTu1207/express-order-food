@@ -260,7 +260,7 @@
  * @swagger
  * /api/store/uploadImage/{id}:
  *   post:
- *     summary: Upload avatar for food
+ *     summary: Upload avatar for store
  *     tags: [Store]
  *     parameters:
  *      - in: path
@@ -300,7 +300,7 @@
  * @swagger
  * /api/store/editImage/{id}:
  *   post:
- *     summary: Edit avatar for food
+ *     summary: Edit avatar for store
  *     tags: [Store]
  *     parameters:
  *      - in: path
@@ -308,7 +308,7 @@
  *        schema:
  *          type: string
  *        required: true
- *        description: The food id
+ *        description: The store id
  *     requestBody:
  *      content:
  *       multipart/form-data:

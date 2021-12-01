@@ -2,16 +2,15 @@ const { validationResult } = require("express-validator");
 const { map } = require("lodash");
 
 const { utility, mailer, jwt } = require(appRoot + "/helpers");
-const { StoreService } = require(appRoot + "/services");
-class StoreController {
+const { DriverService } = require(appRoot + "/services");
+class DriverController {
   async index(req, res) {
     try {
-      const data = await StoreService.index(req.query);
+      const data = await DriverService.index(req.query);
       return res.status(200).json(data);
     } catch (e) {
       if (e.errors && e.errors.length) {
         return res.status(400).json({
-          status: 400,
           message: map(e.errors, (e) => e.message),
         });
       }
@@ -22,14 +21,17 @@ class StoreController {
   async show(req, res) {
     try {
       const id = req.params.id;
-      const foundStore = await StoreService.show(id);
-      if (foundStore === null) {
+      const foundDriver = await DriverService.show(id);
+      if (foundDriver === null) {
         return res.status(400).json({
           status: 400,
           message: "Invalid ID or record does not exist",
         });
       } else {
-        return res.status(200).json({ status: 200, data: foundStore });
+        return res.status(200).json({
+          status: 200,
+          data: foundDriver,
+        });
       }
     } catch (e) {
       if (e.errors && e.errors.length) {
@@ -45,16 +47,19 @@ class StoreController {
   async store(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ status: 400, message: errors });
+      return res.status(400).json({
+        status: 400,
+        message: errors,
+      });
     }
     try {
-      const newStore = await StoreService.store(req.body);
+      const newDriver = await DriverService.store(req.body);
       // Send email to validate
-      const token = jwt.sign({ ...newStore, 'role': 'store' }, "1h");
+      const token = jwt.sign({ ...newDriver, 'role': 'driver' }, "1h");
       const url = "http://" + req.headers.host + "/api/auth/verify/" + token;
-      await mailer.sendMail(newStore.email, "You need to verify in order to use our services!!!", url);
+      await mailer.sendMail(newDriver.email, "You need to verify in order to use our services!!!", url);
 
-      return res.status(201).json(newStore);
+      return res.status(201).json(newDriver);
     } catch (e) {
       if (e.errors && e.errors.length) {
         return res
@@ -68,25 +73,32 @@ class StoreController {
   async update(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ status: 400, message: errors });
+      return res.status(400).json({
+        status: 400,
+        message: errors,
+      });
     }
     try {
       const id = req.params.id;
-      const foundStore = await StoreService.show(id);
-      if (foundStore === null) {
+      const foundDriver = await DriverService.show(id);
+      if (foundDriver === null) {
         return res.status(400).json({
           status: 400,
           message: "Invalid ID or record does not exist",
         });
       } else {
-        const data = await StoreService.update(req.body, id);
-        return res.status(200).json({ status: 200, data: data[1][0] });
+        const data = await DriverService.update(req.body, id);
+        return res.status(200).json({
+          status: 200,
+          data: data[1][0],
+        });
       }
     } catch (e) {
       if (e.errors && e.errors.length) {
-        return res
-          .status(400)
-          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+        return res.status(400).json({
+          status: 400,
+          message: map(e.errors, (e) => e.message),
+        });
       }
       res.status(500).send();
     }
@@ -99,14 +111,14 @@ class StoreController {
     }
     try {
       const id = req.params.id;
-      const foundStore = await StoreService.show(id);
-      if (foundStore === null) {
+      const foundDriver = await DriverService.show(id);
+      if (foundDriver === null) {
         return res.status(400).json({
           status: 400,
           message: "Invalid ID or record does not exist",
         });
       } else {
-        const data = await StoreService.updatePassword(req.body, id);
+        const data = await DriverService.updatePassword(req.body, id);
         if (!data) {
           return res.status(400).json({ status: 400, message: "Old password does not match" });
         }
@@ -125,27 +137,28 @@ class StoreController {
   async delete(req, res) {
     try {
       const id = req.params.id;
-      const deleteStore = await StoreService.show(id);
-      if (deleteStore === null) {
+      const deleteDriver = await DriverService.show(id);
+      if (deleteDriver === null) {
         return res.status(400).json({
           status: 400,
           message: "Invalid ID or record does not exist",
         });
       } else {
-        await StoreService.delete(id);
+        await DriverService.delete(id);
         // Removing image
-        if (deleteStore.avatar) {
-          await utility.removeImage(deleteStore.avatar);
+        if (deleteDriver.avatar) {
+          await utility.removeImage(deleteDriver.avatar);
         }
-        return res.status(200).json({ status: 200, data: deleteStore });
+        return res.status(200).json({ status: 200, data: deleteDriver });
       }
     } catch (e) {
       if (e.errors && e.errors.length) {
-        return res
-          .status(400)
-          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+        return res.status(400).json({
+          status: 400,
+          message: map(e.errors, (e) => e.message),
+        });
       }
-      res.status(500).send();
+      return res.status(500).send();
     }
   }
 
@@ -155,18 +168,20 @@ class StoreController {
       return res.status(400).json({ status: 400, message: errors });
     }
     try {
-      const storeLogin = await StoreService.login(req.body);
-      if (!storeLogin) {
-        return res
-          .status(400)
-          .json({ status: 400, message: "Wrong email or password" });
+      const driverLogin = await DriverService.login(req.body);
+      if (!driverLogin) {
+        return res.status(400).json({
+          status: 400,
+          message: "Wrong email or password",
+        });
       }
-      return res.status(200).json({ data: storeLogin });
+      return res.status(200).json({ data: driverLogin });
     } catch (e) {
       if (e.errors && e.errors.length) {
-        return res
-          .status(400)
-          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+        return res.status(400).json({
+          status: 400,
+          message: map(e.errors, (e) => e.message),
+        });
       }
       res.status(500).send();
     }
@@ -175,8 +190,8 @@ class StoreController {
   async upload(req, res) {
     try {
       const id = req.params.id;
-      const foundStore = await StoreService.show(req.params.id);
-      if (foundStore === null) {
+      const foundDriver = await DriverService.show(req.params.id);
+      if (foundDriver === null) {
         return res.status(400).json({
           status: 400,
           message: "Invalid ID or record does not exist",
@@ -192,7 +207,7 @@ class StoreController {
             .status(400)
             .json({ status: 400, message: "No image received" });
         }
-        const result = await StoreService.updateImage(req.file.location, id);
+        const result = await DriverService.updateImage(req.file.location, id);
         if (result) {
           return res.status(201).json({ status: 201, data: req.file.location });
         }
@@ -213,15 +228,15 @@ class StoreController {
   async edit(req, res) {
     try {
       const id = req.params.id;
-      const foundStore = await StoreService.show(req.params.id);
-      if (foundStore === null) {
+      const foundDriver = await DriverService.show(req.params.id);
+      if (foundDriver === null) {
         return res.status(400).json({
           status: 400,
           message: "Invalid ID or record does not exist",
         });
       }
       // Check if avatar is null or not
-      if (!foundStore.avatar) {
+      if (!foundDriver.avatar) {
         return res.status(200).json({ status: 400, message: "Please upload avatar before editing" })
       }
       const currUpload = utility.uploadImage();
@@ -235,8 +250,8 @@ class StoreController {
             .json({ status: 400, message: "No image received" });
         }
         // Removing old image on Bucket
-        await utility.removeImage(foundStore.avatar);
-        const result = await StoreService.updateImage(req.file.location, id);
+        await utility.removeImage(foundDriver.avatar);
+        const result = await DriverService.updateImage(req.file.location, id);
         if (result) {
           return res.status(201).json({ status: 201, data: req.file.location });
         }
@@ -255,4 +270,4 @@ class StoreController {
   }
 }
 
-module.exports = new StoreController();
+module.exports = new DriverController();

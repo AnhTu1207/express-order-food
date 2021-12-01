@@ -1,4 +1,5 @@
 const UserService = require("./UserServices");
+const DriverService = require("./DriverServices");
 const FoodService = require("./FoodServices");
 const OptionLabelService = require("./OptionLabelServices");
 const OptionService = require("./OptionServices");
@@ -13,5 +14,6 @@ module.exports = {
   OptionService,
   StoreService,
   CategoryService,
-  CouponService
+  CouponService,
+  DriverService
 };

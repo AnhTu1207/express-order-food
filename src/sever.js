@@ -8,7 +8,7 @@ global.appRoot = path.resolve(__dirname);
 const { sequelizeConfig } = require(appRoot + "/config");
 const { RequireAuth } = require(appRoot + "/middlewares");
 
-const { authRoutes, userRoutes, foodRoutes, optionRoutes, optionLabelRoutes, storeRoutes, categoryRoutes, couponRoutes } = require(appRoot + "/routes");
+const { authRoutes, userRoutes, foodRoutes, optionRoutes, optionLabelRoutes, storeRoutes, categoryRoutes, couponRoutes, driverRoutes } = require(appRoot + "/routes");
 const { specs, swaggerUI } = require(appRoot + "/document");
 
 const app = express();
@@ -23,6 +23,7 @@ app.use(morgan("tiny"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", RequireAuth, userRoutes);
+app.use("/api/driver", driverRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/label", optionLabelRoutes)

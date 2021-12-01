@@ -18,7 +18,7 @@ const uploadImage = () => {
             cb(null, { fieldName: file.fieldname });
         },
         key: function (req, file, cb) {
-            cb(null, uuidv4() + '_' + "image")
+            cb(null, uuidv4() + '_' + file.originalname)
         }
     });
 
