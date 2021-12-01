@@ -82,7 +82,32 @@ class UserController {
     }
   }
 
-  async update() { }
+  async update(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: 400, message: errors });
+    }
+    try {
+      const id = req.params.id;
+      const foundUser = await UserService.show(id);
+      if (foundUser === null) {
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid ID or record does not exist",
+        });
+      } else {
+        const data = await UserService.update(req.body, id);
+        return res.status(200).json({ status: 200, data: data[1][0] });
+      }
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
+    }
+  }
 
   async updatePassword(req, res) {
     const errors = validationResult(req);
@@ -114,7 +139,32 @@ class UserController {
     }
   }
 
-  async delete() { }
+  async delete(req, res) {
+    try {
+      const id = req.params.id;
+      const deleteUser = await UserService.show(id);
+      if (deleteUser === null) {
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid ID or record does not exist",
+        });
+      } else {
+        await UserService.delete(id);
+        // Removing image
+        if (deleteUser.avatar) {
+          await utility.removeImage(deleteUser.avatar);
+        }
+        return res.status(200).json({ status: 200, data: deleteUser });
+      }
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
+    }
+  }
 
   async upload(req, res) {
     try {

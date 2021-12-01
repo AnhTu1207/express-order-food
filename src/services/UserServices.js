@@ -49,6 +49,14 @@ class UserService {
     }
   }
 
+  async delete(id) {
+    try {
+      return await UserRepository.delete(id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   async updateImage(filename, id) {
     try {
       return await UserRepository.updateImage(filename, id);
