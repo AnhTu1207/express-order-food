@@ -9,7 +9,7 @@ module.exports = async (model, currentPage, limit, options) => {
   return {
     size,
     currentPage,
-    total: size || data.count,
+    total: data.count,
     data: data.rows,
   };
 };
