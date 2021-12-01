@@ -26,6 +26,10 @@ const Drivers = sequelizeConfig.define("drivers", {
     allowNull: false,
     unique: true,
   },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   bike_number: {
     type: Sequelize.STRING,
     allowNull: false
