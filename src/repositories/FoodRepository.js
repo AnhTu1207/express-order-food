@@ -78,7 +78,8 @@ class FoodRepository {
                 where: {
                     [Op.or]: [
                         { name: { [Op.iLike]: '%' + q.search + '%' } },
-                        { '$store.name$': { [Op.iLike]: '%' + q.search + '%' } }
+                        { '$store.name$': { [Op.iLike]: '%' + q.search + '%' } },
+                        { '$category.name$': { [Op.iLike]: '%' + q.search + '%' } }
                     ]
                 },
             });
