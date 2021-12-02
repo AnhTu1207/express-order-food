@@ -8,7 +8,7 @@ global.appRoot = path.resolve(__dirname);
 const { sequelizeConfig } = require(appRoot + "/config");
 const { RequireAuth } = require(appRoot + "/middlewares");
 
-const { authRoutes, userRoutes, foodRoutes, storeRoutes, categoryRoutes, couponRoutes, driverRoutes, orderRoutes, orderItemRoutes } = require(appRoot + "/routes");
+const { authRoutes, userRoutes, foodRoutes, storeRoutes, categoryRoutes, couponRoutes, driverRoutes, orderRoutes } = require(appRoot + "/routes");
 const { specs, swaggerUI } = require(appRoot + "/document");
 
 const app = express();
@@ -29,7 +29,6 @@ app.use("/api/food", foodRoutes);
 app.use("/api/store", storeRoutes);
 app.use("/api/coupon", couponRoutes);
 app.use("/api/order", orderRoutes);
-app.use("/api/order-item", orderItemRoutes);
 app.use("/document-api", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.listen(PORT, () => {

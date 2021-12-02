@@ -9,7 +9,7 @@ class FoodRepository {
             return await pagination(Foods, +q.page || 1, q.limit, {
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
-                    { model: Stores, attributes: ['name', 'avatar'], required: true }
+                    { model: Stores, attributes: ['name', 'avatar', 'status', 'open_time', 'close_time', 'is_open'], required: true }
                 ]
             });
         }
@@ -23,7 +23,7 @@ class FoodRepository {
             const foundFood = await Foods.findOne({
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
-                    { model: Stores, attributes: ['name', 'avatar'], required: true },
+                    { model: Stores, attributes: ['name', 'avatar', 'status', 'open_time', 'close_time', 'is_open'], required: true },
                 ],
                 where: { id }
             });
@@ -38,7 +38,7 @@ class FoodRepository {
             return await pagination(Foods, +q.page || 1, q.limit, {
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
-                    { model: Stores, attributes: ['name', 'avatar'], required: true }
+                    { model: Stores, attributes: ['name', 'avatar', 'status', 'open_time', 'close_time', 'is_open'], required: true }
                 ],
                 where: { category_id: categoryId }
             });
@@ -53,7 +53,7 @@ class FoodRepository {
             return await pagination(Foods, +q.page || 1, q.limit, {
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
-                    { model: Stores, attributes: ['name', 'avatar'], required: true }
+                    { model: Stores, attributes: ['name', 'avatar', 'status', 'open_time', 'close_time', 'is_open'], required: true }
                 ],
                 where: { store_id: storeId }
             });
@@ -68,7 +68,7 @@ class FoodRepository {
             return await pagination(Foods, +q.page || 1, q.limit, {
                 include: [
                     { model: Categories, attributes: ['name'], required: true },
-                    { model: Stores, attributes: ['name', 'avatar'], required: true }
+                    { model: Stores, attributes: ['name', 'avatar', 'status', 'open_time', 'close_time', 'is_open'], required: true }
                 ],
                 where: {
                     [Op.or]: [

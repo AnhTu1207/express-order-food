@@ -1,10 +1,8 @@
 const { validationResult } = require("express-validator");
 const Sequelize = require('sequelize')
 
-const { OrderService } = require(appRoot + "/services");
+const { OrderService, OrderItemService, StoreService } = require(appRoot + "/services");
 const { map } = require("lodash");
-const { Nimble } = require("aws-sdk");
-
 class OrderController {
 
     async index(req, res) {
@@ -30,6 +28,20 @@ class OrderController {
             else {
                 return res.status(200).json({ status: 200, data: foundOrder });
             }
+        }
+        catch (e) {
+            if (e.errors && e.errors.length) {
+                return res.status(400).json({ status: 400, message: map(e.errors, (e) => e.message) });
+            }
+            res.status(500).send();
+        }
+    }
+
+    async showByProcessingOrderStore(req, res) {
+        try {
+            const id = req.params.id;
+            const data = await OrderService.showByProcessingOrderStore(req.query, id);
+            return res.status(200).json(data);
         }
         catch (e) {
             if (e.errors && e.errors.length) {
@@ -100,11 +112,28 @@ class OrderController {
             return res.status(400).json({ status: 400, message: errors });
         }
         try {
-            const newOrder = await OrderService.store(req.body);
-            if (newOrder) {
-                await OrderService.update({ status: 'finding_driver' }, newOrder.id)
+            const { store_id, user_id, total, coupon_id, payment_option, address, items } = req.body
+            const newOrder = { store_id, user_id, total, payment_option, address, coupon_id }
+            await store_id.map(async (e) => {
+                let data = await StoreService.show(e);
+                if (!data) {
+                    return res.status(400).json({ status: 400, message: "Invalid store ID" });
+                }
+            })
+            const storeOrder = await OrderService.store(newOrder)
+            if (storeOrder) {
+                const data = await Promise.all(items.map(async (item) => {
+                    try {
+                        return await OrderItemService.store({ order_id: storeOrder.id, ...item })
+                    }
+                    catch (e) {
+                        if (e instanceof Sequelize.ForeignKeyConstraintError) {
+                            return res.status(400).json({ status: 400, message: e.parent.detail });
+                        }
+                    }
+                }))
+                return res.status(201).json({ ...storeOrder, items: data })
             }
-            return res.status(201).json(newOrder);
         } catch (e) {
             if (e instanceof Sequelize.ForeignKeyConstraintError) {
                 return res.status(400).json({ status: 400, message: e.parent.detail });
@@ -174,6 +203,7 @@ class OrderController {
             res.status(500).send();
         }
     }
+
 
     async delete(req, res) {
         try {

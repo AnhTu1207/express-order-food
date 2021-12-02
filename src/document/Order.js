@@ -41,27 +41,47 @@
  *            - user_id
  *            - total
  *            - payment_option
+ *            - items
  *          properties:
  *              id:
  *                  type: string
  *                  description: The auto-generated id of the category
  *              store_id:
- *                  type: string
- *                  description: The store ID
+ *                  type: array
+ *                  description: List of store ID
  *              user_id:
  *                  type: string
  *                  description: The user ID
+ *              address:
+ *                  type: string
+ *                  description: User's confirmed address
  *              total:
  *                  type: integer
  *                  description: The total of order
  *              payment_option:
  *                  type: enum
  *                  description: cash or banking
+ *              items:
+ *                  type: array
+ *                  description: List food in Cart
  *          example:
- *             store_id: c567bc4c-8ca0-4f20-9cea-a8aa12bd1457
- *             user_id: 8d03f601-78e8-4111-8888-94f0b13d5b8b
- *             total: 800000
- *             payment_option: cash
+ *                  store_id: [3807d036-b9a2-4ca7-918a-7c75f268d8aa, 50c80b29-7f8e-4f3a-ab5d-b99a560daeb7]
+ *                  user_id : 194ead9a-b3bb-4ac8-a4f8-27e8a12b0d86
+ *                  total: 300000
+ *                  payment_option: cash
+ *                  addres: asdasdasdasdasdasdasd
+ *                  items: [
+ *                      {
+ *                          food_id: 611c257c-fedf-4c91-aa63-65dc64f0efb1,
+ *                          qty: 2,
+ *                          price: 10
+ *                      },
+ *                      {
+ *                          food_id: 645f52ee-bf20-4f5b-9bb1-213ea0e87aa2,
+ *                          qty: 2,
+ *                          price: 10
+ *                      }
+ *                  ]
  *
  */
 
@@ -534,18 +554,40 @@
  *             schema:
  *               type: object
  *               example:
- *                       {
- *                         "rating": 0,
- *                         "status": "processing_order",
- *                         "store_id": "c567bc4c-8ca0-4f20-9cea-a8aa12bd1457",
- *                         "user_id": "8d03f601-78e8-4111-8888-94f0b13d5b8b",
- *                         "total": 800000,
- *                         "payment_option": "cash",
- *                         "id": "283bba4c-e8a1-43c7-8c21-64ccb7ac18f4",
- *                         "updatedAt": "2021-12-02T14:26:19.193Z",
- *                         "createdAt": "2021-12-02T14:26:19.193Z",
- *                         "driver_id": null,
- *                         "coupon_id": null
+ *                        {
+ *                            "rating": 0,
+ *                            "status": "processing_order",
+ *                            "store_id": [
+ *                                "3807d036-b9a2-4ca7-918a-7c75f268d8aa",
+ *                                "50c80b29-7f8e-4f3a-ab5d-b99a560daeb7"
+ *                            ],
+ *                            "user_id": "194ead9a-b3bb-4ac8-a4f8-27e8a12b0d86",
+ *                            "total": 300000,
+ *                            "payment_option": "cash",
+ *                            "address": "asdasdasdasdasdasdasd",
+ *                            "id": "6922623f-4e0a-4ebe-9df1-9a8f2fc92889",
+ *                            "updatedAt": "2021-12-02T20:32:04.541Z",
+ *                            "createdAt": "2021-12-02T20:32:04.541Z",
+ *                            "driver_id": null,
+ *                            "coupon_id": null,
+ *                            "items": [
+ *                                {
+ *                                    "order_id": "6922623f-4e0a-4ebe-9df1-9a8f2fc92889",
+ *                                    "food_id": "611c257c-fedf-4c91-aa63-65dc64f0efb1",
+ *                                    "qty": 2,
+ *                                    "price": 10,
+ *                                    "updatedAt": "2021-12-02T20:32:04.557Z",
+ *                                    "createdAt": "2021-12-02T20:32:04.557Z"
+ *                                },
+ *                                {
+ *                                    "order_id": "6922623f-4e0a-4ebe-9df1-9a8f2fc92889",
+ *                                    "food_id": "645f52ee-bf20-4f5b-9bb1-213ea0e87aa2",
+ *                                    "qty": 2,
+ *                                    "price": 10,
+ *                                    "updatedAt": "2021-12-02T20:32:04.557Z",
+ *                                    "createdAt": "2021-12-02T20:32:04.557Z"
+ *                                }
+ *                            ]
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters)

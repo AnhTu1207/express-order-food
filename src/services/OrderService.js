@@ -9,6 +9,15 @@ class OrderService {
         }
     }
 
+    async showByProcessingOrderStore(q, id) {
+        try {
+            return await OrderRepository.showByProcessingOrderStore(q, id);
+        }
+        catch (e) {
+            throw e;
+        }
+    }
+
     async showByFindingDriver(q) {
         try {
             return await OrderRepository.showByFindingDriver(q);
