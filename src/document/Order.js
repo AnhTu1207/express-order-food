@@ -52,6 +52,9 @@
  *              user_id:
  *                  type: string
  *                  description: The user ID
+ *              coupon_id:
+ *                  type: string
+ *                  description: The coupon id
  *              address:
  *                  type: string
  *                  description: User's confirmed address
