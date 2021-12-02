@@ -6,6 +6,8 @@ const FoodService = require("./FoodServices");
 const StoreService = require("./StoreServices");
 const CategoryService = require("./CategoryServices");
 const CouponService = require("./CouponServices");
+const OrderService = require("./OrderService");
+const OrderItemService = require("./OrderItemService");
 
 module.exports = {
   UserService,
@@ -13,5 +15,7 @@ module.exports = {
   StoreService,
   CategoryService,
   CouponService,
-  DriverService
+  DriverService,
+  OrderService,
+  OrderItemService
 };

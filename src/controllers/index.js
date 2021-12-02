@@ -6,6 +6,8 @@ const FoodController = require("./FoodController");
 const StoreController = require("./StoreController");
 const CategoryController = require("./CategoryController");
 const CouponController = require("./CouponController");
+const OrderController = require("./OrderController");
+const OrderItemController = require("./OrderItemController");
 const MicsController = require("./MicsController");
 
 module.exports = {
@@ -15,5 +17,7 @@ module.exports = {
   MicsController,
   CategoryController,
   FoodController,
-  CouponController
+  CouponController,
+  OrderController,
+  OrderItemController
 };
