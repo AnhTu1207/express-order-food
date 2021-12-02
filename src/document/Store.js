@@ -131,6 +131,11 @@
  *        schema:
  *          type: integer
  *        description: This is pagination query
+ *      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *        description: This is limit query
  *     responses:
  *       200:
  *         description: Success

@@ -56,7 +56,7 @@ class DriverController {
       const newDriver = await DriverService.store(req.body);
       // Send email to validate
       const token = jwt.sign({ ...newDriver, 'role': 'driver' }, "1h");
-      const url = "http://" + req.headers.host + "/api/auth/verify/" + token;
+      const url = process.env.CLIENT_URL + "/verify/" + token;
       await mailer.sendMail(newDriver.email, "You need to verify in order to use our services!!!", url);
 
       return res.status(201).json(newDriver);

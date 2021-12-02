@@ -7,6 +7,8 @@ const foodRoutes = require("./FoodRoute");
 const storeRoutes = require("./StoreRoute");
 const categoryRoutes = require("./CategoryRoute");
 const couponRoutes = require("./CouponRoute");
+const orderRoutes = require("./OrderRoute");
+const orderItemRoutes = require("./OrderItemRoute");
 
 module.exports = {
   authRoutes,
@@ -15,5 +17,7 @@ module.exports = {
   foodRoutes,
   storeRoutes,
   categoryRoutes,
-  couponRoutes
+  couponRoutes,
+  orderRoutes,
+  orderItemRoutes
 };

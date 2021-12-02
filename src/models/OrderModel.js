@@ -18,7 +18,7 @@ const Orders = sequelizeConfig.define("orders", {
   },
   driver_id: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   coupon_id: {
     type: Sequelize.STRING,
@@ -42,7 +42,6 @@ const Orders = sequelizeConfig.define("orders", {
     values: [
       "processing_order",
       "finding_driver",
-      "driver_accept",
       "cooking_foods",
       "delivering",
       "done",

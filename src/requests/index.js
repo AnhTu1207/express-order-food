@@ -29,6 +29,11 @@ const UpdateFoodRequest = require("./FoodRequest/UpdateFoodRequest");
 const AddStoreRequest = require("./StoreRequest/AddStoreRequest");
 const UpdateStoreRequest = require("./StoreRequest/UpdateStoreRequest");
 
+// Order Request
+const AddOrderRequest = require("./OrderRequest/AddOrderRequest");
+const AddOrderItemRequest = require("./OrderRequest/AddOrderItemRequest");
+const UpdateOrderDriverRequest = require("./OrderRequest/UpdateOrderDriverRequest");
+const UpdateOrderStatus = require("./OrderRequest/UpdateOrderStatus");
 // User Request
 const UpdateUserRequest = require("./UserRequest/UpdateUserRequest");
 
@@ -48,5 +53,9 @@ module.exports = {
   UpdatePasswordRequest,
   AddCouponRequest,
   AddCouponRequest_Admin,
-  UpdateCouponRequest
+  UpdateCouponRequest,
+  AddOrderRequest,
+  AddOrderItemRequest,
+  UpdateOrderDriverRequest,
+  UpdateOrderStatus
 };

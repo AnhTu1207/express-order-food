@@ -112,6 +112,11 @@
  *        schema:
  *          type: integer
  *        description: This is pagination query
+*      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *        description: This is limit query
  *     tags: [Coupon]
  *     responses:
  *       200:
@@ -205,6 +210,11 @@
  *        schema:
  *          type: integer
  *        description: This is pagination query
+*      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *        description: This is limit query
  *      - in: path
  *        name: id
  *        schema:
@@ -262,6 +272,11 @@
  *        schema:
  *          type: integer
  *        description: This is pagination query
+ *      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *        description: This is limit query
  *      - in: query
  *        name: search
  *        schema:
