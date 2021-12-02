@@ -2,7 +2,6 @@ const { Sequelize } = require("sequelize");
 
 const { sequelizeConfig } = require(appRoot + "/config");
 const Drivers = require("./DriverModel");
-const Stores = require("./StoreModel");
 const Users = require("./UserModel");
 const Coupons = require("./CouponModel");
 
@@ -13,7 +12,7 @@ const Orders = sequelizeConfig.define("orders", {
     primaryKey: true,
   },
   store_id: {
-    type: Sequelize.STRING,
+    type: Sequelize.ARRAY(Sequelize.STRING),
     allowNull: false,
   },
   driver_id: {
@@ -30,6 +29,10 @@ const Orders = sequelizeConfig.define("orders", {
   },
   total: {
     type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  address: {
+    type: Sequelize.STRING,
     allowNull: false,
   },
   rating: {
@@ -62,13 +65,6 @@ Drivers.hasMany(Orders, {
 });
 Orders.belongsTo(Drivers, {
   foreignKey: "driver_id"
-});
-
-Stores.hasMany(Orders, {
-  foreignKey: "store_id"
-});
-Orders.belongsTo(Stores, {
-  foreignKey: "store_id"
 });
 
 Users.hasMany(Orders, {

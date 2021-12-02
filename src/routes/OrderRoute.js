@@ -7,6 +7,7 @@ const router = express.Router();
 const { OrderController } = require(appRoot + "/controllers");
 
 router.get("/", OrderController.index);
+router.get("/showByProcessingOrder/:id", OrderController.showByProcessingOrderStore)
 router.get("/showByFindindDriver", DriverAuth, OrderController.showByFindindDriver)
 router.get("/show/:id", OrderController.show);
 router.get("/showByStore/:id", OrderController.showByStore)

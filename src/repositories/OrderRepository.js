@@ -9,7 +9,6 @@ class OrderRepository {
         try {
             return await pagination(Orders, +q.page || 1, q.limit, {
                 include: [
-                    { model: Stores, attributes: ['name', 'latitude', 'longitude'], required: true },
                     { model: Users, attributes: ['name', 'address', 'phone'], required: true },
                     { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
                     { model: Coupons, attributes: ['code'], required: false },
@@ -27,13 +26,38 @@ class OrderRepository {
         }
     }
 
+    async showByProcessingOrderStore(q, id) {
+        try {
+            return await pagination(Orders, +q.page || 1, q.limit, {
+                include: [
+                    { model: Users, attributes: ['name', 'address', 'phone'], required: true },
+                    { model: Coupons, attributes: ['code'], required: false },
+                    {
+                        model: OrdersItems, separate: true, required: true,
+                        include: [{
+                            model: Foods, attributes: ['name']
+                        }]
+                    },
+                ],
+                where: {
+                    [Op.and]:
+                        [
+                            { status: "processing_order" },
+                            { store_id: { [Op.contains]: [id] } }
+                        ]
+                }
+            });
+        }
+        catch {
+            return null;
+        }
+    }
+
     async showByFindingDriver(q) {
         try {
             return await pagination(Orders, +q.page || 1, q.limit, {
                 include: [
-                    { model: Stores, attributes: ['name', 'latitude', 'longitude'], required: true },
                     { model: Users, attributes: ['name', 'address', 'phone'], required: true },
-                    { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
                     { model: Coupons, attributes: ['code'], required: false },
                     {
                         model: OrdersItems, separate: true, required: true,
@@ -55,7 +79,6 @@ class OrderRepository {
         try {
             const foundOrder = await Orders.findOne({
                 include: [
-                    { model: Stores, attributes: ['name', 'latitude', 'longitude'], required: true },
                     { model: Users, attributes: ['name', 'address', 'phone'], required: true },
                     { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
                     { model: Coupons, attributes: ['code'], required: false },
@@ -80,7 +103,6 @@ class OrderRepository {
             return await pagination(Orders, +q.page || 1, q.limit, {
                 where: { store_id: storeId },
                 include: [
-                    { model: Stores, attributes: ['name', 'latitude', 'longitude'], required: true },
                     { model: Users, attributes: ['name', 'address', 'phone'], required: true },
                     { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
                     { model: Coupons, attributes: ['code'], required: false },
@@ -102,7 +124,6 @@ class OrderRepository {
             return await pagination(Orders, +q.page || 1, q.limit, {
                 where: { driver_id: driverId },
                 include: [
-                    { model: Stores, attributes: ['name', 'latitude', 'longitude'], required: true },
                     { model: Users, attributes: ['name', 'address', 'phone'], required: true },
                     { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
                     { model: Coupons, attributes: ['code'], required: false },
@@ -124,7 +145,6 @@ class OrderRepository {
             return await pagination(Orders, +q.page || 1, q.limit, {
                 where: { user_id: userId },
                 include: [
-                    { model: Stores, attributes: ['name', 'latitude', 'longitude'], required: true },
                     { model: Users, attributes: ['name', 'address', 'phone'], required: true },
                     { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
                     { model: Coupons, attributes: ['code'], required: false },
