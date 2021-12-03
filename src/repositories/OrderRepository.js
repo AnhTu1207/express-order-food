@@ -101,7 +101,7 @@ class OrderRepository {
     async showByStore(storeId, q) {
         try {
             return await pagination(Orders, +q.page || 1, q.limit, {
-                where: { store_id: storeId },
+                where: { store_id: { [Op.contains]: [storeId] } },
                 include: [
                     { model: Users, attributes: ['name', 'address', 'phone'], required: true },
                     { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },

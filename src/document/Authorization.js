@@ -152,7 +152,7 @@
 
 /**
  * @swagger
- * /api/verify/{token}:
+ * /api/auth/verify/{token}:
  *   get:
  *     summary: Verify user, driver, store by token
  *     tags: [Authorization]
