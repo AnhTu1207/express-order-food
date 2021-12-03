@@ -152,6 +152,35 @@
 
 /**
  * @swagger
+ * /api/verify/{token}:
+ *   get:
+ *     summary: Verify user, driver, store by token
+ *     tags: [Authorization]
+ *     parameters:
+ *      - in: path
+ *        name: token
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: This is token send by email
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                 status: 200
+ *                 message: Your account has been verified
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
  * /api/store/login:
  *   post:
  *     summary: Store login
