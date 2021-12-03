@@ -23,11 +23,11 @@ const Stores = sequelizeConfig.define("stores", {
     unique: true,
   },
   latitude: {
-    type: Sequelize.DECIMAL(8, 6),
+    type: Sequelize.DECIMAL(8, 7),
     allowNull: false,
   },
   longitude: {
-    type: Sequelize.DECIMAL(9, 6),
+    type: Sequelize.DECIMAL(9, 7),
     allowNull: false,
   },
   email: {
