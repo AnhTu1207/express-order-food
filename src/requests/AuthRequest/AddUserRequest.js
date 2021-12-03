@@ -5,7 +5,7 @@ module.exports = [
   check("email").not().isEmpty().trim().escape(),
   check("password").not().isEmpty().trim().escape(),
   check("name").not().isEmpty().trim().escape(),
-  check("phone").not().isEmpty().trim().escape().matches(/((09|03|07|08|05)+([0-9]{8})\b)/g).withMessage("Your phone number is not in the correct format"),
+  check("phone").not().isEmpty().trim().escape(),
   check("address").not().isEmpty().trim(),
   check("email").isEmail(),
   body().custom(body => {
