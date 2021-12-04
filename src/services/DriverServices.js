@@ -17,6 +17,14 @@ class DriverService {
     }
   }
 
+  async showByEmail(body) {
+    try {
+      return await DriverRepository.showByEmail(body);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   async store(newDriver) {
     try {
       return await DriverRepository.store(newDriver);
@@ -36,6 +44,14 @@ class DriverService {
   async updatePassword(updateDriver, id) {
     try {
       return await DriverRepository.updatePassword(updateDriver, id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async forgotPassword(randomPassword, id) {
+    try {
+      return await DriverRepository.forgotPassword(randomPassword, id);
     } catch (e) {
       throw e;
     }

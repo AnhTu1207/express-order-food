@@ -6,6 +6,7 @@ const Foods = require("./FoodModel");
 const Coupons = require("./CouponModel");
 const Orders = require("./OrderModel");
 const OrdersItems = require("./OrderItemModel");
+const HistoryOrders = require("./HistoryOrderModel");
 // const OrdersItemsOptions = require("./OrderItemOptionModel");
 // const Options = require("./OptionModel");
 // const OptionsLabels = require("./OptionLabelModel")
@@ -19,4 +20,5 @@ module.exports = {
   Coupons,
   Orders,
   OrdersItems,
+  HistoryOrders
 };

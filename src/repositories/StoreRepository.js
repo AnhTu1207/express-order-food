@@ -28,6 +28,19 @@ class StoreRepository {
         }
     }
 
+    async showByEmail(body) {
+        try {
+            const foundStore = await Stores.findOne({
+                where: body,
+                attributes: { exclude: ["password"] },
+            });
+
+            return foundStore;
+        } catch {
+            return null;
+        }
+    }
+
     async store(newStore) {
         try {
             const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
@@ -76,6 +89,25 @@ class StoreRepository {
                 password: updateStore.password
             }, {
                 where: { id },
+                returning: true
+            })
+            return res;
+        }
+        catch (e) {
+            throw e
+        }
+    }
+
+    async forgotPassword(randomPassword, id) {
+        try {
+            const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
+            randomPassword = bcrypt.hashSync(randomPassword, salt);
+
+            const res = await Stores.update({
+                password: randomPassword
+            }, {
+                where: { id },
+                attributes: { exclude: ["password"] },
                 returning: true
             })
             return res;

@@ -1,9 +1,9 @@
 const { validationResult } = require("express-validator");
-
-const { UserService } = require(appRoot + "/services");
-const { utility, mailer, jwt } = require(appRoot + "/helpers");
+const { generate } = require('generate-password')
 const { map } = require("lodash");
 
+const { utility, mailer, jwt } = require(appRoot + "/helpers");
+const { UserService } = require(appRoot + "/services");
 class UserController {
   async index(req, res) {
     try {
@@ -245,6 +245,65 @@ class UserController {
           .json({ status: 400, message: map(e.errors, (e) => e.message) });
       }
       res.status(500).send();
+    }
+  }
+
+  async resendVerification(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: 400, message: errors });
+    }
+    try {
+      const foundUser = await UserService.showByEmail(req.body);
+      if (foundUser === null) {
+        return res.status(400).json({ status: 400, message: "No user found with this email id, please check your email or incorrect link" });
+      }
+      if (foundUser.is_verified) {
+        return res.status(400).json({ status: 400, message: "Account is already verified" });
+      }
+      // Send email to validate
+      const token = jwt.sign(foundUser, "1h");
+      const url = process.env.CLIENT_URL + "/verify/" + token;
+      await mailer.sendMail(foundUser.email, "You need to verify in order to use our services!!!", url);
+      return res.status(200).json({ status: 200, message: "Email has been sent" });
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).json({ message: e.message });
+    }
+  }
+
+  async forgotPassword(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: 400, message: errors });
+    }
+    try {
+      const foundUser = await UserService.showByEmail(req.body);
+      if (foundUser === null) {
+        return res.status(400).json({ status: 400, message: "No user found with this email id, please check your email or incorrect link" });
+      }
+      const newPassword = generate({
+        length: 12,
+        numbers: true
+      });
+      const updateUser = await UserService.forgotPassword(newPassword, foundUser.id)
+      if (updateUser[1][0]) {
+        await mailer.forgotPasswordMail(foundUser.email, "Reset your Food Guru password !!!", newPassword, process.env.CLIENT_URL);
+        return res.status(200).json({ status: 200, message: "Email has been sent" });
+      }
+      return res.status(400).json(newPassword);
+      // Send email to validate
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).json({ message: e.message });
     }
   }
 }

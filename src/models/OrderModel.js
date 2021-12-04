@@ -35,7 +35,12 @@ const Orders = sequelizeConfig.define("orders", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  rating: {
+  driver_rating: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: '0',
+  },
+  store_rating: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: '0',
@@ -61,21 +66,24 @@ const Orders = sequelizeConfig.define("orders", {
 });
 
 Drivers.hasMany(Orders, {
-  foreignKey: "driver_id"
+  foreignKey: "driver_id",
+  onDelete: 'restrict',
 });
 Orders.belongsTo(Drivers, {
   foreignKey: "driver_id"
 });
 
 Users.hasMany(Orders, {
-  foreignKey: "user_id"
+  foreignKey: "user_id",
+  onDelete: 'restrict',
 });
 Orders.belongsTo(Users, {
   foreignKey: "user_id"
 });
 
 Coupons.hasMany(Orders, {
-  foreignKey: "coupon_id"
+  foreignKey: "coupon_id",
+  onDelete: 'restrict',
 });
 Orders.belongsTo(Coupons, {
   foreignKey: "coupon_id"

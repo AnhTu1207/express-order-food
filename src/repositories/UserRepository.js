@@ -64,6 +64,19 @@ class UserRepository {
     }
   }
 
+  async showByEmail(body) {
+    try {
+      const foundUser = await Users.findOne({
+        where: body,
+        attributes: { exclude: ["password"] },
+      });
+
+      return foundUser;
+    } catch {
+      return null;
+    }
+  }
+
   async index(q) {
     try {
       return await pagination(Users, +q.page || 1, q.limit, {
@@ -105,6 +118,25 @@ class UserRepository {
       updateUser.password = bcrypt.hashSync(updateUser.password, salt);
       const res = await Users.update({
         password: updateUser.password
+      }, {
+        where: { id },
+        attributes: { exclude: ["password"] },
+        returning: true
+      })
+      return res;
+    }
+    catch (e) {
+      throw e
+    }
+  }
+
+  async forgotPassword(randomPassword, id) {
+    try {
+      const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
+      randomPassword = bcrypt.hashSync(randomPassword, salt);
+
+      const res = await Users.update({
+        password: randomPassword
       }, {
         where: { id },
         attributes: { exclude: ["password"] },

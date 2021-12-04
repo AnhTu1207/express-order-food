@@ -62,7 +62,16 @@
  *       example:
  *         email: binh1234@gmail.com
  *         password: binh123
- *
+ *     Email:
+ *       type: object
+ *       required:
+ *         - email
+ *       properties:
+ *         email:
+ *           type: string
+ *           description: The email of user/driver/store
+ *       example:
+ *         email: binh1234@gmail.com
  */
 
 /**
@@ -290,6 +299,186 @@
  *                 fb_id: null
  *       400:
  *         description: Username || Email must be unique
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/auth/resend-email:
+ *   post:
+ *     summary: Resend verification email for user
+ *     tags: [Authorization]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *          application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Email'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                  status: 200
+ *                  message: "Email has been sent"
+ *       400:
+ *         description: No user found with this email id, please check your email or incorrect link || Account is already verified
+ *       429:
+ *         description: Too many request (Only allow 10 request / hour)
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/store/resend-email:
+ *   post:
+ *     summary: Resend verification email for store
+ *     tags: [Authorization]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *          application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Email'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                  status: 200
+ *                  message: "Email has been sent"
+ *       400:
+ *         description: No store found with this email id, please check your email or incorrect link || Account is already verified
+ *       429:
+ *         description: Too many request (Only allow 10 request / hour)
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/driver/resend-email:
+ *   post:
+ *     summary: Resend verification email for driver
+ *     tags: [Authorization]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *          application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Email'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                  status: 200
+ *                  message: "Email has been sent"
+ *       400:
+ *         description: No driver found with this email id, please check your email or incorrect link || Account is already verified
+ *       429:
+ *         description: Too many request (Only allow 10 request / hour)
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/auth/forgot-password:
+ *   post:
+ *     summary: Reset password email for user
+ *     tags: [Authorization]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *          application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Email'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                  status: 200
+ *                  message: "Email has been sent"
+ *       400:
+ *         description: No user found with this email id, please check your email or incorrect link || Account is already verified
+ *       429:
+ *         description: Too many request (Only allow 10 request / hour)
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/store/forgot-password:
+ *   post:
+ *     summary: Reset password email for store
+ *     tags: [Authorization]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *          application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Email'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                  status: 200
+ *                  message: "Email has been sent"
+ *       400:
+ *         description: No store found with this email id, please check your email or incorrect link || Account is already verified
+ *       429:
+ *         description: Too many request (Only allow 10 request / hour)
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/driver/forgot-password:
+ *   post:
+ *     summary: Reset password email for driver
+ *     tags: [Authorization]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *          application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Email'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                  status: 200
+ *                  message: "Email has been sent"
+ *       400:
+ *         description: No driver found with this email id, please check your email or incorrect link || Account is already verified
+ *       429:
+ *         description: Too many request (Only allow 10 request / hour)
  *       500:
  *         description: Server errors
  */
