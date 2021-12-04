@@ -26,6 +26,19 @@ class DriverRepository {
     }
   }
 
+  async showByEmail(body) {
+    try {
+      const foundDriver = await Drivers.findOne({
+        where: body,
+        attributes: { exclude: ["password"] },
+      });
+
+      return foundDriver;
+    } catch {
+      return null;
+    }
+  }
+
   async store(newDriver) {
     try {
       const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
@@ -77,6 +90,25 @@ class DriverRepository {
         password: updateDriver.password
       }, {
         where: { id },
+        returning: true
+      })
+      return res;
+    }
+    catch (e) {
+      throw e
+    }
+  }
+
+  async forgotPassword(randomPassword, id) {
+    try {
+      const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);
+      randomPassword = bcrypt.hashSync(randomPassword, salt);
+
+      const res = await Drivers.update({
+        password: randomPassword
+      }, {
+        where: { id },
+        attributes: { exclude: ["password"] },
         returning: true
       })
       return res;

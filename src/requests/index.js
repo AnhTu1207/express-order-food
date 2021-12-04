@@ -3,6 +3,7 @@ const AddUserRequest = require("./AuthRequest/AddUserRequest");
 const LoginRequest = require("./AuthRequest/LoginRequest");
 const LoginStoreRequest = require("./AuthRequest/LoginStoreRequest");
 const UpdatePasswordRequest = require("./AuthRequest/UpdatePasswordRequest");
+const ResendEmailRequest = require("./AuthRequest/ResendEmailRequest");
 
 // Category Request
 const AddCategoryRequest = require("./CategoryRequest/AddCategoryRequest");
@@ -57,5 +58,6 @@ module.exports = {
   AddOrderRequest,
   AddOrderItemRequest,
   UpdateOrderDriverRequest,
-  UpdateOrderStatus
+  UpdateOrderStatus,
+  ResendEmailRequest
 };

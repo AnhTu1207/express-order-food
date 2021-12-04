@@ -18,6 +18,14 @@ class StoreService {
         }
     }
 
+    async showByEmail(body) {
+        try {
+            return await StoreRepository.showByEmail(body);
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async store(newStore) {
         try {
             return await StoreRepository.store(newStore);
@@ -37,6 +45,14 @@ class StoreService {
     async updatePassword(updateStore, id) {
         try {
             return await StoreRepository.updatePassword(updateStore, id);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async forgotPassword(randomPassword, id) {
+        try {
+            return await StoreRepository.forgotPassword(randomPassword, id);
         } catch (e) {
             throw e;
         }

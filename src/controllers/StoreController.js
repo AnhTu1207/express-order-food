@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator");
 const { map } = require("lodash");
+const { generate } = require('generate-password')
 
 const { utility, mailer, jwt } = require(appRoot + "/helpers");
 const { StoreService } = require(appRoot + "/services");
@@ -251,6 +252,65 @@ class StoreController {
           .json({ status: 400, message: map(e.errors, (e) => e.message) });
       }
       res.status(500).send();
+    }
+  }
+
+  async resendVerification(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: 400, message: errors });
+    }
+    try {
+      const foundStore = await StoreService.showByEmail(req.body);
+      if (foundStore === null) {
+        return res.status(400).json({ status: 400, message: "No store found with this email id, please check your email or incorrect link" });
+      }
+      if (foundStore.is_verified) {
+        return res.status(400).json({ status: 400, message: "Account is already verified" });
+      }
+      // Send email to validate
+      const token = jwt.sign({ ...foundStore.toJSON(), 'role': 'store' }, "1h");
+      const url = process.env.CLIENT_URL + "/verify/" + token;
+      await mailer.sendMail(foundStore.email, "You need to verify in order to use our services!!!", url);
+      return res.status(200).json({ status: 200, message: "Email has been sent" });
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).json({ message: e.message });
+    }
+  }
+
+  async forgotPassword(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: 400, message: errors });
+    }
+    try {
+      const foundStore = await StoreService.showByEmail(req.body);
+      if (foundStore === null) {
+        return res.status(400).json({ status: 400, message: "No user found with this email id, please check your email or incorrect link" });
+      }
+      const newPassword = generate({
+        length: 12,
+        numbers: true
+      });
+      const updateUser = await StoreService.forgotPassword(newPassword, foundStore.id)
+      if (updateUser[1][0]) {
+        await mailer.forgotPasswordMail(foundStore.email, "Reset your Food Guru password !!!", newPassword, process.env.STORE_URL);
+        return res.status(200).json({ status: 200, message: "Email has been sent" });
+      }
+      return res.status(400).json(newPassword);
+      // Send email to validate
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).json({ message: e.message });
     }
   }
 }

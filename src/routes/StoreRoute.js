@@ -1,7 +1,8 @@
 const express = require("express");
 
 const { StoreAuth } = require(appRoot + "/middlewares");
-const { AddStoreRequest, LoginStoreRequest, UpdateStoreRequest, UpdatePasswordRequest } = require(appRoot + "/requests");
+const { AddStoreRequest, LoginStoreRequest, UpdateStoreRequest, UpdatePasswordRequest, ResendEmailRequest } = require(appRoot + "/requests");
+const { limiter } = require(appRoot + "/config");
 const router = express.Router();
 
 const { StoreController } = require(appRoot + "/controllers");
@@ -15,5 +16,7 @@ router.delete("/:id", StoreAuth, StoreController.delete);
 router.post("/uploadImage/:id", StoreAuth, StoreController.upload);
 router.post("/editImage/:id", StoreAuth, StoreController.edit);
 router.post("/login", LoginStoreRequest, StoreController.login);
+router.post("/resend-email", [limiter.Storelimiter, ResendEmailRequest], StoreController.resendVerification)
+router.post("/forgot-password", [limiter.PasswordLimiter, ResendEmailRequest], StoreController.forgotPassword)
 
 module.exports = router;

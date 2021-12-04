@@ -53,7 +53,8 @@ Foods.belongsTo(Categories, {
 });
 
 Stores.hasMany(Foods, {
-  foreignKey: "store_id"
+  foreignKey: "store_id",
+  onDelete: 'restrict',
 });
 Foods.belongsTo(Stores, {
   foreignKey: "store_id"

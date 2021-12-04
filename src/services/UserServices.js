@@ -33,6 +33,14 @@ class UserService {
     }
   }
 
+  async showByEmail(body) {
+    try {
+      return await UserRepository.showByEmail(body);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   async update(updateUser, id) {
     try {
       return await UserRepository.update(updateUser, id);
@@ -44,6 +52,14 @@ class UserService {
   async updatePassword(updateUser, id) {
     try {
       return await UserRepository.updatePassword(updateUser, id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async forgotPassword(randomPassword, id) {
+    try {
+      return await UserRepository.forgotPassword(randomPassword, id);
     } catch (e) {
       throw e;
     }
