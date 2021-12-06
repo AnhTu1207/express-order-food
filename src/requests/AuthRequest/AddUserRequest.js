@@ -6,7 +6,7 @@ module.exports = [
   check("password").not().isEmpty().trim().escape(),
   check("name").not().isEmpty().trim().escape(),
   check("phone").not().isEmpty().trim().escape(),
-  check("address").not().isEmpty().trim(),
+  check("address").not().isEmpty().trim().isLength({ min: 20 }),
   check("email").isEmail(),
   body().custom(body => {
     const keys = ['username', 'email', 'password', 'name', 'phone', 'address'];
