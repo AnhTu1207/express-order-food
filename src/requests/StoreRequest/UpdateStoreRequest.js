@@ -2,7 +2,7 @@ const { check, body } = require("express-validator");
 
 module.exports = [
     check("name").not().isEmpty().escape().trim(),
-    check("address").not().isEmpty().escape().trim(),
+    check("address").not().isEmpty().escape().trim().isLength({ min: 20 }),
     check("latitude").not().isEmpty().escape().trim(),
     check("longitude").not().isEmpty().escape().trim(),
     check("district").not().isEmpty().escape().trim(),
