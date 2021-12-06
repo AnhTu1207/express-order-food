@@ -33,6 +33,7 @@
  *            - latitude
  *            - longitude
  *            - address
+ *            - district
  *            - status
  *          properties:
  *              name:
@@ -56,6 +57,9 @@
  *              longitude:
  *                  type: integer
  *                  description: Longitude value of the store (can be negative number)
+ *              district:
+ *                  type: string
+ *                  description: The district where your store are located
  *              close_time:
  *                  type: time
  *                  description: Opening time of the store
@@ -65,6 +69,7 @@
  *          example:
  *              name : Cửa hàng 4
  *              address  : 123 Nguyễn Thị Minh Khai
+ *              district: Q.Bình Thạnh
  *              latitude  : 25.458752
  *              longitude  : 38.654258
  *              phone: "0946663255"
@@ -81,6 +86,7 @@
  *            - latitude
  *            - longitude
  *            - address
+ *            - district
  *            - phone
  *          properties:
  *              id:
@@ -98,6 +104,9 @@
  *              address:
  *                  type: string
  *                  description: Address of the store
+ *              district:
+ *                  type: string
+ *                  description: The district where your store are located
  *              latitude:
  *                  type: integer
  *                  description: Latitude value of the store (can be negative number)
@@ -110,6 +119,7 @@
  *          example:
  *              name : Tạp hóa 4
  *              address  :   150 Nguyen Thuong Hien
+ *              district: Q.Bình Thạnh
  *              password: "123456abc!@#"
  *              phone: "0946663255"
  *              latitude  : 35.854658
@@ -264,6 +274,7 @@
  *                           "is_open": false,
  *                           "name": "Tạp hóa 4",
  *                           "address": "150 Nguyen Thuong Hien",
+ *                           "district": "Q.Bình Thạnh",
  *                           "latitude": "52.554665",
  *                           "longitude": "106.504256",
  *                           "email": "asdasdas@gmail.com",
@@ -395,6 +406,7 @@
  *                          id  :   4bdb9aee-5984-4172-8d16-57105d58655b,
  *                          name  :   Cửa hàng 4,
  *                          address  :   123 Nguyễn Thị Minh Khai,
+ *                          district: Q.Bình Thạnh,
  *                          latitude  : 2000000,
  *                          longitude  : 3400000,
  *                          email  :   sdfsdfsd@gmail.com ,
