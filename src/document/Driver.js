@@ -128,7 +128,23 @@
  *                 size: 50
  *                 currentPage: 1
  *                 total: 0
- *                 data: []
+ *                 data: [
+ *                   {
+ *                     "id": "c0859ca3-c742-4d87-8779-eb658554e15e",
+ *                     "email": "user@gmail.com",
+ *                     "fullname": "Đinh Anh Tú",
+ *                     "phone": "0975585245",
+ *                     "address": "230/A Tôn Đức Thắng",
+ *                     "bike_number": "80A-23500",
+ *                     "status": false,
+ *                     "avatar": null,
+ *                     "total_rating": 0,
+ *                     "is_verified": false,
+ *                     "is_open": false,
+ *                     "createdAt": "2021-12-06T15:02:29.346Z",
+ *                     "updatedAt": "2021-12-06T15:02:29.346Z"
+ *                   }
+ *                 ]
  *       401:
  *         description: Unauthorized
  */
@@ -156,18 +172,21 @@
  *               example:
  *                 status: 200
  *                 data:
- *                       {
- *                         "id": "d7830767-849e-4ced-a0a5-e4877fe78118",
- *                         "email": "asdasd@gmail.com",
- *                         "fullname": "Trần Tiến",
- *                         "phone": "0777812797",
- *                         "avatar": null,
- *                         "is_verified": true,
- *                         "is_open": false,
- *                         "total_rating": 0,
- *                         "createdAt": "2021-12-01T11:21:52.336Z",
- *                         "updatedAt": "2021-12-01T11:23:14.255Z"
- *                       }
+ *                     {
+ *                     "id": "c0859ca3-c742-4d87-8779-eb658554e15e",
+ *                     "email": "user@gmail.com",
+ *                     "fullname": "Đinh Anh Tú",
+ *                     "phone": "0975585245",
+ *                     "address": "230/A Tôn Đức Thắng",
+ *                     "bike_number": "80A-23500",
+ *                     "status": false,
+ *                     "avatar": null,
+ *                     "total_rating": 0,
+ *                     "is_verified": false,
+ *                     "is_open": false,
+ *                     "createdAt": "2021-12-06T15:02:29.346Z",
+ *                     "updatedAt": "2021-12-06T15:02:29.346Z"
+ *                     }
  *       400:
  *         description: Driver was not found
  *       401:
