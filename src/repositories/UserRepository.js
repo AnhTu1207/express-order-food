@@ -95,6 +95,7 @@ class UserRepository {
         where: { id },
         returning: true
       })
+      delete res[1][0].dataValues.password
       return res;
     } catch (e) {
       throw e
