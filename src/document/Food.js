@@ -114,6 +114,7 @@
  *                          id :  af482e0a-2afc-4fa5-a80e-5a3530acc1f2,
  *                          name :  Món ăn 3,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 70000,
  *                          detail : null,
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -132,6 +133,7 @@
  *                          id :  f0e29c5a-b9a5-409b-89c3-122d42856e86,
  *                          name :  Món ăn 2,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 70000,
  *                          detail : "Món ăn ngon lành",
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -150,6 +152,7 @@
  *                          id :  d644be0c-7b64-4465-bc55-3b8d984855d8,
  *                          name :  Món ăn 1,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 50000,
  *                          detail : null,
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -210,6 +213,7 @@
  *                          id :  af482e0a-2afc-4fa5-a80e-5a3530acc1f2,
  *                          name :  Món ăn 3,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 70000,
  *                          detail : null,
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -228,6 +232,7 @@
  *                          id :  f0e29c5a-b9a5-409b-89c3-122d42856e86,
  *                          name :  Món ăn 2,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 70000,
  *                          detail : "Món ăn ngon lành",
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -288,6 +293,7 @@
  *                          id :  af482e0a-2afc-4fa5-a80e-5a3530acc1f2,
  *                          name :  Món ăn 3,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 70000,
  *                          detail : null,
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -306,6 +312,7 @@
  *                          id :  f0e29c5a-b9a5-409b-89c3-122d42856e86,
  *                          name :  Món ăn 2,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 70000,
  *                          detail : "Món ăn ngon lành",
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -324,6 +331,7 @@
  *                          id :  d644be0c-7b64-4465-bc55-3b8d984855d8,
  *                          name :  Món ăn 1,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 50000,
  *                          detail : null,
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -372,6 +380,7 @@
  *                          id :  d644be0c-7b64-4465-bc55-3b8d984855d8,
  *                          name :  Món ăn 1,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 50000,
  *                          detail : null,
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -385,24 +394,6 @@
  *                              name: cửa hàng 1,
  *                              avatar: null
  *                          },
- *                          options_labels: [
- *                               {
- *                                  id: 8b8e9721-dd0d-4d3d-8a9d-4a194419a198,
- *                                  name: Topping,
- *                                  options: [
- *                                      {
- *                                          id: f0a7b4e9-ad56-4a83-8354-b34546d77c4c,
- *                                          name: "Trân châu",
- *                                          price: 5000
- *                                      },
-*                                       {
- *                                          id: e57ef20c-2651-403a-92e1-d4c33983c434,
- *                                          name: "Thạch",
- *                                          price: 7000
- *                                      }
- *                                  ]
- *                               }
- *                          ]
  *                       }
  *       400:
  *         description: Food was not found
@@ -450,6 +441,7 @@
  *                          id :  af482e0a-2afc-4fa5-a80e-5a3530acc1f2,
  *                          name :  Món ăn 3,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 70000,
  *                          detail : null,
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -468,6 +460,7 @@
  *                          id :  f0e29c5a-b9a5-409b-89c3-122d42856e86,
  *                          name :  Món ăn 2,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 70000,
  *                          detail : "Món ăn ngon lành",
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -486,6 +479,7 @@
  *                          id :  d644be0c-7b64-4465-bc55-3b8d984855d8,
  *                          name :  Món ăn 1,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 50000,
  *                          detail : null,
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
@@ -534,10 +528,11 @@
  *                          id :  d644be0c-7b64-4465-bc55-3b8d984855d8,
  *                          name :  Món ăn 1,
  *                          avatar : null,
+ *                          avatar_placeholder: https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png,
  *                          price : 50000,
  *                          detail : null,
  *                          store_id :  42009094-7b69-4657-90c5-202a3e497f31,
- *                          category_id :  d2696592-b096-42ef-9a00-42adc4905ce1,
+ *                          category_id :  42009094-7b69-4657-90c5-202a3e497f31,
  *                          createdAt :  2021-10-10T10:46:18.225Z,
  *                          updatedAt :  2021-10-10T10:46:18.225Z,
  *                          category: {
@@ -546,25 +541,7 @@
  *                          store: {
  *                              name: cửa hàng 1,
  *                              avatar: null
- *                          },
- *                          options_labels: [
- *                               {
- *                                  id: 8b8e9721-dd0d-4d3d-8a9d-4a194419a198,
- *                                  name: Topping,
- *                                  options: [
- *                                      {
- *                                          id: f0a7b4e9-ad56-4a83-8354-b34546d77c4c,
- *                                          name: "Trân châu",
- *                                          price: 5000
- *                                      },
-*                                       {
- *                                          id: e57ef20c-2651-403a-92e1-d4c33983c434,
- *                                          name: "Thạch",
- *                                          price: 7000
- *                                      }
- *                                  ]
- *                               }
- *                          ]
+ *                          }
  *                       }
  *       400:
  *         description: Food was not found
@@ -784,24 +761,6 @@
  *                              name: cửa hàng 1,
  *                              avatar: null
  *                          },
- *                          options_labels: [
- *                               {
- *                                  id: 8b8e9721-dd0d-4d3d-8a9d-4a194419a198,
- *                                  name: Topping,
- *                                  options: [
- *                                      {
- *                                          id: f0a7b4e9-ad56-4a83-8354-b34546d77c4c,
- *                                          name: "Trân châu",
- *                                          price: 5000
- *                                      },
- *                                       {
- *                                          id: e57ef20c-2651-403a-92e1-d4c33983c434,
- *                                          name: "Thạch",
- *                                          price: 7000
- *                                      }
- *                                  ]
- *                               }
- *                          ]
  *                       }
  *       400:
  *         description: Food was not found

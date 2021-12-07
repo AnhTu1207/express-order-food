@@ -156,47 +156,48 @@
  *               example:
  *                 size: 50
  *                 currentPage: 1
- *                 total: 3
+ *                 total: 2
  *                 data: [
- *                       {
- *                          id  :   5942c647-b362-4d78-8d38-26b53c5c956f,
- *                          name  :   Tạp hóa 3,
- *                          address  :   150 Nguyen Thuong Hien,
- *                          latitude  : 2323232,
- *                          longitude  : 23123,
- *                          email  :   dinhanhtu1207@gmail.com ,
- *                          avatar  : null,
- *                          is_verified  : true,
- *                          open  : true,
- *                          createdAt  :   2021-10-08T13:25:36.339Z ,
- *                          updatedAt  :   2021-10-08T13:29:28.907Z
- *                       },
- *                        {
- *                          id  :   cd6eadaa-61d1-4233-97b4-90f857879b9b,
- *                          name  :   Tạp hóa 2,
- *                          address  :   113 Nguyen Thuong Hien,
- *                          latitude  : 2323232,
- *                          longitude  : 23123,
- *                          email  :   asdasdasd@gmail.com ,
- *                          avatar  : null,
- *                          is_verified  : true,
- *                          open  : true,
- *                          createdAt  :   2021-10-08T13:25:36.339Z ,
- *                          updatedAt  :   2021-10-08T13:29:28.907Z
- *                       },
- *                        {
- *                          id  :   0f5321b4-8e49-48eb-ab33-93c8efc36c99,
- *                          name  :   Tạp hóa 1,
- *                          address  :   122 Nguyen Thuong Hien,
- *                          latitude  : 2323232,
- *                          longitude  : 23123,
- *                          email  :   dfdfsdfsd@gmail.com ,
- *                          avatar  : null,
- *                          is_verified  : false,
- *                          open  : true,
- *                          createdAt  :   2021-10-08T13:25:36.339Z ,
- *                          updatedAt  :   2021-10-08T13:29:28.907Z
- *                       },
+ *                     {
+ *                       "id": "aa33386b-6a52-4fda-bded-12ce87e8d6be",
+ *                       "name": "binh store",
+ *                       "address": "binh chieu thu duc",
+ *                       "district": "Binh Chieu",
+ *                       "phone": "0384985144",
+ *                       "latitude": "10.883966",
+ *                       "longitude": "106.758861",
+ *                       "email": "binh@gmail.com",
+ *                       "avatar": null,
+ *                       "avatar_placeholder": "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png",
+ *                       "open_time": null,
+ *                       "close_time": null,
+ *                       "status": false,
+ *                       "total_rating": 0,
+ *                       "is_verified": false,
+ *                       "is_open": false,
+ *                       "createdAt": "2021-12-06T14:53:37.236Z",
+ *                       "updatedAt": "2021-12-06T14:53:37.236Z"
+ *                     },
+ *                     {
+ *                       "id": "00882963-442f-4d0b-889a-bca41b789a28",
+ *                       "name": "Cửa hàng 4",
+ *                       "address": "123 Nguyễn Thị Minh Khai",
+ *                       "district": "Q.Bình Thạnh",
+ *                       "phone": "0967778544",
+ *                       "latitude": "25.458752",
+ *                       "longitude": "38.654258",
+ *                       "email": "dinhanhtu1207@gmail.com",
+ *                       "avatar": null,
+ *                       "avatar_placeholder": "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png",
+ *                       "open_time": "07:00:00",
+ *                       "close_time": "22:00:00",
+ *                       "status": false,
+ *                       "total_rating": 0,
+ *                       "is_verified": true,
+ *                       "is_open": false,
+ *                       "createdAt": "2021-12-06T14:06:50.128Z",
+ *                       "updatedAt": "2021-12-07T12:22:03.534Z"
+ *                     }
  *                   ]
  *       401:
  *         description: Unauthorized
@@ -226,20 +227,26 @@
  *               type: object
  *               example:
  *                 status: 200
- *                 data:
- *                       {
- *                          id  :   5942c647-b362-4d78-8d38-26b53c5c956f,
- *                          name  :   Tạp hóa 3,
- *                          address  :   150 Nguyen Thuong Hien,
- *                          latitude  : 2323232,
- *                          longitude  : 23123,
- *                          email  :   dinhanhtu1207@gmail.com ,
- *                          avatar  : null,
- *                          is_verified  : true,
- *                          open  : true,
- *                          createdAt  :   2021-10-08T13:25:36.339Z ,
- *                          updatedAt  :   2021-10-08T13:29:28.907Z
- *                       }
+ *                 data: {
+ *                  "id": "aa33386b-6a52-4fda-bded-12ce87e8d6be",
+ *                  "name": "binh store",
+ *                  "address": "binh chieu thu duc",
+ *                  "district": "Binh Chieu",
+ *                  "phone": "0384985144",
+ *                  "latitude": "10.883966",
+ *                  "longitude": "106.758861",
+ *                  "email": "binh@gmail.com",
+ *                  "avatar": null,
+ *                  "avatar_placeholder": "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png",
+ *                  "open_time": null,
+ *                  "close_time": null,
+ *                  "status": false,
+ *                  "total_rating": 0,
+ *                  "is_verified": false,
+ *                  "is_open": false,
+ *                  "createdAt": "2021-12-06T14:53:37.236Z",
+ *                  "updatedAt": "2021-12-06T14:53:37.236Z"
+ *                 }
  *       400:
  *         description: Store was not found
  *       401:

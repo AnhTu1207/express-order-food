@@ -79,8 +79,23 @@
  *               example:
  *                 size: 50
  *                 currentPage: 1
- *                 total: 0
- *                 data: []
+ *                 total: 1
+ *                 data: [
+ *                    {
+ *                      "id": "6c3a421a-63bc-42fd-bdc4-4c70efeccd2d",
+ *                      "username": "user",
+ *                      "email": "user@gmall.com",
+ *                      "avatar": "",
+ *                      "name": "Tran Hai Binh",
+ *                      "phone": "0998754469",
+ *                      "address": "Tiem Gao So 1 Binh Tan",
+ *                      "is_verified": false,
+ *                      "role": "user",
+ *                      "fb_id": null,
+ *                      "createdAt": "2021-12-07T14:04:23.555Z",
+ *                      "updatedAt": "2021-12-07T14:04:23.555Z"
+ *                    }
+ *                  ]
  *       401:
  *         description: Unauthorized
  */
@@ -107,21 +122,20 @@
  *               type: object
  *               example:
  *                 status: 200
- *                 data:
- *                       {
- *                           "id": "b6c6093c-a372-4be3-8ec5-cf044986707f",
- *                           "username": "admin",
- *                           "email": "asdasd@gmail.com",
- *                           "avatar": "",
- *                           "name": "user",
- *                           "phone": "0777812797",
- *                           "address": "asdasdasdasdas",
- *                           "is_verified": true,
- *                           "role": "admin",
- *                           "fb_id": null,
- *                           "createdAt": "2021-12-01T06:46:38.387Z",
- *                           "updatedAt": "2021-12-01T07:19:48.920Z"
- *                       }
+ *                 data: {
+ *                   "id": "6c3a421a-63bc-42fd-bdc4-4c70efeccd2d",
+ *                   "username": "user",
+ *                   "email": "user@gmall.com",
+ *                   "avatar": "",
+ *                   "name": "Tran Hai Binh",
+ *                   "phone": "0998754469",
+ *                   "address": "Tiem Gao So 1 Binh Tan",
+ *                   "is_verified": false,
+ *                   "role": "user",
+ *                   "fb_id": null,
+ *                   "createdAt": "2021-12-07T14:04:23.555Z",
+ *                   "updatedAt": "2021-12-07T14:04:23.555Z"
+ *                 }
  *       400:
  *         description: User was not found
  *       401:
