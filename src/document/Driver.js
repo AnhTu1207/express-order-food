@@ -332,7 +332,6 @@
  *                       {
  *                          "id": "6685911d-dca1-4201-9b38-2afcdbededa2",
  *                          "email": "dinhanhtu1207@gmail.com",
- *                          "password": "$2b$10$uKk5zGBYeUxytmW6Q48idul5GhDMoDGzvnAqLIL3lYnBFfWKl2336",
  *                          "fullname": "Trần tiến sửa",
  *                          "phone": "0986662544",
  *                          "address": "222 Nguyễn Văn Đậu Phường 6 Q.Bình Thạnh",
