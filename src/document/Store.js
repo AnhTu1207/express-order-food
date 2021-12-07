@@ -412,7 +412,6 @@
  *                          email  :   sdfsdfsd@gmail.com ,
  *                          avatar  : null,
  *                          is_verified  : false,
- *                          password: $2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy,
  *                          open  : false,
  *                          createdAt  :   2021-10-08T13:25:36.339Z ,
  *                          updatedAt  :   2021-10-08T13:29:28.907Z
