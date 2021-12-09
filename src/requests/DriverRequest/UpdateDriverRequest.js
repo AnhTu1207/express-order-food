@@ -4,7 +4,7 @@ module.exports = [
   check("email").not().isEmpty().escape().trim(),
   check("email").isEmail(),
   check("fullname").not().isEmpty().escape().trim(),
-  check("address").not().isEmpty().trim().escape().isLength({ min: 20 }),
+  check("address").not().isEmpty().trim().isLength({ min: 20 }),
   check("bike_number").not().isEmpty().trim().escape(),
   check("phone").not().isEmpty().trim().escape(),
   check("status").not().isEmpty().trim().escape(),
