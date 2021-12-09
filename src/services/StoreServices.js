@@ -75,6 +75,14 @@ class StoreService {
         }
     }
 
+    async sumOrderByWeek(userId) {
+        try {
+            return await StoreRepository.sumOrderByWeek(userId);
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async showByEmail(body) {
         try {
             return await StoreRepository.showByEmail(body);
