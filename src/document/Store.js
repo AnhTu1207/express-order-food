@@ -750,13 +750,11 @@
  *        name: startDate
  *        schema:
  *          type: date
- *        required: true
  *        description: This is startDate
  *      - in: query
  *        name: endDate
  *        schema:
  *          type: date
- *        required: true
  *        description: This is endDate
  *      - in: path
  *        name: id
