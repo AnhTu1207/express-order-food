@@ -72,7 +72,7 @@
  *                  user_id : 194ead9a-b3bb-4ac8-a4f8-27e8a12b0d86
  *                  total: 300000
  *                  payment_option: cash
- *                  addres: asdasdasdasdasdasdasd
+ *                  address: asdasdasdasdasdasdasd
  *                  items: [
  *                      {
  *                          food_id: 611c257c-fedf-4c91-aa63-65dc64f0efb1,
