@@ -31,6 +31,10 @@ const Orders = sequelizeConfig.define("orders", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  shipper_fee: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
   address: {
     type: Sequelize.STRING,
     allowNull: false,

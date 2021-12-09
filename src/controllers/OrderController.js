@@ -112,8 +112,8 @@ class OrderController {
             return res.status(400).json({ status: 400, message: errors });
         }
         try {
-            const { store_id, user_id, total, coupon_id, payment_option, address, items } = req.body
-            const newOrder = { store_id, user_id, total, payment_option, address, coupon_id }
+            const { store_id, user_id, total, coupon_id, payment_option, address, shipper_fee, items } = req.body
+            const newOrder = { store_id, user_id, total, payment_option, address, coupon_id, shipper_fee }
             await store_id.map(async (e) => {
                 let data = await StoreService.show(e);
                 if (!data) {

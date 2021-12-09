@@ -1,7 +1,10 @@
 const { v4: uuidv4 } = require("uuid");
+const Sequelize = require('sequelize')
+const { Op } = require("sequelize");
 const bcrypt = require("bcrypt");
+const moment = require('moment');
 
-const { Stores } = require(appRoot + "/models");
+const { Stores, Orders, OrdersItems, Users, Drivers, Coupons, Foods } = require(appRoot + "/models");
 const { jwt, pagination } = require(appRoot + "/helpers");
 
 class StoreRepository {
@@ -36,6 +39,192 @@ class StoreRepository {
             });
 
             return foundStore;
+        } catch {
+            return null;
+        }
+    }
+
+    async showOrderByPresent(storeId, q) {
+        try {
+            return await pagination(Orders, +q.page || 1, q.limit, {
+                include: [
+                    { model: Users, attributes: ['name', 'address', 'phone'], required: true },
+                    { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
+                    { model: Coupons, attributes: ['code'], required: false },
+                    {
+                        model: OrdersItems, separate: true,
+                        include: [{
+                            model: Foods, attributes: ['name']
+                        }]
+                    },
+                ],
+                where: {
+                    [Op.and]:
+                        [
+                            { store_id: { [Op.contains]: [storeId] } },
+                            { createdAt: { [Op.gt]: moment().format('YYYY-MM-DD 00:00') } },
+                            { createdAt: { [Op.lte]: moment().format('YYYY-MM-DD 23:59') } },
+                        ]
+                }
+            });
+        } catch {
+            return null;
+        }
+    }
+
+    async showOrderByWeek(storeId, q) {
+        try {
+            return await pagination(Orders, +q.page || 1, q.limit, {
+                include: [
+                    { model: Users, attributes: ['name', 'address', 'phone'], required: true },
+                    { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
+                    { model: Coupons, attributes: ['code'], required: false },
+                    {
+                        model: OrdersItems, separate: true,
+                        include: [{
+                            model: Foods, attributes: ['name']
+                        }]
+                    },
+                ],
+                where: {
+                    [Op.and]:
+                        [
+                            { store_id: { [Op.contains]: [storeId] } },
+                            { createdAt: { [Op.gte]: moment().subtract(7, 'days').toDate() } }
+                        ]
+                }
+            });
+        } catch {
+            return null;
+        }
+    }
+
+    async showOrderByMonth(storeId, q) {
+        try {
+            return await pagination(Orders, +q.page || 1, q.limit, {
+                include: [
+                    { model: Users, attributes: ['name', 'address', 'phone'], required: true },
+                    { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
+                    { model: Coupons, attributes: ['code'], required: false },
+                    {
+                        model: OrdersItems, separate: true,
+                        include: [{
+                            model: Foods, attributes: ['name']
+                        }]
+                    },
+                ],
+                where: {
+                    [Op.and]:
+                        [
+                            { store_id: { [Op.contains]: [storeId] } },
+                            { createdAt: { [Op.gte]: moment().subtract(30, 'days').toDate() } }
+                        ]
+                }
+            });
+        } catch {
+            return null;
+        }
+    }
+
+    async showOrderBetWeen(storeId, q) {
+        try {
+            const startDate = moment(q.startDate).format('YYYY-MM-DD') || moment().format();
+            const endDate = moment(q.endDate).format('YYYY-MM-DD 23:59') || moment().format('YYYY-MM-DD 23:59');
+            return await pagination(Orders, +q.page || 1, q.limit, {
+                include: [
+                    { model: Users, attributes: ['name', 'address', 'phone'], required: true },
+                    { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
+                    { model: Coupons, attributes: ['code'], required: false },
+                    {
+                        model: OrdersItems, separate: true,
+                        include: [{
+                            model: Foods, attributes: ['name']
+                        }]
+                    },
+                ],
+                where: {
+                    [Op.and]:
+                        [
+                            { store_id: { [Op.contains]: [storeId] } },
+                            { createdAt: { [Op.between]: [startDate, endDate] } }
+                        ]
+                }
+            });
+        } catch {
+            return null;
+        }
+    }
+
+    async countOrderByWeek(storeId) {
+        try {
+            let regWeek = [];
+            let day = 1;
+            while (day < 8) {
+                const currDay = await Orders.findAndCountAll({
+                    attributes: ['id'],
+                    where: {
+                        [Op.and]:
+                            [
+                                { store_id: { [Op.contains]: [storeId] } },
+                                { createdAt: { [Op.gte]: moment().subtract(day - 1, 'days').startOf('days').toDate() } },
+                                { createdAt: { [Op.lte]: moment().subtract(day - 1, 'days').endOf('days').toDate() } }
+                            ]
+                    },
+                })
+                regWeek.push({ currDay, 'name': moment().subtract(day - 1, 'days').format(moment.HTML5_FMT.DATE) });
+                day++;
+            }
+            return regWeek;
+        } catch {
+            return null;
+        }
+    }
+
+    async countOrderByMonth(storeId) {
+        try {
+            let regWeek = [];
+            let day = 1;
+            while (day < 31) {
+                const currDay = await Orders.findAndCountAll({
+                    attributes: ['id'],
+                    where: {
+                        [Op.and]:
+                            [
+                                { store_id: { [Op.contains]: [storeId] } },
+                                { createdAt: { [Op.gte]: moment().subtract(day - 1, 'days').startOf('days').toDate() } },
+                                { createdAt: { [Op.lte]: moment().subtract(day - 1, 'days').endOf('days').toDate() } }
+                            ]
+                    },
+                })
+                regWeek.push({ currDay, 'name': moment().subtract(day - 1, 'days').format(moment.HTML5_FMT.DATE) });
+                day++;
+            }
+            return regWeek;
+        } catch {
+            return null;
+        }
+    }
+
+    async countOrderByYear(storeId) {
+        try {
+            let regMonth = [];
+            let month = 1;
+            while (month < 13) {
+                const currMonth = await Orders.findAndCountAll({
+                    attributes: ['id'],
+                    where: {
+                        [Op.and]:
+                            [
+                                { store_id: { [Op.contains]: [storeId] } },
+                                { createdAt: { [Op.gte]: moment("0101", "MMDD").add(month - 1, 'months').toDate() } },
+                                { createdAt: { [Op.lte]: moment("0101", "MMDD").add(month, 'months').toDate() } },
+                            ]
+                    },
+                })
+                regMonth.push({ currMonth, name: moment("0101", "MMDD").add(month - 1, 'months').format('MMMM') });
+                month++;
+            }
+            return regMonth;
         } catch {
             return null;
         }

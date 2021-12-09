@@ -9,6 +9,14 @@ const { StoreController } = require(appRoot + "/controllers");
 
 router.get("/", StoreController.index);
 router.get("/show/:id", StoreController.show);
+router.get("/showOrderByPresent/:id", StoreController.showOrderByPresent)
+router.get("/showOrderByWeek/:id", StoreController.showOrderByWeek)
+router.get("/showOrderByMonth/:id", StoreController.showOrderByMonth)
+router.get("/showOrderBetWeen/:id", StoreController.showOrderBetWeen)
+router.get("/countOrderByWeek/:id", StoreController.countOrderByWeek)
+router.get("/countOrderByMonth/:id", StoreController.countOrderByMonth)
+router.get("/countOrderByYear/:id", StoreController.countOrderByYear)
+router.get("/sumOrderByWeek/:id", StoreController.sumOrderByWeek)
 router.post("/", AddStoreRequest, StoreController.store);
 router.put("/:id", [StoreAuth, UpdateStoreRequest], StoreController.update);
 router.put("/update-password/:id", [StoreAuth, UpdatePasswordRequest], StoreController.updatePassword)

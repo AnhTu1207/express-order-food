@@ -22,7 +22,7 @@
  *                  type: string
  *                  description: New password for the user
  *          example:
- *              oldpassword: 123456
+ *              oldpassword: "123456"
  *              password : 123456789abc!@#
  *      UpdateUser:
  *          type: object

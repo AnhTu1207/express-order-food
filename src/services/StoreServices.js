@@ -18,6 +18,71 @@ class StoreService {
         }
     }
 
+    async showOrderByPresent(storeId, q) {
+        try {
+            return await StoreRepository.showOrderByPresent(storeId, q);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async showOrderByWeek(storeId, q) {
+        try {
+            return await StoreRepository.showOrderByWeek(storeId, q);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async showOrderByMonth(storeId, q) {
+        try {
+            return await StoreRepository.showOrderByMonth(storeId, q);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async showOrderBetWeen(storeId, q) {
+        try {
+            return await StoreRepository.showOrderBetWeen(storeId, q);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+
+    async countOrderByWeek(storeId) {
+        try {
+            return await StoreRepository.countOrderByWeek(storeId);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async countOrderByMonth(storeId) {
+        try {
+            return await StoreRepository.countOrderByMonth(storeId);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async countOrderByYear(storeId) {
+        try {
+            return await StoreRepository.countOrderByYear(storeId);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async sumOrderByWeek(userId) {
+        try {
+            return await StoreRepository.sumOrderByWeek(userId);
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async showByEmail(body) {
         try {
             return await StoreRepository.showByEmail(body);
