@@ -1,7 +1,10 @@
-const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
+const { Op } = require("sequelize");
+const bcrypt = require("bcrypt");
+const moment = require('moment');
 
-const { Drivers } = require(appRoot + "/models");
+const { Drivers, Stores, Orders, OrdersItems, Users, Coupons, Foods } = require(appRoot + "/models");
+const { sequelizeConfig } = require(appRoot + "/config");
 const { pagination, jwt } = require(appRoot + "/helpers");
 class DriverRepository {
   async index(q) {
@@ -34,6 +37,168 @@ class DriverRepository {
       });
 
       return foundDriver;
+    } catch {
+      return null;
+    }
+  }
+
+  async countOrderByWeek(driverId) {
+    try {
+      let regWeek = [];
+      let day = 1;
+      while (day < 8) {
+        const currDay = await Orders.findAndCountAll({
+          attributes: ['id'],
+          where: {
+            [Op.and]:
+              [
+                { driver_id: driverId },
+                { status: 'done' },
+                { createdAt: { [Op.gte]: moment().subtract(day - 1, 'days').startOf('days').toDate() } },
+                { createdAt: { [Op.lte]: moment().subtract(day - 1, 'days').endOf('days').toDate() } }
+              ]
+          },
+        })
+        regWeek.push({ currDay, 'name': moment().subtract(day - 1, 'days').format(moment.HTML5_FMT.DATE) });
+        day++;
+      }
+      return regWeek;
+    } catch {
+      return null;
+    }
+  }
+
+  async countOrderByMonth(driverId) {
+    try {
+      let regWeek = [];
+      let day = 1;
+      while (day < 31) {
+        const currDay = await Orders.findAndCountAll({
+          attributes: ['id'],
+          where: {
+            [Op.and]:
+              [
+                { driver_id: driverId },
+                { status: 'done' },
+                { createdAt: { [Op.gte]: moment().subtract(day - 1, 'days').startOf('days').toDate() } },
+                { createdAt: { [Op.lte]: moment().subtract(day - 1, 'days').endOf('days').toDate() } }
+              ]
+          },
+        })
+        regWeek.push({ currDay, 'name': moment().subtract(day - 1, 'days').format(moment.HTML5_FMT.DATE) });
+        day++;
+      }
+      return regWeek;
+    } catch {
+      return null;
+    }
+  }
+
+  async countOrderByYear(driverId) {
+    try {
+      let regMonth = [];
+      let month = 1;
+      while (month < 13) {
+        const currMonth = await Orders.findAndCountAll({
+          attributes: ['id'],
+          where: {
+            [Op.and]:
+              [
+                { driver_id: driverId },
+                { status: 'done' },
+                { createdAt: { [Op.gte]: moment("0101", "MMDD").add(month - 1, 'months').toDate() } },
+                { createdAt: { [Op.lte]: moment("0101", "MMDD").add(month, 'months').toDate() } },
+              ]
+          },
+        })
+        regMonth.push({ currMonth, name: moment("0101", "MMDD").add(month - 1, 'months').format('MMMM') });
+        month++;
+      }
+      return regMonth;
+    } catch {
+      return null;
+    }
+  }
+
+  async sumOrderByWeek(driverId) {
+    try {
+      let regWeek = [];
+      let day = 1;
+      while (day < 8) {
+        const currDay = await Orders.findAll({
+          attributes: [
+            [sequelizeConfig.fn('sum', sequelizeConfig.col('shipper_fee')), 'total_sum']
+          ],
+          where: {
+            [Op.and]:
+              [
+                { driver_id: driverId },
+                { status: 'done' },
+                { createdAt: { [Op.gte]: moment().subtract(day - 1, 'days').startOf('days').toDate() } },
+                { createdAt: { [Op.lte]: moment().subtract(day - 1, 'days').endOf('days').toDate() } }
+              ]
+          },
+        })
+        regWeek.push({ currDay, 'name': moment().subtract(day - 1, 'days').format(moment.HTML5_FMT.DATE) });
+        day++;
+      }
+      return regWeek;
+    } catch {
+      return null;
+    }
+  }
+
+  async sumOrderByMonth(driverId) {
+    try {
+      let regWeek = [];
+      let day = 1;
+      while (day < 31) {
+        const currDay = await Orders.findAll({
+          attributes: [
+            [sequelizeConfig.fn('sum', sequelizeConfig.col('shipper_fee')), 'total_sum']
+          ],
+          where: {
+            [Op.and]:
+              [
+                { driver_id: driverId },
+                { status: 'done' },
+                { createdAt: { [Op.gte]: moment().subtract(day - 1, 'days').startOf('days').toDate() } },
+                { createdAt: { [Op.lte]: moment().subtract(day - 1, 'days').endOf('days').toDate() } }
+              ]
+          },
+        })
+        regWeek.push({ currDay, 'name': moment().subtract(day - 1, 'days').format(moment.HTML5_FMT.DATE) });
+        day++;
+      }
+      return regWeek;
+    } catch {
+      return null;
+    }
+  }
+
+  async sumOrderByYear(driverId) {
+    try {
+      let regMonth = [];
+      let month = 1;
+      while (month < 13) {
+        const currMonth = await Orders.findAll({
+          attributes: [
+            [sequelizeConfig.fn('sum', sequelizeConfig.col('shipper_fee')), 'total_sum']
+          ],
+          where: {
+            [Op.and]:
+              [
+                { driver_id: driverId },
+                { status: 'done' },
+                { createdAt: { [Op.gte]: moment("0101", "MMDD").add(month - 1, 'months').toDate() } },
+                { createdAt: { [Op.lte]: moment("0101", "MMDD").add(month, 'months').toDate() } },
+              ]
+          },
+        })
+        regMonth.push({ currMonth, name: moment("0101", "MMDD").add(month - 1, 'months').format('MMMM') });
+        month++;
+      }
+      return regMonth;
     } catch {
       return null;
     }

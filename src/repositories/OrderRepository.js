@@ -15,37 +15,12 @@ class OrderRepository {
                     {
                         model: OrdersItems, separate: true, required: true,
                         include: [{
-                            model: Foods, attributes: ['name']
+                            model: Foods, attributes: ['name'], include: [{
+                                model: Stores, attributes: { exclude: ['password', 'email'] }
+                            }]
                         }]
                     },
                 ],
-            });
-        }
-        catch {
-            return null;
-        }
-    }
-
-    async showByProcessingOrderStore(q, id) {
-        try {
-            return await pagination(Orders, +q.page || 1, q.limit, {
-                include: [
-                    { model: Users, attributes: ['name', 'address', 'phone'], required: true },
-                    { model: Coupons, attributes: ['code'], required: false },
-                    {
-                        model: OrdersItems, separate: true, required: true,
-                        include: [{
-                            model: Foods, attributes: ['name']
-                        }]
-                    },
-                ],
-                where: {
-                    [Op.and]:
-                        [
-                            { status: "processing_order" },
-                            { store_id: { [Op.contains]: [id] } }
-                        ]
-                }
             });
         }
         catch {
@@ -62,7 +37,9 @@ class OrderRepository {
                     {
                         model: OrdersItems, separate: true, required: true,
                         include: [{
-                            model: Foods, attributes: ['name']
+                            model: Foods, attributes: ['name'], include: [{
+                                model: Stores, attributes: { exclude: ['password', 'email'] }
+                            }]
                         }]
                     },
                 ],
@@ -85,7 +62,9 @@ class OrderRepository {
                     {
                         model: OrdersItems, separate: true,
                         include: [{
-                            model: Foods, attributes: ['name']
+                            model: Foods, attributes: ['name'], include: [{
+                                model: Stores, attributes: { exclude: ['password', 'email'] }
+                            }]
                         }]
                     },
                 ],
@@ -101,7 +80,6 @@ class OrderRepository {
     async showByStore(storeId, q) {
         try {
             return await pagination(Orders, +q.page || 1, q.limit, {
-                where: { store_id: { [Op.contains]: [storeId] } },
                 include: [
                     { model: Users, attributes: ['name', 'address', 'phone'], required: true },
                     { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
@@ -109,10 +87,19 @@ class OrderRepository {
                     {
                         model: OrdersItems, separate: true,
                         include: [{
-                            model: Foods, attributes: ['name']
+                            model: Foods, attributes: ['name'], include: [{
+                                model: Stores, attributes: { exclude: ['password', 'email'] }
+                            }]
                         }]
                     },
                 ],
+                where: {
+                    [Op.and]:
+                        [
+                            { store_id: { [Op.contains]: [storeId] } },
+                            { status: 'done' },
+                        ]
+                }
             });
         } catch {
             return null;
@@ -130,7 +117,9 @@ class OrderRepository {
                     {
                         model: OrdersItems, separate: true,
                         include: [{
-                            model: Foods, attributes: ['name']
+                            model: Foods, attributes: ['name'], include: [{
+                                model: Stores, attributes: { exclude: ['password', 'email'] }
+                            }]
                         }]
                     },
                 ],
@@ -151,7 +140,9 @@ class OrderRepository {
                     {
                         model: OrdersItems, separate: true,
                         include: [{
-                            model: Foods, attributes: ['name']
+                            model: Foods, attributes: ['name'], include: [{
+                                model: Stores, attributes: { exclude: ['password', 'email'] }
+                            }]
                         }]
                     },
                 ],

@@ -62,6 +62,7 @@ class StoreRepository {
                     [Op.and]:
                         [
                             { store_id: { [Op.contains]: [storeId] } },
+                            { status: 'done' },
                             { createdAt: { [Op.gt]: moment().format('YYYY-MM-DD 00:00') } },
                             { createdAt: { [Op.lte]: moment().format('YYYY-MM-DD 23:59') } },
                         ]
@@ -90,6 +91,7 @@ class StoreRepository {
                     [Op.and]:
                         [
                             { store_id: { [Op.contains]: [storeId] } },
+                            { status: 'done' },
                             { createdAt: { [Op.gte]: moment().subtract(7, 'days').toDate() } }
                         ]
                 }
@@ -117,6 +119,7 @@ class StoreRepository {
                     [Op.and]:
                         [
                             { store_id: { [Op.contains]: [storeId] } },
+                            { status: 'done' },
                             { createdAt: { [Op.gte]: moment().subtract(30, 'days').toDate() } }
                         ]
                 }
@@ -146,6 +149,7 @@ class StoreRepository {
                     [Op.and]:
                         [
                             { store_id: { [Op.contains]: [storeId] } },
+                            { status: 'done' },
                             { createdAt: { [Op.between]: [startDate, endDate] } }
                         ]
                 }
@@ -166,6 +170,7 @@ class StoreRepository {
                         [Op.and]:
                             [
                                 { store_id: { [Op.contains]: [storeId] } },
+                                { status: 'done' },
                                 { createdAt: { [Op.gte]: moment().subtract(day - 1, 'days').startOf('days').toDate() } },
                                 { createdAt: { [Op.lte]: moment().subtract(day - 1, 'days').endOf('days').toDate() } }
                             ]
@@ -191,6 +196,7 @@ class StoreRepository {
                         [Op.and]:
                             [
                                 { store_id: { [Op.contains]: [storeId] } },
+                                { status: 'done' },
                                 { createdAt: { [Op.gte]: moment().subtract(day - 1, 'days').startOf('days').toDate() } },
                                 { createdAt: { [Op.lte]: moment().subtract(day - 1, 'days').endOf('days').toDate() } }
                             ]
@@ -216,6 +222,7 @@ class StoreRepository {
                         [Op.and]:
                             [
                                 { store_id: { [Op.contains]: [storeId] } },
+                                { status: 'done' },
                                 { createdAt: { [Op.gte]: moment("0101", "MMDD").add(month - 1, 'months').toDate() } },
                                 { createdAt: { [Op.lte]: moment("0101", "MMDD").add(month, 'months').toDate() } },
                             ]
