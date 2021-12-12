@@ -240,10 +240,11 @@ class DriverRepository {
       let regWeek = [];
       let day = 1;
       while (day < 8) {
-        const currDay = await Orders.findAll({
+        const data = await Orders.findAll({
           attributes: [
             [sequelizeConfig.fn('sum', sequelizeConfig.col('shipper_fee')), 'total_sum']
           ],
+          raw: true,
           where: {
             [Op.and]:
               [
@@ -254,6 +255,10 @@ class DriverRepository {
               ]
           },
         })
+        const currDay = data[0]
+        if (currDay.total_sum === null) {
+          currDay.total_sum = 0
+        }
         regWeek.push({ currDay, 'name': moment().subtract(day - 1, 'days').format(moment.HTML5_FMT.DATE) });
         day++;
       }
@@ -268,10 +273,11 @@ class DriverRepository {
       let regWeek = [];
       let day = 1;
       while (day < 31) {
-        const currDay = await Orders.findAll({
+        const data = await Orders.findAll({
           attributes: [
             [sequelizeConfig.fn('sum', sequelizeConfig.col('shipper_fee')), 'total_sum']
           ],
+          raw: true,
           where: {
             [Op.and]:
               [
@@ -282,6 +288,10 @@ class DriverRepository {
               ]
           },
         })
+        const currDay = data[0]
+        if (currDay.total_sum === null) {
+          currDay.total_sum = 0
+        }
         regWeek.push({ currDay, 'name': moment().subtract(day - 1, 'days').format(moment.HTML5_FMT.DATE) });
         day++;
       }
@@ -296,10 +306,11 @@ class DriverRepository {
       let regMonth = [];
       let month = 1;
       while (month < 13) {
-        const currMonth = await Orders.findAll({
+        const data = await Orders.findAll({
           attributes: [
             [sequelizeConfig.fn('sum', sequelizeConfig.col('shipper_fee')), 'total_sum']
           ],
+          raw: true,
           where: {
             [Op.and]:
               [
@@ -310,6 +321,10 @@ class DriverRepository {
               ]
           },
         })
+        const currMonth = data[0]
+        if (currMonth.total_sum === null) {
+          currMonth.total_sum = 0
+        }
         regMonth.push({ currMonth, name: moment("0101", "MMDD").add(month - 1, 'months').format('MMMM') });
         month++;
       }

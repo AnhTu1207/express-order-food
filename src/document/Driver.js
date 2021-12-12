@@ -1352,62 +1352,48 @@
  *               type: object
  *               example:
  *                  [
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-12"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-11"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-10"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": "105000"
- *                       }
- *                     ],
- *                     "name": "2021-12-09"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-08"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": "50000"
- *                       }
- *                     ],
- *                     "name": "2021-12-07"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-06"
- *                   }
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": "50000"
+ *                         },
+ *                         "name": "2021-12-12"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-11"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-10"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": "80000"
+ *                         },
+ *                         "name": "2021-12-09"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-08"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": "50000"
+ *                         },
+ *                         "name": "2021-12-07"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-06"
+ *                     }
  *                  ]
  *       401:
  *         description: Unauthorized
@@ -1437,246 +1423,186 @@
  *               type: object
  *               example:
  *                  [
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-12"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-11"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-10"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": "105000"
- *                       }
- *                     ],
- *                     "name": "2021-12-09"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-08"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": "50000"
- *                       }
- *                     ],
- *                     "name": "2021-12-07"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-06"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-05"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-04"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-03"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-02"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-12-01"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-30"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-29"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-28"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-27"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-26"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-25"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-24"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-23"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-22"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-21"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-20"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-19"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-18"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-17"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-16"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-15"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "2021-11-14"
- *                   },
- *                   {
- *                     "currDay": [
- *                       {
- *                         "total_sum": "75000"
- *                       }
- *                     ],
- *                     "name": "2021-11-13"
- *                   }
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": "50000"
+ *                         },
+ *                         "name": "2021-12-12"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-11"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-10"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": "80000"
+ *                         },
+ *                         "name": "2021-12-09"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-08"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": "50000"
+ *                         },
+ *                         "name": "2021-12-07"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-06"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-05"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-04"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-03"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-02"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-12-01"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-30"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-29"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-28"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-27"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-26"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-25"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-24"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-23"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-22"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-21"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-20"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-19"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-18"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-17"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-16"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-15"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "2021-11-14"
+ *                     },
+ *                     {
+ *                         "currDay": {
+ *                             "total_sum": "75000"
+ *                         },
+ *                         "name": "2021-11-13"
+ *                     }
  *                  ]
  *       401:
  *         description: Unauthorized
@@ -1706,102 +1632,78 @@
  *               type: object
  *               example:
  *                  [
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "January"
- *                   },
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "February"
- *                   },
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "March"
- *                   },
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "April"
- *                   },
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "May"
- *                   },
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "June"
- *                   },
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "July"
- *                   },
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "August"
- *                   },
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "September"
- *                   },
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": null
- *                       }
- *                     ],
- *                     "name": "October"
- *                   },
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": "75000"
- *                       }
- *                     ],
- *                     "name": "November"
- *                   },
- *                   {
- *                     "currMonth": [
- *                       {
- *                         "total_sum": "155000"
- *                       }
- *                     ],
- *                     "name": "December"
- *                   }
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "January"
+ *                     },
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "February"
+ *                     },
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "March"
+ *                     },
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "April"
+ *                     },
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "May"
+ *                     },
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "June"
+ *                     },
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "July"
+ *                     },
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "August"
+ *                     },
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "September"
+ *                     },
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": 0
+ *                         },
+ *                         "name": "October"
+ *                     },
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": "75000"
+ *                         },
+ *                         "name": "November"
+ *                     },
+ *                     {
+ *                         "currMonth": {
+ *                             "total_sum": "180000"
+ *                         },
+ *                         "name": "December"
+ *                     }
  *                  ]
  *       401:
  *         description: Unauthorized
