@@ -25,6 +25,38 @@ class DriverService {
     }
   }
 
+  async showOrderByPresent(driverId, q) {
+    try {
+      return await DriverRepository.showOrderByPresent(driverId, q);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async showOrderByWeek(driverId, q) {
+    try {
+      return await DriverRepository.showOrderByWeek(driverId, q);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async showOrderByMonth(driverId, q) {
+    try {
+      return await DriverRepository.showOrderByMonth(driverId, q);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async showOrderBetWeen(driverId, q) {
+    try {
+      return await DriverRepository.showOrderBetWeen(driverId, q);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   async countOrderByWeek(driverId) {
     try {
       return await DriverRepository.countOrderByWeek(driverId);

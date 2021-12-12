@@ -9,6 +9,10 @@ const { DriverController } = require(appRoot + "/controllers");
 
 router.get("/", DriverController.index);
 router.get("/show/:id", DriverController.show);
+router.get("/showOrderByPresent/:id", DriverController.showOrderByPresent)
+router.get("/showOrderByWeek/:id", DriverController.showOrderByWeek)
+router.get("/showOrderByMonth/:id", DriverController.showOrderByMonth)
+router.get("/showOrderBetWeen/:id", DriverController.showOrderBetWeen)
 router.get("/countOrderByWeek/:id", DriverController.countOrderByWeek)
 router.get("/countOrderByMonth/:id", DriverController.countOrderByMonth)
 router.get("/countOrderByYear/:id", DriverController.countOrderByYear)

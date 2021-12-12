@@ -45,6 +45,62 @@ class DriverController {
     }
   }
 
+  async showOrderByPresent(req, res) {
+    try {
+      const id = req.params.id;
+      const data = await DriverService.showOrderByPresent(id, req.query);
+      return res.status(200).json(data);
+    }
+    catch (e) {
+      if (e.errors && e.errors.length) {
+        return res.status(400).json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
+    }
+  }
+
+  async showOrderByWeek(req, res) {
+    try {
+      const id = req.params.id;
+      const data = await DriverService.showOrderByWeek(id, req.query);
+      return res.status(200).json(data);
+    }
+    catch (e) {
+      if (e.errors && e.errors.length) {
+        return res.status(400).json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
+    }
+  }
+
+  async showOrderByMonth(req, res) {
+    try {
+      const id = req.params.id;
+      const data = await DriverService.showOrderByMonth(id, req.query);
+      return res.status(200).json(data);
+    }
+    catch (e) {
+      if (e.errors && e.errors.length) {
+        return res.status(400).json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
+    }
+  }
+
+  async showOrderBetWeen(req, res) {
+    try {
+      const id = req.params.id;
+      const data = await DriverService.showOrderBetWeen(id, req.query);
+      return res.status(200).json(data);
+    }
+    catch (e) {
+      if (e.errors && e.errors.length) {
+        return res.status(400).json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
+    }
+  }
+
   async countOrderByWeek(req, res) {
     try {
       const id = req.params.id;

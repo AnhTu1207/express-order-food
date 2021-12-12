@@ -42,6 +42,121 @@ class DriverRepository {
     }
   }
 
+  async showOrderByPresent(driverId, q) {
+    try {
+      return await pagination(Orders, +q.page || 1, q.limit, {
+        include: [
+          { model: Users, attributes: ['name', 'address', 'phone'], required: true },
+          { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
+          { model: Coupons, attributes: ['code'], required: false },
+          {
+            model: OrdersItems, separate: true,
+            include: [{
+              model: Foods, attributes: ['name']
+            }]
+          },
+        ],
+        where: {
+          [Op.and]:
+            [
+              { driver_id: driverId },
+              { status: 'done' },
+              { createdAt: { [Op.gt]: moment().format('YYYY-MM-DD 00:00') } },
+              { createdAt: { [Op.lte]: moment().format('YYYY-MM-DD 23:59') } },
+            ]
+        }
+      });
+    } catch {
+      return null;
+    }
+  }
+
+  async showOrderByWeek(driverId, q) {
+    try {
+      return await pagination(Orders, +q.page || 1, q.limit, {
+        include: [
+          { model: Users, attributes: ['name', 'address', 'phone'], required: true },
+          { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
+          { model: Coupons, attributes: ['code'], required: false },
+          {
+            model: OrdersItems, separate: true,
+            include: [{
+              model: Foods, attributes: ['name']
+            }]
+          },
+        ],
+        where: {
+          [Op.and]:
+            [
+              { driver_id: driverId },
+              { status: 'done' },
+              { createdAt: { [Op.gte]: moment().subtract(7, 'days').toDate() } }
+            ]
+        }
+      });
+    } catch {
+      return null;
+    }
+  }
+
+  async showOrderByMonth(driverId, q) {
+    try {
+      return await pagination(Orders, +q.page || 1, q.limit, {
+        include: [
+          { model: Users, attributes: ['name', 'address', 'phone'], required: true },
+          { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
+          { model: Coupons, attributes: ['code'], required: false },
+          {
+            model: OrdersItems, separate: true,
+            include: [{
+              model: Foods, attributes: ['name']
+            }]
+          },
+        ],
+        where: {
+          [Op.and]:
+            [
+              { driver_id: driverId },
+              { status: 'done' },
+              { createdAt: { [Op.gte]: moment().subtract(30, 'days').toDate() } }
+            ]
+        }
+      });
+    } catch {
+      return null;
+    }
+  }
+
+  async showOrderBetWeen(driverId, q) {
+    try {
+      const startDate = moment(q.startDate).format('YYYY-MM-DD') || moment().format();
+      const endDate = moment(q.endDate).format('YYYY-MM-DD 23:59') || moment().format('YYYY-MM-DD 23:59');
+      return await pagination(Orders, +q.page || 1, q.limit, {
+        include: [
+          { model: Users, attributes: ['name', 'address', 'phone'], required: true },
+          { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
+          { model: Coupons, attributes: ['code'], required: false },
+          {
+            model: OrdersItems, separate: true,
+            include: [{
+              model: Foods, attributes: ['name']
+            }]
+          },
+        ],
+        where: {
+          [Op.and]:
+            [
+              { driver_id: driverId },
+              { status: 'done' },
+              { createdAt: { [Op.between]: [startDate, endDate] } }
+            ]
+        }
+      });
+    } catch {
+      return null;
+    }
+  }
+
   async countOrderByWeek(driverId) {
     try {
       let regWeek = [];

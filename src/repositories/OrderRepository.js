@@ -154,7 +154,9 @@ class OrderRepository {
 
     async store(newOrder) {
         try {
-            const res = await Orders.create({ ...newOrder, shipper_fee: 25000, id: uuidv4() });
+            const shipper_fee = 25000;
+            newOrder.total = parseInt(shipper_fee) + parseInt(newOrder.total)
+            const res = await Orders.create({ ...newOrder, shipper_fee, id: uuidv4() });
             return res.dataValues;
         } catch (e) {
             throw e;
