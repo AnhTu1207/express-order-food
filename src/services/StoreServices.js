@@ -50,7 +50,6 @@ class StoreService {
         }
     }
 
-
     async countOrderByWeek(storeId) {
         try {
             return await StoreRepository.countOrderByWeek(storeId);

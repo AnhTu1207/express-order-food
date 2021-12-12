@@ -131,7 +131,8 @@ class OrderController {
                             return res.status(400).json({ status: 400, message: e.parent.detail });
                         }
                     }
-                }))
+                }),
+                    await OrderService.update({ status: "finding_driver" }, storeOrder.id));
                 return res.status(201).json({ ...storeOrder, items: data })
             }
         } catch (e) {

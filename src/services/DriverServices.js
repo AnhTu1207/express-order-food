@@ -25,6 +25,86 @@ class DriverService {
     }
   }
 
+  async showOrderByPresent(driverId, q) {
+    try {
+      return await DriverRepository.showOrderByPresent(driverId, q);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async showOrderByWeek(driverId, q) {
+    try {
+      return await DriverRepository.showOrderByWeek(driverId, q);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async showOrderByMonth(driverId, q) {
+    try {
+      return await DriverRepository.showOrderByMonth(driverId, q);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async showOrderBetWeen(driverId, q) {
+    try {
+      return await DriverRepository.showOrderBetWeen(driverId, q);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async countOrderByWeek(driverId) {
+    try {
+      return await DriverRepository.countOrderByWeek(driverId);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async countOrderByMonth(driverId) {
+    try {
+      return await DriverRepository.countOrderByMonth(driverId);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async countOrderByYear(driverId) {
+    try {
+      return await DriverRepository.countOrderByYear(driverId);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async sumOrderByWeek(driverId) {
+    try {
+      return await DriverRepository.sumOrderByWeek(driverId);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async sumOrderByMonth(driverId) {
+    try {
+      return await DriverRepository.sumOrderByMonth(driverId);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async sumOrderByYear(driverId) {
+    try {
+      return await DriverRepository.sumOrderByYear(driverId);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   async store(newDriver) {
     try {
       return await DriverRepository.store(newDriver);
