@@ -10,15 +10,15 @@ const { DriverController } = require(appRoot + "/controllers");
 router.get("/", DriverController.index);
 router.get("/show/:id", DriverController.show);
 router.get("/showOrderByPresent/:id", DriverController.showOrderByPresent)
-router.get("/showOrderByWeek/:id", DriverController.showOrderByWeek)
-router.get("/showOrderByMonth/:id", DriverController.showOrderByMonth)
-router.get("/showOrderBetWeen/:id", DriverController.showOrderBetWeen)
-router.get("/countOrderByWeek/:id", DriverController.countOrderByWeek)
-router.get("/countOrderByMonth/:id", DriverController.countOrderByMonth)
-router.get("/countOrderByYear/:id", DriverController.countOrderByYear)
-router.get("/sumOrderByWeek/:id", DriverController.sumOrderByWeek)
-router.get("/sumOrderByMonth/:id", DriverController.sumOrderByMonth)
-router.get("/sumOrderByYear/:id", DriverController.sumOrderByYear)
+router.get("/showOrderByWeek/:id", DriverAuth, DriverController.showOrderByWeek)
+router.get("/showOrderByMonth/:id", DriverAuth, DriverController.showOrderByMonth)
+router.get("/showOrderBetWeen/:id", DriverAuth, DriverController.showOrderBetWeen)
+router.get("/countOrderByWeek/:id", DriverAuth, DriverController.countOrderByWeek)
+router.get("/countOrderByMonth/:id", DriverAuth, DriverController.countOrderByMonth)
+router.get("/countOrderByYear/:id", DriverAuth, DriverController.countOrderByYear)
+router.get("/sumOrderByWeek/:id", DriverAuth, DriverController.sumOrderByWeek)
+router.get("/sumOrderByMonth/:id", DriverAuth, DriverController.sumOrderByMonth)
+router.get("/sumOrderByYear/:id", DriverAuth, DriverController.sumOrderByYear)
 router.post("/", AddDriverRequest, DriverController.store);
 router.put("/:id", [DriverAuth, UpdateDriverRequest], DriverController.update);
 router.put("/update-password/:id", [DriverAuth, UpdatePasswordRequest], DriverController.updatePassword)

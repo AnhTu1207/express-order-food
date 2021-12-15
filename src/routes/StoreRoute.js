@@ -17,6 +17,8 @@ router.get("/countOrderByWeek/:id", StoreController.countOrderByWeek)
 router.get("/countOrderByMonth/:id", StoreController.countOrderByMonth)
 router.get("/countOrderByYear/:id", StoreController.countOrderByYear)
 router.get("/sumOrderByWeek/:id", StoreController.sumOrderByWeek)
+router.get("/sumOrderByMonth/:id", StoreController.sumOrderByMonth)
+router.get("/sumOrderByYear/:id", StoreController.sumOrderByYear)
 router.post("/", AddStoreRequest, StoreController.store);
 router.put("/:id", [StoreAuth, UpdateStoreRequest], StoreController.update);
 router.put("/update-password/:id", [StoreAuth, UpdatePasswordRequest], StoreController.updatePassword)

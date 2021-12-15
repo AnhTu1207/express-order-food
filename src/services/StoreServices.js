@@ -74,9 +74,25 @@ class StoreService {
         }
     }
 
-    async sumOrderByWeek(userId) {
+    async sumOrderByWeek(storeId) {
         try {
-            return await StoreRepository.sumOrderByWeek(userId);
+            return await StoreRepository.sumOrderByWeek(storeId);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async sumOrderByMonth(storeId) {
+        try {
+            return await StoreRepository.sumOrderByMonth(storeId);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async sumOrderByYear(storeId) {
+        try {
+            return await StoreRepository.sumOrderByYear(storeId);
         } catch (e) {
             throw e;
         }

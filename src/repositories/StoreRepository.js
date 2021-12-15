@@ -1,10 +1,10 @@
 const { v4: uuidv4 } = require("uuid");
-const Sequelize = require('sequelize')
 const { Op } = require("sequelize");
 const bcrypt = require("bcrypt");
 const moment = require('moment');
 
 const { Stores, Orders, OrdersItems, Users, Drivers, Coupons, Foods } = require(appRoot + "/models");
+const { sequelizeConfig } = require(appRoot + "/config");
 const { jwt, pagination } = require(appRoot + "/helpers");
 
 class StoreRepository {
@@ -54,7 +54,7 @@ class StoreRepository {
                     {
                         model: OrdersItems, separate: true,
                         include: [{
-                            model: Foods, attributes: ['name']
+                            model: Foods, attributes: ['name', 'store_id']
                         }]
                     },
                 ],
@@ -229,6 +229,84 @@ class StoreRepository {
                     },
                 })
                 regMonth.push({ currMonth, name: moment("0101", "MMDD").add(month - 1, 'months').format('MMMM') });
+                month++;
+            }
+            return regMonth;
+        } catch {
+            return null;
+        }
+    }
+
+    async sumOrderByWeek(storeId) {
+        try {
+            let regWeek = [];
+            let day = 1;
+            while (day < 8) {
+                let startDate = moment().subtract(day - 1, 'days').startOf('days').toDate();
+                let endDate = moment().subtract(day - 1, 'days').endOf('days').toDate();
+                const data = await sequelizeConfig.query(`SELECT SUM(orders_item.price) AS total_sum FROM orders INNER JOIN orders_item ON orders.id = orders_item.order_id INNER JOIN foods ON orders_item.food_id = foods.id WHERE foods.store_id = ? AND orders.status = ? AND "orders"."createdAt" BETWEEN ? AND ?`,
+                    {
+                        replacements: [storeId, 'done', startDate, endDate],
+                        type: sequelizeConfig.QueryTypes.SELECT,
+                    }
+                );
+                const currDay = data[0]
+                if (currDay.total_sum === null) {
+                    currDay.total_sum = 0
+                }
+                regWeek.push({ currDay, 'name': moment().subtract(day - 1, 'days').format(moment.HTML5_FMT.DATE) });
+                day++;
+            }
+            return regWeek;
+        } catch {
+            return null;
+        }
+    }
+
+    async sumOrderByMonth(storeId) {
+        try {
+            let regWeek = [];
+            let day = 1;
+            while (day < 31) {
+                let startDate = moment().subtract(day - 1, 'days').startOf('days').toDate();
+                let endDate = moment().subtract(day - 1, 'days').endOf('days').toDate();
+                const data = await sequelizeConfig.query(`SELECT SUM(orders_item.price) AS total_sum FROM orders INNER JOIN orders_item ON orders.id = orders_item.order_id INNER JOIN foods ON orders_item.food_id = foods.id WHERE foods.store_id = ? AND orders.status = ? AND "orders"."createdAt" BETWEEN ? AND ?`,
+                    {
+                        replacements: [storeId, 'done', startDate, endDate],
+                        type: sequelizeConfig.QueryTypes.SELECT,
+                    }
+                );
+                const currDay = data[0]
+                if (currDay.total_sum === null) {
+                    currDay.total_sum = 0
+                }
+                regWeek.push({ currDay, 'name': moment().subtract(day - 1, 'days').format(moment.HTML5_FMT.DATE) });
+                day++;
+            }
+            return regWeek;
+        } catch {
+            return null;
+        }
+    }
+
+    async sumOrderByYear(storeId) {
+        try {
+            let regMonth = [];
+            let month = 1;
+            while (month < 13) {
+                let startDate = moment("0101", "MMDD").add(month - 1, 'months').toDate();
+                let endDate = moment("0101", "MMDD").add(month, 'months').toDate();
+                const data = await sequelizeConfig.query(`SELECT SUM(orders_item.price) AS total_sum FROM orders INNER JOIN orders_item ON orders.id = orders_item.order_id INNER JOIN foods ON orders_item.food_id = foods.id WHERE foods.store_id = ? AND orders.status = ? AND "orders"."createdAt" BETWEEN ? AND ?`,
+                    {
+                        replacements: [storeId, 'done', startDate, endDate],
+                        type: sequelizeConfig.QueryTypes.SELECT,
+                    }
+                );
+                const currMonth = data[0]
+                if (currMonth.total_sum === null) {
+                    currMonth.total_sum = 0
+                }
+                regMonth.push({ currMonth, 'name': moment("0101", "MMDD").add(month - 1, 'months').format('MMMM') });
                 month++;
             }
             return regMonth;
