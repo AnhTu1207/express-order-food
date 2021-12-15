@@ -74,9 +74,9 @@ class StoreService {
         }
     }
 
-    async sumOrderByWeek(userId) {
+    async sumOrderByWeek(driverId) {
         try {
-            return await StoreRepository.sumOrderByWeek(userId);
+            return await StoreRepository.sumOrderByWeek(driverId);
         } catch (e) {
             throw e;
         }

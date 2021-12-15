@@ -1,10 +1,10 @@
 const { v4: uuidv4 } = require("uuid");
-const Sequelize = require('sequelize')
 const { Op } = require("sequelize");
 const bcrypt = require("bcrypt");
 const moment = require('moment');
 
 const { Stores, Orders, OrdersItems, Users, Drivers, Coupons, Foods } = require(appRoot + "/models");
+const { sequelizeConfig } = require(appRoot + "/config");
 const { jwt, pagination } = require(appRoot + "/helpers");
 
 class StoreRepository {
@@ -54,7 +54,7 @@ class StoreRepository {
                     {
                         model: OrdersItems, separate: true,
                         include: [{
-                            model: Foods, attributes: ['name']
+                            model: Foods, attributes: ['name', 'store_id']
                         }]
                     },
                 ],
@@ -232,6 +232,20 @@ class StoreRepository {
                 month++;
             }
             return regMonth;
+        } catch {
+            return null;
+        }
+    }
+
+    async sumOrderByWeek(storeId) {
+        try {
+            const data = await sequelizeConfig.query(`SELECT SUM(orders_item.price) AS total_sum FROM orders INNER JOIN orders_item ON orders.id = orders_item.order_id INNER JOIN foods ON orders_item.food_id = foods.id WHERE foods.store_id = ?`,
+                {
+                    replacements: [storeId],
+                    type: sequelizeConfig.QueryTypes.SELECT,
+                }
+            );
+            return data;
         } catch {
             return null;
         }
