@@ -213,9 +213,12 @@ class OrderController {
             if (deleteOrder === null) {
                 return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
-            else {
+            if(deleteOrder.status === 'finding_driver')
+            {
+                await OrderService.delete(id);
                 return res.status(200).json({ status: 200, data: deleteOrder });
             }
+            return res.status(400).json({status: 400, message: "You can't not remove your order"})
         }
         catch (e) {
             if (e.errors && e.errors.length) {
