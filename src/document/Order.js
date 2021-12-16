@@ -1179,3 +1179,47 @@
  *       500:
  *         description: Server errors
  */
+
+/**
+ * @swagger
+ * /api/order/{id}:
+ *   delete:
+ *     summary: Remove the order (Required Auth)
+ *     tags: [Order]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The Order id
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                 status: 200
+ *                 data:
+ *                     {
+ *                        "id": "a0343356-257e-4e68-b395-dbcdf9f1ddce",
+ *                        "store_id": "c567bc4c-8ca0-4f20-9cea-a8aa12bd1457",
+ *                        "driver_id": "a5d3c75f-5aa2-4351-8fa7-5f15cb18e562",
+ *                        "coupon_id": null,
+ *                        "user_id": "8d03f601-78e8-4111-8888-94f0b13d5b8b",
+ *                        "total": 800000,
+ *                        "rating": 0,
+ *                        "status": "cooking_foods",
+ *                        "payment_option": "cash",
+ *                        "createdAt": "2021-12-02T14:38:43.850Z",
+ *                        "updatedAt": "2021-12-02T14:45:00.336Z"
+ *                     }
+ *       400:
+ *         description: Order was not found
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server errors
+ */
