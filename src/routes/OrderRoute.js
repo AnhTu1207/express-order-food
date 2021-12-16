@@ -16,6 +16,6 @@ router.get("/showByUser/:id", RequireAuth, OrderController.showByUser)
 router.post("/", [RequireAuth, AddOrderRequest], OrderController.store);
 router.put("/:id", [DriverAuth, UpdateOrderDriverRequest], OrderController.update)
 router.put("/updateStatus/:id", [DriverAuth, UpdateOrderStatus], OrderController.updateStatus)
-// router.delete("/:id", OrderController.delete)
+router.delete("/:id", RequireAuth, OrderController.delete)
 
 module.exports = router;
