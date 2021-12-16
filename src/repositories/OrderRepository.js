@@ -44,7 +44,6 @@ class OrderRepository {
                     },
                 ],
                 where: { status: "finding_driver" },
-                order: [['createdAt', 'desc']]
             });
         }
         catch {
