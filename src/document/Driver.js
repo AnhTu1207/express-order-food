@@ -197,6 +197,135 @@
 
 /**
  * @swagger
+ * /api/driver/showCurrentOrder/{id}:
+ *   get:
+ *     summary: Returns the list of current order where status = 'cooking_foods' or 'delivering'
+ *     tags: [Driver]
+ *     parameters:
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *        description: This is pagination query
+ *      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *        description: This is limit query
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: This is driver id
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                   "size": 50,
+ *                   "currentPage": 1,
+ *                   "total": 2,
+ *                   "data": [
+ *                      {
+ *                       "id": "ca828ad4-dbd3-4cb9-a362-4f3f0542a559",
+ *                       "store_id": [
+ *                         "db3f6d9c-ec7b-4531-ade9-f16000d40e46"
+ *                       ],
+ *                       "driver_id": "5cccec7c-5e4f-4943-9910-7557eb817be5",
+ *                       "coupon_id": null,
+ *                       "user_id": "6cf8130c-5bb6-4a3c-a1bc-875c0d3e26ee",
+ *                       "total": 300000,
+ *                       "shipper_fee": 25000,
+ *                       "address": "asdasdasdfsdfs",
+ *                       "driver_rating": 8,
+ *                       "store_rating": 0,
+ *                       "status": "cooking_foods",
+ *                       "payment_option": "cash",
+ *                       "createdAt": "2021-12-15T08:18:19.937Z",
+ *                       "updatedAt": "2021-12-16T15:02:24.236Z",
+ *                       "user": {
+ *                         "name": "Tran Hai Binh",
+ *                         "address": "Tiem Gao So 1 Binh Tan",
+ *                         "phone": "0998754469"
+ *                       },
+ *                       "coupon": null,
+ *                       "orders_items": [
+ *                         {
+ *                           "order_id": "ca828ad4-dbd3-4cb9-a362-4f3f0542a559",
+ *                           "food_id": "04c018eb-8429-4d04-9e95-90b896940fe2",
+ *                           "qty": 2,
+ *                           "price": 50000,
+ *                           "createdAt": "2021-12-09T08:18:19.966Z",
+ *                           "updatedAt": "2021-12-09T08:18:19.966Z",
+ *                           "food": {
+ *                             "name": "Trà sữa Socola",
+ *                             "store": {
+ *                               "id": "db3f6d9c-ec7b-4531-ade9-f16000d40e46",
+ *                               "name": "Tạp hóa 4",
+ *                               "address": "150 Nguyen Thuong Hien",
+ *                               "district": "Q.Bình Thạnh",
+ *                               "phone": "0946163255",
+ *                               "latitude": "35.854658",
+ *                               "longitude": "159.875423",
+ *                               "avatar": null,
+ *                               "avatar_placeholder": "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png",
+ *                               "open_time": null,
+ *                               "close_time": null,
+ *                               "status": false,
+ *                               "total_rating": 0,
+ *                               "is_verified": false,
+ *                               "is_open": false,
+ *                               "createdAt": "2021-12-08T20:32:13.521Z",
+ *                               "updatedAt": "2021-12-08T20:32:13.521Z"
+ *                             }
+ *                           }
+ *                         },
+ *                         {
+ *                           "order_id": "ca828ad4-dbd3-4cb9-a362-4f3f0542a559",
+ *                           "food_id": "fe708c2b-5abe-40a2-8b4a-f3933d162382",
+ *                           "qty": 2,
+ *                           "price": 70000,
+ *                           "createdAt": "2021-12-09T08:18:19.966Z",
+ *                           "updatedAt": "2021-12-09T08:18:19.966Z",
+ *                           "food": {
+ *                             "name": "Trà sữa Hồng Kông",
+ *                             "store": {
+ *                               "id": "db3f6d9c-ec7b-4531-ade9-f16000d40e46",
+ *                               "name": "Tạp hóa 4",
+ *                               "address": "150 Nguyen Thuong Hien",
+ *                               "district": "Q.Bình Thạnh",
+ *                               "phone": "0946163255",
+ *                               "latitude": "35.854658",
+ *                               "longitude": "159.875423",
+ *                               "avatar": null,
+ *                               "avatar_placeholder": "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png",
+ *                               "open_time": null,
+ *                               "close_time": null,
+ *                               "status": false,
+ *                               "total_rating": 0,
+ *                               "is_verified": false,
+ *                               "is_open": false,
+ *                               "createdAt": "2021-12-08T20:32:13.521Z",
+ *                               "updatedAt": "2021-12-08T20:32:13.521Z"
+ *                             }
+ *                           }
+ *                         }
+ *                       ]
+ *                     }
+ *                   ]
+ *                  
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
  * /api/driver/showOrderByPresent/{id}:
  *   get:
  *     summary: Returns the list of all the orders by driver (today)

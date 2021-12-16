@@ -42,6 +42,35 @@ class DriverRepository {
     }
   }
 
+  async showCurrentOrder(driverId, q) {
+    try {
+      return await pagination(Orders, +q.page || 1, q.limit, {
+        include: [
+          { model: Users, attributes: ['name', 'address', 'phone'], required: true },
+          { model: Coupons, attributes: ['code'], required: false },
+          {
+            model: OrdersItems, separate: true, required: true,
+            include: [{
+              model: Foods, attributes: ['name'], include: [{
+                model: Stores, attributes: { exclude: ['password', 'email'] }
+              }]
+            }]
+          },
+        ],
+        where: {
+          [Op.and]:
+            [
+              { driver_id: driverId },
+              { status: { [Op.or]: ['cooking_foods', 'delivering'] } }
+            ]
+        }
+      });
+    }
+    catch {
+      return null;
+    }
+  }
+
   async showOrderByPresent(driverId, q) {
     try {
       return await pagination(Orders, +q.page || 1, q.limit, {
