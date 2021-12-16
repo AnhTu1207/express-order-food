@@ -25,6 +25,14 @@ class DriverService {
     }
   }
 
+  async showCurrentOrder(driverId, q) {
+    try {
+      return await DriverRepository.showCurrentOrder(driverId, q);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   async showOrderByPresent(driverId, q) {
     try {
       return await DriverRepository.showOrderByPresent(driverId, q);
