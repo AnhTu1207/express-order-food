@@ -177,6 +177,127 @@
 
 /**
  * @swagger
+ * /api/order/show/{id}:
+ *   get:
+ *     summary: Get the order by id
+ *     tags: [Order]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: This is order id
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                   "status": 200,
+ *                   "data": {
+ *                     "id": "7d2ab5f6-d2de-4a64-b62e-df2602640127",
+ *                     "store_id": [
+ *                       "db3f6d9c-ec7b-4531-ade9-f16000d40e46"
+ *                     ],
+ *                     "driver_id": "425e0bae-ad1f-486d-bff6-edf80a79e489",
+ *                     "coupon_id": null,
+ *                     "user_id": "18ad19fb-1608-4da7-a099-4c84566b75b2",
+ *                     "total": 700000,
+ *                     "shipper_fee": 50000,
+ *                     "address": "asdasdasdasdasdasdasd",
+ *                     "driver_rating": 10,
+ *                     "store_rating": 0,
+ *                     "status": "done",
+ *                     "payment_option": "cash",
+ *                     "createdAt": "2021-11-20T16:04:47.318Z",
+ *                     "updatedAt": "2021-12-08T21:04:47.318Z",
+ *                     "user": {
+ *                       "name": "anh tú",
+ *                       "address": "2323901231",
+ *                       "phone": "0938882323"
+ *                     },
+ *                     "driver": {
+ *                       "fullname": "Anh Tú",
+ *                       "bike_number": "23T-32323",
+ *                       "avatar": null
+ *                     },
+ *                     "coupon": null,
+ *                     "orders_items": [
+ *                       {
+ *                         "order_id": "7d2ab5f6-d2de-4a64-b62e-df2602640127",
+ *                         "food_id": "04c018eb-8429-4d04-9e95-90b896940fe2",
+ *                         "qty": 2,
+ *                         "price": 80000,
+ *                         "createdAt": "2021-12-08T21:04:47.336Z",
+ *                         "updatedAt": "2021-12-08T21:04:47.336Z",
+ *                         "food": {
+ *                           "name": "Trà sữa Socola",
+ *                           "store": {
+ *                             "id": "db3f6d9c-ec7b-4531-ade9-f16000d40e46",
+ *                             "name": "Tạp hóa 4",
+ *                             "address": "150 Nguyen Thuong Hien",
+ *                             "district": "Q.Bình Thạnh",
+ *                             "phone": "0946163255",
+ *                             "latitude": "35.854658",
+ *                             "longitude": "159.875423",
+ *                             "avatar": null,
+ *                             "avatar_placeholder": "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png",
+ *                             "open_time": null,
+ *                             "close_time": null,
+ *                             "status": false,
+ *                             "total_rating": 0,
+ *                             "is_verified": false,
+ *                             "is_open": false,
+ *                             "createdAt": "2021-12-08T20:32:13.521Z",
+ *                             "updatedAt": "2021-12-08T20:32:13.521Z"
+ *                           }
+ *                         }
+ *                       },
+ *                       {
+ *                         "order_id": "7d2ab5f6-d2de-4a64-b62e-df2602640127",
+ *                         "food_id": "fe708c2b-5abe-40a2-8b4a-f3933d162382",
+ *                         "qty": 2,
+ *                         "price": 80000,
+ *                         "createdAt": "2021-12-08T21:04:47.336Z",
+ *                         "updatedAt": "2021-12-08T21:04:47.336Z",
+ *                         "food": {
+ *                           "name": "Trà sữa Hồng Kông",
+ *                           "store": {
+ *                             "id": "db3f6d9c-ec7b-4531-ade9-f16000d40e46",
+ *                             "name": "Tạp hóa 4",
+ *                             "address": "150 Nguyen Thuong Hien",
+ *                             "district": "Q.Bình Thạnh",
+ *                             "phone": "0946163255",
+ *                             "latitude": "35.854658",
+ *                             "longitude": "159.875423",
+ *                             "avatar": null,
+ *                             "avatar_placeholder": "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png",
+ *                             "open_time": null,
+ *                             "close_time": null,
+ *                             "status": false,
+ *                             "total_rating": 0,
+ *                             "is_verified": false,
+ *                             "is_open": false,
+ *                             "createdAt": "2021-12-08T20:32:13.521Z",
+ *                             "updatedAt": "2021-12-08T20:32:13.521Z"
+ *                           }
+ *                         }
+ *                       }
+ *                     ]
+ *                   }
+ *       400:
+ *         description: Order was not found
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
  * /api/order/showByFindindDriver:
  *   get:
  *     summary: Returns the list of all the order which have status "finding_driver" (required Driver Auth)
