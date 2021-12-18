@@ -41,6 +41,14 @@ class UserService {
     }
   }
 
+  async showCurrentOrder(userId, q) {
+    try {
+      return await UserRepository.showCurrentOrder(userId, q);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   async update(updateUser, id) {
     try {
       return await UserRepository.update(updateUser, id);

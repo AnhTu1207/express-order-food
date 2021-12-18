@@ -146,6 +146,197 @@
 
 /**
  * @swagger
+ * /api/users/showCurrentOrder/{id}:
+ *   get:
+ *     summary: Get current order by userId (Required Users Auth) && (status in 'finding_driver', 'cooking_foods', 'delivering')
+ *     tags: [User]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: This is user id
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                     "size": 50,
+ *                     "currentPage": 1,
+ *                     "total": 2,
+ *                     "data": [
+ *                         {
+ *                             "id": "2c4ca054-f982-40b1-a8f4-b278be06bec1",
+ *                             "store_id": [
+ *                                 "db3f6d9c-ec7b-4531-ade9-f16000d40e46"
+ *                             ],
+ *                             "driver_id": null,
+ *                             "coupon_id": null,
+ *                             "user_id": "6cf8130c-5bb6-4a3c-a1bc-875c0d3e26ee",
+ *                             "total": 325000,
+ *                             "shipper_fee": 25000,
+ *                             "address": "asdasdasdasdasdasdasd",
+ *                             "driver_rating": 0,
+ *                             "store_rating": 0,
+ *                             "status": "finding_driver",
+ *                             "payment_option": "cash",
+ *                             "createdAt": "2021-12-18T07:14:49.956Z",
+ *                             "updatedAt": "2021-12-18T07:14:49.973Z",
+ *                             "user": {
+ *                                 "name": "Tran Hai Binh",
+ *                                 "address": "Tiem Gao So 1 Binh Tan",
+ *                                 "phone": "0998754469"
+ *                             },
+ *                             "driver": null,
+ *                             "coupon": null,
+ *                             "orders_items": [
+ *                                 {
+ *                                     "order_id": "2c4ca054-f982-40b1-a8f4-b278be06bec1",
+ *                                     "food_id": "04c018eb-8429-4d04-9e95-90b896940fe2",
+ *                                     "qty": 2,
+ *                                     "price": 100000,
+ *                                     "createdAt": "2021-12-18T07:14:49.973Z",
+ *                                     "updatedAt": "2021-12-18T07:14:49.973Z",
+ *                                     "food": {
+ *                                         "name": "Trà sữa Socola",
+ *                                         "store": {
+ *                                             "id": "db3f6d9c-ec7b-4531-ade9-f16000d40e46",
+ *                                             "name": "Tạp hóa 4",
+ *                                             "address": "150 Nguyen Thuong Hien",
+ *                                             "district": "Q.Bình Thạnh",
+ *                                             "phone": "0946163255",
+ *                                             "latitude": "35.854658",
+ *                                             "longitude": "159.875423",
+ *                                             "avatar": null,
+ *                                             "avatar_placeholder": "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png",
+ *                                             "open_time": null,
+ *                                             "close_time": null,
+ *                                             "status": false,
+ *                                             "total_rating": 0,
+ *                                             "is_verified": false,
+ *                                             "is_open": false,
+ *                                             "createdAt": "2021-12-08T20:32:13.521Z",
+ *                                             "updatedAt": "2021-12-08T20:32:13.521Z"
+ *                                         }
+ *                                     }
+ *                                 },
+ *                                 {
+ *                                     "order_id": "2c4ca054-f982-40b1-a8f4-b278be06bec1",
+ *                                     "food_id": "fe708c2b-5abe-40a2-8b4a-f3933d162382",
+ *                                     "qty": 2,
+ *                                     "price": 10,
+ *                                     "createdAt": "2021-12-18T07:14:49.973Z",
+ *                                     "updatedAt": "2021-12-18T07:14:49.973Z",
+ *                                     "food": {
+ *                                         "name": "Trà sữa Hồng Kông",
+ *                                         "store": {
+ *                                             "id": "db3f6d9c-ec7b-4531-ade9-f16000d40e46",
+ *                                             "name": "Tạp hóa 4",
+ *                                             "address": "150 Nguyen Thuong Hien",
+ *                                             "district": "Q.Bình Thạnh",
+ *                                             "phone": "0946163255",
+ *                                             "latitude": "35.854658",
+ *                                             "longitude": "159.875423",
+ *                                             "avatar": null,
+ *                                             "avatar_placeholder": "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png",
+ *                                             "open_time": null,
+ *                                             "close_time": null,
+ *                                             "status": false,
+ *                                             "total_rating": 0,
+ *                                             "is_verified": false,
+ *                                             "is_open": false,
+ *                                             "createdAt": "2021-12-08T20:32:13.521Z",
+ *                                             "updatedAt": "2021-12-08T20:32:13.521Z"
+ *                                         }
+ *                                     }
+ *                                 }
+ *                             ]
+ *                         },
+ *                         {
+ *                             "id": "5456f546-2a9e-4333-bb30-876c942093e6",
+ *                             "store_id": [
+ *                                 "c567bc4c-8ca0-4f20-9cea-a8aa12bd1457"
+ *                             ],
+ *                             "driver_id": null,
+ *                             "coupon_id": null,
+ *                             "user_id": "6cf8130c-5bb6-4a3c-a1bc-875c0d3e26ee",
+ *                             "total": 325000,
+ *                             "shipper_fee": 25000,
+ *                             "address": "asdasdasdasdasdasdasd",
+ *                             "driver_rating": 0,
+ *                             "store_rating": 0,
+ *                             "status": "finding_driver",
+ *                             "payment_option": "cash",
+ *                             "createdAt": "2021-12-18T07:14:23.922Z",
+ *                             "updatedAt": "2021-12-18T07:14:23.959Z",
+ *                             "user": {
+ *                                 "name": "Tran Hai Binh",
+ *                                 "address": "Tiem Gao So 1 Binh Tan",
+ *                                 "phone": "0998754469"
+ *                             },
+ *                             "driver": null,
+ *                             "coupon": null,
+ *                             "orders_items": [
+ *                                 {
+ *                                     "order_id": "5456f546-2a9e-4333-bb30-876c942093e6",
+ *                                     "food_id": "04c018eb-8429-4d04-9e95-90b896940fe2",
+ *                                     "qty": 2,
+ *                                     "price": 100000,
+ *                                     "createdAt": "2021-12-18T07:14:23.958Z",
+ *                                     "updatedAt": "2021-12-18T07:14:23.958Z",
+ *                                     "food": {
+ *                                         "name": "Trà sữa Socola",
+ *                                         "store": {
+ *                                             "id": "db3f6d9c-ec7b-4531-ade9-f16000d40e46",
+ *                                             "name": "Tạp hóa 4",
+ *                                             "address": "150 Nguyen Thuong Hien",
+ *                                             "district": "Q.Bình Thạnh",
+ *                                             "phone": "0946163255",
+ *                                             "latitude": "35.854658",
+ *                                             "longitude": "159.875423",
+ *                                             "avatar": null,
+ *                                             "avatar_placeholder": "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png",
+ *                                             "open_time": null,
+ *                                             "close_time": null,
+ *                                             "status": false,
+ *                                             "total_rating": 0,
+ *                                             "is_verified": false,
+ *                                             "is_open": false,
+ *                                             "createdAt": "2021-12-08T20:32:13.521Z",
+ *                                             "updatedAt": "2021-12-08T20:32:13.521Z"
+ *                                         }
+ *                                     }
+ *                                 },
+ *                                 {
+ *                                     "order_id": "5456f546-2a9e-4333-bb30-876c942093e6",
+ *                                     "food_id": "611c257c-fedf-4c91-aa63-65dc64f0efb1",
+ *                                     "qty": 2,
+ *                                     "price": 10,
+ *                                     "createdAt": "2021-12-18T07:14:23.958Z",
+ *                                     "updatedAt": "2021-12-18T07:14:23.958Z",
+ *                                     "food": {
+ *                                         "name": "test order 2",
+ *                                         "store": null
+ *                                     }
+ *                                 }
+ *                             ]
+ *                         }
+ *                     ]
+ *       400:
+ *         description: User was not found
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server errors
+ */
+
+
+/**
+ * @swagger
  * /api/users/uploadImage/{id}:
  *   post:
  *     summary: Upload avatar for user (Required Users Auth)

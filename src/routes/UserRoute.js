@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get("/", UserController.index);
 router.get("/show/:id", UserController.show);
+router.get("/showCurrentOrder/:id", UserController.showCurrentOrder);
 router.put("/:id", UpdateUserRequest, UserController.update)
 router.put("/update-password/:id", UpdatePasswordRequest, UserController.updatePassword)
 router.delete("/:id", AdminAuth, UserController.delete);

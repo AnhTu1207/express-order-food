@@ -213,12 +213,11 @@ class OrderController {
             if (deleteOrder === null) {
                 return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
-            if(deleteOrder.status === 'finding_driver')
-            {
+            if (deleteOrder.status === 'finding_driver') {
                 await OrderService.delete(id);
                 return res.status(200).json({ status: 200, data: deleteOrder });
             }
-            return res.status(400).json({status: 400, message: "You can't not remove your order"})
+            return res.status(400).json({ status: 400, message: "You can't not remove your order" })
         }
         catch (e) {
             if (e.errors && e.errors.length) {
@@ -226,6 +225,29 @@ class OrderController {
                     .status(400)
                     .json({ status: 400, message: map(e.errors, (e) => e.message) });
             }
+            res.status(500).send();
+        }
+    }
+
+    async deleteDriver(req, res) {
+        try {
+            const id = req.params.id;
+            const deleteOrder = await OrderService.show(id)
+            if (deleteOrder === null) {
+                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
+            }
+            if (deleteOrder.status !== 'finding_driver' && deleteOrder.status !== 'done') {
+                await OrderService.delete(id);
+                return res.status(200).json({ status: 200, data: deleteOrder });
+            }
+            return res.status(400).json({ status: 400, message: "You can't not remove your order" })
+        }
+        catch (e) {
+            if (e.errors && e.errors.length) {
+                return res
+                    .status(400)
+                    .json({ status: 400, message: map(e.errors, (e) => e.message) });
+            } mnn
             res.status(500).send();
         }
     }

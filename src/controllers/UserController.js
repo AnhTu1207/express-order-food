@@ -37,6 +37,20 @@ class UserController {
     }
   }
 
+  async showCurrentOrder(req, res) {
+    try {
+      const id = req.params.id;
+      const data = await UserService.showCurrentOrder(id, req.query);
+      return res.status(200).json(data);
+    }
+    catch (e) {
+      if (e.errors && e.errors.length) {
+        return res.status(400).json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
+    }
+  }
+
   async store(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
