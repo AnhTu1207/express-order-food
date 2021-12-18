@@ -9,16 +9,16 @@ const { StoreController } = require(appRoot + "/controllers");
 
 router.get("/", StoreController.index);
 router.get("/show/:id", StoreController.show);
-router.get("/showOrderByPresent/:id", StoreController.showOrderByPresent)
-router.get("/showOrderByWeek/:id", StoreController.showOrderByWeek)
-router.get("/showOrderByMonth/:id", StoreController.showOrderByMonth)
-router.get("/showOrderBetWeen/:id", StoreController.showOrderBetWeen)
-router.get("/countOrderByWeek/:id", StoreController.countOrderByWeek)
-router.get("/countOrderByMonth/:id", StoreController.countOrderByMonth)
-router.get("/countOrderByYear/:id", StoreController.countOrderByYear)
-router.get("/sumOrderByWeek/:id", StoreController.sumOrderByWeek)
-router.get("/sumOrderByMonth/:id", StoreController.sumOrderByMonth)
-router.get("/sumOrderByYear/:id", StoreController.sumOrderByYear)
+router.get("/showOrderByPresent/:id", StoreAuth, StoreController.showOrderByPresent)
+router.get("/showOrderByWeek/:id", StoreAuth, StoreController.showOrderByWeek)
+router.get("/showOrderByMonth/:id", StoreAuth, StoreController.showOrderByMonth)
+router.get("/showOrderBetWeen/:id", StoreAuth, StoreController.showOrderBetWeen)
+router.get("/countOrderByWeek/:id", StoreAuth, StoreController.countOrderByWeek)
+router.get("/countOrderByMonth/:id", StoreAuth, StoreController.countOrderByMonth)
+router.get("/countOrderByYear/:id", StoreAuth, StoreController.countOrderByYear)
+router.get("/sumOrderByWeek/:id", StoreAuth, StoreController.sumOrderByWeek)
+router.get("/sumOrderByMonth/:id", StoreAuth, StoreController.sumOrderByMonth)
+router.get("/sumOrderByYear/:id", StoreAuth, StoreController.sumOrderByYear)
 router.post("/", AddStoreRequest, StoreController.store);
 router.put("/:id", [StoreAuth, UpdateStoreRequest], StoreController.update);
 router.put("/update-password/:id", [StoreAuth, UpdatePasswordRequest], StoreController.updatePassword)

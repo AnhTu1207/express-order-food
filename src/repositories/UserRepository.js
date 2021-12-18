@@ -1,7 +1,8 @@
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
+const { Op } = require("sequelize");
 
-const { Users } = require(appRoot + "/models");
+const { Orders, Stores, Users, Drivers, Coupons, OrdersItems, Foods } = require(appRoot + "/models");
 const { jwt, pagination } = require(appRoot + "/helpers");
 
 class UserRepository {
@@ -72,6 +73,35 @@ class UserRepository {
       });
 
       return foundUser;
+    } catch {
+      return null;
+    }
+  }
+
+  async showCurrentOrder(userId, q) {
+    try {
+      return await pagination(Orders, +q.page || 1, q.limit, {
+        include: [
+          { model: Users, attributes: ['name', 'address', 'phone'], required: true },
+          { model: Drivers, attributes: ['fullname', 'bike_number', 'avatar'], required: false },
+          { model: Coupons, attributes: ['code'], required: false },
+          {
+            model: OrdersItems, separate: true,
+            include: [{
+              model: Foods, attributes: ['name'], include: [{
+                model: Stores, attributes: { exclude: ['password', 'email'] }
+              }]
+            }]
+          },
+        ],
+        where: {
+          [Op.and]:
+            [
+              { user_id: userId },
+              { status: { [Op.or]: ['finding_driver', 'cooking_foods', 'delivering'] } }
+            ]
+        }
+      });
     } catch {
       return null;
     }
