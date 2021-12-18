@@ -14,6 +14,7 @@ const { specs, swaggerUI } = require(appRoot + "/document");
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+app.set('trust proxy', 1);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
