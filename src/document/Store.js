@@ -24,6 +24,16 @@
  *          example:
  *              oldpassword: "123456"
  *              password : 123456789abc!@#
+ *      UpdateStoreStatus:
+ *          type: object
+ *          required:
+ *              - is_open
+ *          properties:
+ *              is_open:
+ *                  type: boolean
+ *                  description: The store status
+ *          example:
+ *              is_open : false
  *      UpdateStore:
  *          type: object
  *          required:
@@ -1941,6 +1951,63 @@
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters) || "name" or "email" must be unique || Store was not found
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/store/update-status/{id}:
+ *   put:
+ *     summary: Update store status (Required AdminAuth)
+ *     tags: [Store]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The store id
+ *     requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *              schema:
+ *                      $ref: '#/components/schemas/UpdateStoreStatus'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                 status: 200
+ *                 data:
+ *                       {
+ *                         "id": "8c9a5446-791c-41b5-8a41-47fde6615fbc",
+ *                         "name": "Cửa hàng 4",
+ *                         "address": "123 Nguyễn Thị Minh Khai",
+ *                         "district": "Q.Bình Thạnh",
+ *                         "phone": "0946663255",
+ *                         "latitude": "25.458752",
+ *                         "longitude": "38.654258",
+ *                         "email": "sdfsdfsd@gmail.com",
+ *                         "avatar": null,
+ *                         "avatar_placeholder": "https://guru-food-app.s3.ap-southeast-1.amazonaws.com/placeholder_food.png",
+ *                         "open_time": "07:00:00",
+ *                         "close_time": "22:00:00",
+ *                         "status": false,
+ *                         "total_rating": 0,
+ *                         "is_verified": false,
+ *                         "is_open": false,
+ *                         "createdAt": "2021-12-07T12:11:18.030Z",
+ *                         "updatedAt": "2021-12-21T12:07:38.826Z"
+ *                       }
+ *       400:
+ *         description: Validate fields (not empty or extra parameters) || Store was not found
  *       401:
  *         description: Unauthorized
  *       500:

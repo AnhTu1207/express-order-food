@@ -24,6 +24,16 @@
  *          example:
  *              oldpassword: "123456"
  *              password : 123456789abc!@#
+ *      UpdateDriverStatus:
+ *          type: object
+ *          required:
+ *              - is_open
+ *          properties:
+ *              is_open:
+ *                  type: boolean
+ *                  description: The driver status
+ *          example:
+ *              is_open : true
  *      AddDriver:
  *          type: object
  *          required:
@@ -147,6 +157,8 @@
  *                 ]
  *       401:
  *         description: Unauthorized
+ *       500:
+ *         description: Server errors
  */
 
 /**
@@ -189,6 +201,59 @@
  *                     }
  *       400:
  *         description: Driver was not found
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/driver/showTopDriver:
+ *   get:
+ *     summary: Show top drivers
+ *     parameters:
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *        description: This is pagination query
+ *      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *        description: This is limit query
+ *     tags: [Driver]
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                   "size": 50,
+ *                   "currentPage": 1,
+ *                   "data": [
+ *                     {
+ *                       "id": "9eae6b34-3a64-4962-8e7d-cfe5e3cf165d",
+ *                       "email": "asdasdsas@gmail.com",
+ *                       "fullname": "Trần tiến sửa",
+ *                       "phone": "0975585245",
+ *                       "address": "222 Nguyễn Văn Đậu Phường 6 Q.Bình Thạnh",
+ *                       "bike_number": "40A-23500",
+ *                       "status": true,
+ *                       "avatar": null,
+ *                       "total_rating": 0,
+ *                       "is_verified": false,
+ *                       "is_open": false,
+ *                       "createdAt": "2021-12-07T12:13:53.914Z",
+ *                       "updatedAt": "2021-12-07T12:15:48.079Z",
+ *                       "total_count": "1",
+ *                       "total_sum": "25000"
+ *                     }
+ *                   ]
+ *                  
  *       401:
  *         description: Unauthorized
  *       500:
@@ -2010,6 +2075,58 @@
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters) || Driver was not found
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/driver/update-status/{id}:
+ *   put:
+ *     summary: Update driver status (Required AdminAuth)
+ *     tags: [Driver]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The driver id
+ *     requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *              schema:
+ *                      $ref: '#/components/schemas/UpdateDriverStatus'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                 status: 200
+ *                 data:
+ *                       {
+ *                         "id": "425e0bae-ad1f-486d-bff6-edf80a79e489",
+ *                         "email": "assdadsdas@gmail.com",
+ *                         "fullname": "Anh Tú",
+ *                         "phone": "0937773255",
+ *                         "address": "207 hoang hoa tham",
+ *                         "bike_number": "23T-32323",
+ *                         "status": true,
+ *                         "avatar": null,
+ *                         "total_rating": 0,
+ *                         "is_verified": true,
+ *                         "is_open": true,
+ *                         "createdAt": "2021-12-04T12:46:15.550Z",
+ *                         "updatedAt": "2021-12-21T12:13:18.049Z"
+ *                       }
+ *       400:
+ *         description: Validate fields (not empty or extra parameters) || Store was not found
  *       401:
  *         description: Unauthorized
  *       500:
