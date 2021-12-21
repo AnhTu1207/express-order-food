@@ -263,6 +263,33 @@ class StoreController {
     }
   }
 
+  async updateStatus(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: 400, message: errors });
+    }
+    try {
+      const id = req.params.id;
+      const foundStore = await StoreService.show(id);
+      if (foundStore === null) {
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid ID or record does not exist",
+        });
+      } else {
+        const data = await StoreService.update(req.body, id);
+        return res.status(200).json({ status: 200, data: data[1][0] });
+      }
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
+    }
+  }
+
   async delete(req, res) {
     try {
       const id = req.params.id;

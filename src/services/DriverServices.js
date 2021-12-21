@@ -17,9 +17,18 @@ class DriverService {
     }
   }
 
-  async showByEmail(body) {
+  async showTopDriver(q) {
     try {
-      return await DriverRepository.showByEmail(body);
+      return await DriverRepository.showTopDriver(q);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+
+  async showCurrentOrder(driverId, q) {
+    try {
+      return await DriverRepository.showCurrentOrder(driverId, q);
     } catch (e) {
       throw e;
     }

@@ -11,6 +11,7 @@ const Categories = sequelizeConfig.define("categories", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: true,
   },
 });
 

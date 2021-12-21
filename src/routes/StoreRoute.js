@@ -1,7 +1,7 @@
 const express = require("express");
 
-const { StoreAuth } = require(appRoot + "/middlewares");
-const { AddStoreRequest, LoginStoreRequest, UpdateStoreRequest, UpdatePasswordRequest, ResendEmailRequest } = require(appRoot + "/requests");
+const { StoreAuth, AdminAuth } = require(appRoot + "/middlewares");
+const { AddStoreRequest, LoginStoreRequest, UpdateStoreRequest, UpdatePasswordRequest, ResendEmailRequest, UpdateStatusRequest } = require(appRoot + "/requests");
 const { limiter } = require(appRoot + "/config");
 const router = express.Router();
 
@@ -21,7 +21,8 @@ router.get("/sumOrderByMonth/:id", StoreAuth, StoreController.sumOrderByMonth)
 router.get("/sumOrderByYear/:id", StoreAuth, StoreController.sumOrderByYear)
 router.post("/", AddStoreRequest, StoreController.store);
 router.put("/:id", [StoreAuth, UpdateStoreRequest], StoreController.update);
-router.put("/update-password/:id", [StoreAuth, UpdatePasswordRequest], StoreController.updatePassword)
+router.put("/update-status/:id", [AdminAuth, UpdateStatusRequest], StoreController.updateStatus);
+router.put("/update-password/:id", [StoreAuth, UpdatePasswordRequest], StoreController.updatePassword);
 router.delete("/:id", StoreAuth, StoreController.delete);
 router.post("/uploadImage/:id", StoreAuth, StoreController.upload);
 router.post("/editImage/:id", StoreAuth, StoreController.edit);

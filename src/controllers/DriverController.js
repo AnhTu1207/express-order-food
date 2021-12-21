@@ -45,6 +45,20 @@ class DriverController {
     }
   }
 
+  async showTopDriver(req, res) {
+    try {
+      const data = await DriverService.showTopDriver(req.query);
+      return res.status(200).json(data);
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res.status(400).json({
+          message: map(e.errors, (e) => e.message),
+        });
+      }
+      res.status(500).send();
+    }
+  }
+
   async showCurrentOrder(req, res) {
     try {
       const id = req.params.id;
@@ -278,6 +292,33 @@ class DriverController {
           return res.status(400).json({ status: 400, message: "Old password does not match" });
         }
         return res.status(200).json({ status: 200, message: "Password has been updated!" });
+      }
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res
+          .status(400)
+          .json({ status: 400, message: map(e.errors, (e) => e.message) });
+      }
+      res.status(500).send();
+    }
+  }
+
+  async updateStatus(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: 400, message: errors });
+    }
+    try {
+      const id = req.params.id;
+      const foundDriver = await DriverService.show(id);
+      if (foundDriver === null) {
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid ID or record does not exist",
+        });
+      } else {
+        const data = await DriverService.update(req.body, id);
+        return res.status(200).json({ status: 200, data: data[1][0] });
       }
     } catch (e) {
       if (e.errors && e.errors.length) {
