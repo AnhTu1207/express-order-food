@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const { generate } = require('generate-password')
 const { map } = require("lodash");
+const Sequelize = require('sequelize')
 
 const { utility, mailer, jwt } = require(appRoot + "/helpers");
 const { UserService } = require(appRoot + "/services");
@@ -171,6 +172,9 @@ class UserController {
         return res.status(200).json({ status: 200, data: deleteUser });
       }
     } catch (e) {
+      if (e instanceof Sequelize.ForeignKeyConstraintError) {
+        return res.status(400).json({ status: 400, message: e.parent.detail });
+      }
       if (e.errors && e.errors.length) {
         return res
           .status(400)
