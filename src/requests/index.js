@@ -32,6 +32,8 @@ const AddOrderRequest = require("./OrderRequest/AddOrderRequest");
 const AddOrderItemRequest = require("./OrderRequest/AddOrderItemRequest");
 const UpdateOrderDriverRequest = require("./OrderRequest/UpdateOrderDriverRequest");
 const UpdateOrderStatus = require("./OrderRequest/UpdateOrderStatus");
+const UpdateOrderRating = require("./OrderRequest/UpdateOrderRating");
+
 // User Request
 const UpdateUserRequest = require("./UserRequest/UpdateUserRequest");
 
@@ -57,5 +59,6 @@ module.exports = {
   AddOrderItemRequest,
   UpdateOrderDriverRequest,
   UpdateOrderStatus,
+  UpdateOrderRating,
   ResendEmailRequest
 };

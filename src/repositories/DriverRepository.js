@@ -444,6 +444,22 @@ class DriverRepository {
     }
   }
 
+  async updateRating(value, id) {
+    try {
+      const res = await Drivers.increment(
+        {
+          total_rating: +parseInt(value)
+        },
+        {
+          where: { id },
+        }
+      );
+      return res
+    } catch (e) {
+      throw e;
+    }
+  }
+
   async forgotPassword(randomPassword, id) {
     try {
       const salt = bcrypt.genSaltSync(+process.env.SALT_ROUND);

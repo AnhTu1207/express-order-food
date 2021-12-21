@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 const Sequelize = require('sequelize')
 
-const { OrderService, OrderItemService, StoreService } = require(appRoot + "/services");
+const { OrderService, OrderItemService, StoreService, DriverService } = require(appRoot + "/services");
 const { map } = require("lodash");
 class OrderController {
 
@@ -205,6 +205,41 @@ class OrderController {
         }
     }
 
+    async updateRating(req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ status: 400, message: errors });
+        }
+        try {
+            const id = req.params.id;
+            const foundOrder = await OrderService.show(id)
+            if (foundOrder === null) {
+                return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
+            }
+            const data = await OrderService.update(req.body, id)
+            if (data[1][0]) {
+                await Promise.all([foundOrder.store_id.map(item => {
+                    return StoreService.updateRating(req.body.store_rating, item)
+                })],
+                    [await DriverService.updateRating(req.body.driver_rating, foundOrder.driver_id),
+                    ]
+                )
+                return res.status(200).json({ status: 200, data: data[1][0] });
+            }
+            return res.status(400).json({ status: 400, message: "Can't not update rating" });
+        }
+        catch (e) {
+            if (e instanceof Sequelize.ForeignKeyConstraintError) {
+                return res.status(400).json({ status: 400, message: e.parent.detail });
+            }
+            if (e.errors && e.errors.length) {
+                return res
+                    .status(400)
+                    .json({ status: 400, message: map(e.errors, (e) => e.message) });
+            }
+            res.status(500).send();
+        }
+    }
 
     async delete(req, res) {
         try {
