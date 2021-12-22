@@ -164,7 +164,7 @@ class OrderController {
             }
             const count = await OrderService.countDriver(req.body.driver_id);
             if (count !== 0) {
-                return res.status(400).json({ status: 400, messsage: "You must finish your current order first!" });
+                return res.status(400).json({ status: 400, message: "You must finish your current order first!" });
             }
             const data = await OrderService.update(req.body, id)
             return res.status(200).json({ status: 200, data: data[1][0] });
