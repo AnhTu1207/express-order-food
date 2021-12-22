@@ -19,6 +19,26 @@ class StoreRepository {
         }
     }
 
+    // async index(q) {
+    //     try {
+    //         const size = parseInt(q.limit) || 50;
+    //         const currentPage = +q.page || 1;
+    //         const data = await sequelizeConfig.query(`SELECT drivers.id, drivers.email, drivers.fullname, drivers.phone, drivers.address, drivers.bike_number, drivers.status, drivers.avatar, drivers.total_rating, drivers.is_verified, drivers.is_open, "drivers"."createdAt", "drivers"."updatedAt", COUNT(orders.driver_id) AS total_count, coalesce(SUM(orders.shipper_fee),0) AS total_sum FROM drivers LEFT OUTER JOIN orders ON orders.driver_id = drivers.id WHERE orders.status = 'done' GROUP BY drivers.id LIMIT ? OFFSET ?`,
+    //             {
+    //                 replacements: [size, (size * (currentPage - 1))],
+    //                 type: sequelizeConfig.QueryTypes.SELECT,
+    //             }
+    //         );
+    //         return {
+    //             size: size,
+    //             currentPage: currentPage,
+    //             data: data
+    //         }
+    //     } catch {
+    //         return null;
+    //     }
+    // }
+
     async show(id) {
         try {
             const foundStore = await Stores.findOne({
@@ -342,6 +362,22 @@ class StoreRepository {
             return res;
         } catch (e) {
             throw e
+        }
+    }
+
+    async updateRating(value, id) {
+        try {
+            const res = await Stores.increment(
+                {
+                    total_rating: +parseInt(value)
+                },
+                {
+                    where: { id },
+                }
+            );
+            return res;
+        } catch (e) {
+            throw e;
         }
     }
 

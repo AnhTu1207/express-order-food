@@ -122,6 +122,14 @@ class StoreService {
         }
     }
 
+    async updateRating(value, id) {
+        try {
+            return await StoreRepository.updateRating(value, id);
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async updatePassword(updateStore, id) {
         try {
             return await StoreRepository.updatePassword(updateStore, id);

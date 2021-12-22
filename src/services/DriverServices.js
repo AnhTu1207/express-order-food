@@ -146,6 +146,14 @@ class DriverService {
     }
   }
 
+  async updateRating(value, id) {
+    try {
+      return await DriverRepository.updateRating(value, id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   async forgotPassword(randomPassword, id) {
     try {
       return await DriverRepository.forgotPassword(randomPassword, id);

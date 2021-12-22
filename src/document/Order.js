@@ -34,6 +34,21 @@
  *                  description: must be 'delivering' or 'done'
  *          example:
  *                 status: delivering
+ *      UpdateOrderRating:
+ *          type: object
+ *          required:
+ *            - store_rating
+ *            - driver_rating
+ *          properties:
+ *              store_rating:
+ *                  type: integer
+ *                  description: store rating
+ *              driver_rating:
+ *                  type: integer
+ *                  description: driver rating
+ *          example:
+ *                 driver_rating: 1
+ *                 store_rating: 1
  *      AddOrder:
  *          type: object
  *          required:
@@ -1295,6 +1310,63 @@
  *                       }
  *       400:
  *         description: Validate fields (not empty or extra parameters) || Order was not found || Someone already picked up the order
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server errors
+ */
+
+/**
+ * @swagger
+ * /api/order/updateRating/{id}:
+ *   put:
+ *     summary: Update order rating (Required User Auth)
+ *     tags: [Order]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The order id
+ *     requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *              schema:
+ *                      $ref: '#/components/schemas/UpdateOrderRating'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                       {
+ *                         "status": 200,
+ *                          "data": {
+ *                             "id": "2c4ca054-f982-40b1-a8f4-b278be06bec1",
+ *                             "store_id": [
+ *                                 "db3f6d9c-ec7b-4531-ade9-f16000d40e46",
+ *                                 "eb329436-b9a6-4fd1-afdd-ef05bf2ebaf1"
+ *                             ],
+ *                             "driver_id": "9eae6b34-3a64-4962-8e7d-cfe5e3cf165d",
+ *                             "coupon_id": null,
+ *                             "user_id": "6cf8130c-5bb6-4a3c-a1bc-875c0d3e26ee",
+ *                             "total": 325000,
+ *                             "shipper_fee": 25000,
+ *                             "address": "asdasdasdasdasdasdasd",
+ *                             "driver_rating": 1,
+ *                             "store_rating": 1,
+ *                             "status": "done",
+ *                             "payment_option": "cash",
+ *                             "createdAt": "2021-12-21T07:14:49.956Z",
+ *                             "updatedAt": "2021-12-21T20:43:52.280Z"
+ *                         }
+ *                       }
+ *       400:
+ *         description: Validate fields (not empty or extra parameters) || Order was not found || Rating between 0 and 5
  *       401:
  *         description: Unauthorized
  *       500:
