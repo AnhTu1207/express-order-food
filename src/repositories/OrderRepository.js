@@ -76,6 +76,24 @@ class OrderRepository {
         }
     }
 
+    async countDriver(driverId){
+        try {
+            const data = await Orders.count({
+                where: {
+                    [Op.and]:
+                    [
+                        { driver_id: driverId},
+                        { status: { [Op.not] : 'done'} }
+                    ]
+                }
+            });
+            return data;
+        }
+        catch {
+            return null;
+        }
+    }
+
     async showByStore(storeId, q) {
         try {
             return await pagination(Orders, +q.page || 1, q.limit, {

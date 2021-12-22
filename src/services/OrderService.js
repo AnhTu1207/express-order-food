@@ -36,6 +36,14 @@ class OrderService {
         }
     }
 
+    async countDriver(driverId){
+        try {
+            return await OrderRepository.countDriver(driverId);
+        }
+        catch (e) {
+            throw e;
+        }
+    }
 
     async showByStore(storeId, q) {
         try {
