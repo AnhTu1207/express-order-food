@@ -9,7 +9,7 @@ const { DriverController, OrderController } = require(appRoot + "/controllers");
 
 router.get("/", DriverController.index);
 router.get("/show/:id", DriverController.show);
-router.get("/showTopDriver", DriverController.showTopDriver);
+router.get("/showTopDriver", AdminAuth, DriverController.showTopDriver);
 router.get("/showCurrentOrder/:id", DriverController.showCurrentOrder);
 router.get("/showOrderByPresent/:id", DriverController.showOrderByPresent);
 router.get("/showOrderByWeek/:id", DriverAuth, DriverController.showOrderByWeek);

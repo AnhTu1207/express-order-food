@@ -211,7 +211,7 @@
  * @swagger
  * /api/driver/showTopDriver:
  *   get:
- *     summary: Show top drivers
+ *     summary: Show top drivers (Required Admin Auth)
  *     parameters:
  *      - in: query
  *        name: page

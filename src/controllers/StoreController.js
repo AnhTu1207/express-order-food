@@ -44,6 +44,21 @@ class StoreController {
     }
   }
 
+  async showTopStore(req, res) {
+    try {
+      const data = await StoreService.showTopStore(req.query);
+      return res.status(200).json(data);
+    } catch (e) {
+      if (e.errors && e.errors.length) {
+        return res.status(400).json({
+          status: 400,
+          message: map(e.errors, (e) => e.message),
+        });
+      }
+      res.status(500).send();
+    }
+  }
+
   async showOrderByPresent(req, res) {
     try {
       const id = req.params.id;

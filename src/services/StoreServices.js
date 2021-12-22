@@ -18,6 +18,14 @@ class StoreService {
         }
     }
 
+    async showTopStore(q) {
+        try {
+            return await StoreRepository.showTopStore(q);
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async showOrderByPresent(storeId, q) {
         try {
             return await StoreRepository.showOrderByPresent(storeId, q);

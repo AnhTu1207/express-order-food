@@ -19,25 +19,47 @@ class StoreRepository {
         }
     }
 
-    // async index(q) {
-    //     try {
-    //         const size = parseInt(q.limit) || 50;
-    //         const currentPage = +q.page || 1;
-    //         const data = await sequelizeConfig.query(`SELECT drivers.id, drivers.email, drivers.fullname, drivers.phone, drivers.address, drivers.bike_number, drivers.status, drivers.avatar, drivers.total_rating, drivers.is_verified, drivers.is_open, "drivers"."createdAt", "drivers"."updatedAt", COUNT(orders.driver_id) AS total_count, coalesce(SUM(orders.shipper_fee),0) AS total_sum FROM drivers LEFT OUTER JOIN orders ON orders.driver_id = drivers.id WHERE orders.status = 'done' GROUP BY drivers.id LIMIT ? OFFSET ?`,
-    //             {
-    //                 replacements: [size, (size * (currentPage - 1))],
-    //                 type: sequelizeConfig.QueryTypes.SELECT,
-    //             }
-    //         );
-    //         return {
-    //             size: size,
-    //             currentPage: currentPage,
-    //             data: data
-    //         }
-    //     } catch {
-    //         return null;
-    //     }
-    // }
+    async showTopStore(q) {
+        try {
+            const size = parseInt(q.limit) || 50;
+            const currentPage = +q.page || 1;
+            const count = await Stores.count();
+            const rawData = await Stores.findAll({
+                attributes: { exclude: ["password"] },
+                raw: true,
+            });
+            const data = [];
+            await Promise.all(rawData.map(async (ele) => {
+                try {
+                    let statistic = await sequelizeConfig.query(`SELECT COALESCE(SUM(orders_item.qty),0) AS total_count, COALESCE(SUM(orders_item.price),0) AS total_sum FROM orders_item 
+                    INNER JOIN foods ON orders_item.food_id = foods.id 
+                    INNER JOIN orders ON orders_item.order_id = orders.id
+                    WHERE foods.store_id = ? AND
+                    orders.status = 'done'`,
+                        {
+                            replacements: [ele.id],
+                            type: sequelizeConfig.QueryTypes.SELECT,
+                            raw: true
+                        },
+                    );
+                    ele.total_count = statistic[0].total_count
+                    ele.total_sum = statistic[0].total_sum
+                    data.push(ele);
+                }
+                catch (e) {
+                    throw e
+                }
+            }))
+            return {
+                size: size,
+                currentPage: currentPage,
+                total: count,
+                data: data
+            }
+        } catch {
+            return null;
+        }
+    }
 
     async show(id) {
         try {
