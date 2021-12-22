@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const { map } = require("lodash");
 const { generate } = require('generate-password')
+const Sequelize = require('sequelize')
 
 const { utility, mailer, jwt } = require(appRoot + "/helpers");
 const { DriverService } = require(appRoot + "/services");
@@ -348,6 +349,9 @@ class DriverController {
         return res.status(200).json({ status: 200, data: deleteDriver });
       }
     } catch (e) {
+      if (e instanceof Sequelize.ForeignKeyConstraintError) {
+        return res.status(400).json({ status: 400, message: e.parent.detail });
+      }
       if (e.errors && e.errors.length) {
         return res.status(400).json({
           status: 400,
