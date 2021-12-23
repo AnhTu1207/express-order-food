@@ -189,6 +189,14 @@ class OrderController {
             if (foundOrder === null) {
                 return res.status(400).json({ status: 400, message: "Invalid ID or record does not exist" });
             }
+            if(req.body.status === 'done')
+            {
+                await OrderService.storeHistoryOrder({
+                    order_id: foundOrder.id,
+                    driver_id: foundOrder.driver_id,
+                    status: req.body.status
+                });
+            }
             const data = await OrderService.update(req.body, id)
             return res.status(200).json({ status: 200, data: data[1][0] });
         }

@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const { Op } = require("sequelize");
 
-const { Orders, Stores, Users, Drivers, Coupons, OrdersItems, Foods } = require(appRoot + "/models");
+const { Orders, HistoryOrders, Stores, Users, Drivers, Coupons, OrdersItems, Foods } = require(appRoot + "/models");
 const { pagination } = require(appRoot + "/helpers");
 
 class OrderRepository {
@@ -174,6 +174,15 @@ class OrderRepository {
             const shipper_fee = 25000;
             newOrder.total = parseInt(shipper_fee) + parseInt(newOrder.total)
             const res = await Orders.create({ ...newOrder, shipper_fee, id: uuidv4() });
+            return res.dataValues;
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async storeHistoryOrder(order){
+        try {
+            const res = await HistoryOrders.create({ ...order });
             return res.dataValues;
         } catch (e) {
             throw e;

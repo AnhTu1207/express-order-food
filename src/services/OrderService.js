@@ -80,6 +80,14 @@ class OrderService {
         }
     }
 
+    async storeHistoryOrder(order) {
+        try {
+            return await OrderRepository.storeHistoryOrder(order);
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async update(updateOrder, id) {
         try {
             return await OrderRepository.update(updateOrder, id);
